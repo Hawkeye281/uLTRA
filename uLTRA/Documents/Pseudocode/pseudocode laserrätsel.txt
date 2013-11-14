@@ -1,0 +1,102 @@
+﻿Kommentare werden mit "//" markiert, können auch innerhalb einer Zeile beginnen, alles ab "//" bis Zeilenende ist Kommentar
+
+zur leichteren Umsetzung beginnen Indizes und Koordinaten bei 0
+
+Der Pseudocode ist an C und C-ähnliche Sprachen angelehnt. Die meisten Sprachelemente sollten selbsterklärend sein.
+
+Sprachelemente:
+for(x=a..b,c): x hat initial den Wert a, wird solange um c verändert bis x ausserhalb des Intervals (a,b] liegt, wenn kein c angegeben ist wird c=1 verwendet
+break: springt zum Ende der umgebenden Schleife
+
+Logikoperatoren:
+&& : und
+|| : oder
+! : nicht
+== : gleich
+!= : ungleich
+
+x : Breite des Rätsels
+y : Höhe des Rätsels
+
+m : Koordinate auf x-Achse
+n : Koordinate auf y-Achse
+
+mc,nc : Koordinaten der aktuell betrachteten Zelle
+ml,nl : Koordinaten einer Lichtquelle
+
+x=a..b,n : x nimmt alle Werte von a bis b ein, Schrittweite n, wenn keine Schrittweite angegeben ist gilt n=1
+
+
+while(!solved)
+	solvable = false
+	// überprüfe für alle Zellen die Anzahl Lichtquellen die diese Zelle bestrahlen können
+	// wenn genau eine Lichtquelle eine Zelle bestrahlen kann, verbinde diese Zelle und Lichtquelle mit einem Lichtstrahl und passe die verbleibende Kapazität der Lichtquelle an
+	// wiederhole bis im gesamten Rätsel keine Zellen mehr existieren die nur von einer Lichtquelle angestrahlt werden können
+	change = true
+	while(change)
+		change = false
+		for(mc=0..x-1)
+			for(nc=0..y-1)
+				if(empty(mc,nc))
+					break
+				if(!singleReaching(mc,nc))
+					break
+				(ml,nl) = getReachingLight(mc,nc)
+				connect(mc,nc,ml,nl)
+				change = true
+				solvable=true
+	// bestimme für alle Lichtquellen die Anzahl erreichbarer Felder
+	// wenn die Anzahl bestrahlbarer Felder gleich der verbleibenden Kapazität der Lichtquelle ist, zeichne Strahlen zu allen bestrahlbaren Feldern
+	// wenn die Anzahl bestrahlbarer Felder größer ist als die verbleibende Kapazität der Lichtquelle und alle bestrahlbaren Felder
+	// in der gleichen Richtung liegen, zeichne so lange Strahlen in diese Richtung bis die Kapazität der Lichtquelle aufgebraucht ist
+	change = true
+	while(change)
+		change=false
+		for(ml=0..x-1)
+			for(nl=0..y-1)
+				if(!lightsource(ml,nl))
+					break
+				r = countReachableCells(ml,nl)
+				d = countReachableDirections(ml,nl)
+				if(d==1 || r==capacity(ml,nl))
+					exhaust(ml,nl)
+					change=true
+					solvable=true
+	solved=checkPuzzle()
+
+bool empty(m,n):
+	// gibt true zurück wenn die Zelle innerhalb des Spielfeld liegt, keine Lichtquelle und keinen Lichtstrahl enthält, sonst false
+
+bool lightsource(m,n):
+	// gibt true zurück wenn die Zelle an den Koordinaten m,n mit einer Lichtquelle belegt ist, sonst false
+
+bool light(m,n):
+	// gibt true zurück wenn die Zelle an den Koordinaten m,n mit einem Lichtstrahl belegt ist, sonst false
+
+bool singleReaching(m,n):
+	// gibt true zurück wenn genau eine Lichtquelle genug Kapazität hat um einen Strahl zu dieser Zelle zu schicken
+
+(a,b) getReachingLight(m,n):
+	// gibt die Koordinaten der Lichtquelle zurück, die als einzige das Feld an (m,n) bestrahlen kann
+	// diese Funktion nimmt an, dass nur eine einzige Lichtquelle das Feld bestrahlen kann
+	// eine Lichtquelle kann ein Feld bestrahlen wenn die Anzahl leerer Felder zwischen dem Feld und dieser Lichtquelle kleiner oder gleich der Kapazität dieser Lichtquelle ist und 
+	// nur leere Felder oder bereits von dieser Lichtquelle angestrahlte Felder zwischen dem Feld und der Lichtquelle liegen
+
+connect(mc,nc,ml,nl):
+	// verbindet die Lichtquelle an (ml,nl) mit der  Zelle an (mc,nc)
+	// verringert die Kapazität der Lichtquelle um die Distanz zwischen (ml,nl) und (mc,nc)
+
+int countReachableCells(ml,nl):
+	// zählt die von dieser Lichtquelle aus bestrahlbaren Zellen, unabhängig von der Kapazität der Lichtquelle
+
+int countReachableDirections(ml,nl):
+	// zählt die Richtungen in denen von dieser Lichtquelle bestrahlbare Zellen liegen
+
+int capacity(ml,nl):
+	// gibt die verbleibende Kapazität der Lichtquelle zurück
+
+exhaust(ml,nl):
+	// zeichnet ausgehend von einer Lichtquelle Strahlen bis capacity(ml,nl)==0
+
+bool checkPuzzle():
+	// gibt true zurück wenn das Puzzle gelöst ist, sonst false
