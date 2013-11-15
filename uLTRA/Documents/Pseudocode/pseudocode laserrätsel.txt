@@ -62,7 +62,15 @@ while(!solved)
 					exhaust(ml,nl)
 					change=true
 					solvable=true
-	solved=checkPuzzle()
+	// wenn im letzten Durchlauf der while-Schleife keine Zelle geändert wurde ist das Rätsel nicht lösbar
+	if(solvable)
+		solved=checkPuzzle()
+	else
+		break
+if(solved)
+	showSolution()
+else
+	showUnsolvable()
 
 bool empty(m,n):
 	// gibt true zurück wenn die Zelle innerhalb des Spielfeld liegt, keine Lichtquelle und keinen Lichtstrahl enthält, sonst false
@@ -100,3 +108,9 @@ exhaust(ml,nl):
 
 bool checkPuzzle():
 	// gibt true zurück wenn das Puzzle gelöst ist, sonst false
+	
+showSolution():
+	// zeigt die gefundene Lösung an
+	
+showUnsolvable():
+	// gibt eine Meldung aus, dass das Rätsel nicht lösbar ist
