@@ -1,0 +1,60 @@
+content : content of silos
+capacities : capacities of silos
+max : number of units to be distributed
+
+find_permutations(max, capacities):
+	content = new array[size(capacities)]
+	return find(max, capacities, content, 0)
+	
+find(max, capacities, content, current):
+	solutions // set of solutions
+	for(i=0..size(capacities))
+		if(i!=current && content[i]<capacities[i] && sum(contents)<max)
+			content[i]++
+			solutions+=find(max, capacities, content, i)
+	return solutions
+			
+
+public class Blub {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+		int max = 6;
+		int[] capacities = {2,2,4,4};
+		int[] content = {0,0,0,0};
+		
+		find(max, capacities, content, 0);
+	}
+
+	public void find(int max, int[] capacities, int[] content, int current)
+	{
+		for(int i = 0; i < capacities.length; i++)
+			if(i != current && content[i] < capacities[i] && sum(content)<max)
+			{
+				content[i]++;
+				find(max, capacities, content, i);
+			}
+		
+		
+			
+	}
+	
+	public int sum(int[] array)
+	{
+		int sum = 0;
+		for(int i : array)
+			sum += i;
+		return sum;
+	}
+	
+	public void printArray(int[] array)
+	{
+		for(int i : array)
+			System.out.println("\t" + i);
+		System.out.println("");
+	}
+}
+			
