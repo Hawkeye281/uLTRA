@@ -23,6 +23,8 @@ public class MainFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JDesktopPane desktop;
+	private MenuFrame menuFrame = new MenuFrame(this);
+	private GameFrame gameFrame = new GameFrame(this);
 	
 	public MainFrame(){
 		setTitle("uLTRA");
@@ -35,9 +37,18 @@ public class MainFrame extends JFrame{
 	
 	public void init(){
 		desktop = new JDesktopPane();
-		desktop.add(new MenuFrame(desktop, this));
+		desktop.add(menuFrame);
+		desktop.add(gameFrame);
 		desktop.setVisible(true);
 		this.add(this.desktop);
+	}
+	
+	public MenuFrame getMenuFrame(){
+		return menuFrame;
+	}
+	
+	public GameFrame getGameFrame(){
+		return gameFrame;
 	}
 	
     class BackGroundPane extends JPanel {
