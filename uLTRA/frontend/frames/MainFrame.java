@@ -3,8 +3,14 @@
  */
 package frames;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.Toolkit;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * @author Sebastian Kiepert
@@ -19,17 +25,45 @@ public class MainFrame extends JFrame{
 	private JDesktopPane desktop;
 	
 	public MainFrame(){
-		this.setTitle("uLTRA");
-		this.setSize(800,600);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
+		setTitle("uLTRA");
+		setSize(800,600);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setContentPane(new BackGroundPane("../../Documents/images/light.jpg"));
+		setVisible(true);
 	}
 	
 	public void init(){
 		desktop = new JDesktopPane();
-		desktop.add(new MainMenu(this));
+		desktop.add(new MenuFrame(desktop, this));
 		desktop.setVisible(true);
 		this.add(this.desktop);
 	}
+	
+    class BackGroundPane extends JPanel {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		Image img = null;
+ 
+        BackGroundPane(String imagefile) {
+            if (imagefile != null) {
+                MediaTracker mt = new MediaTracker(this);
+                img = Toolkit.getDefaultToolkit().getImage(imagefile);
+                mt.addImage(img, 0);
+                try {
+                    mt.waitForAll();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+ 
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(img,0,0,this.getWidth(),this.getHeight(),this);
+        }
+    }
 
 }
