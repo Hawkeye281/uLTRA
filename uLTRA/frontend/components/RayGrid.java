@@ -1,13 +1,12 @@
 package components;
 
 import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  * 
@@ -22,14 +21,15 @@ public class RayGrid extends JPanel
 	@SuppressWarnings("unused")
 	private Object[][] _rays;
 	
-	private GridBagLayout _layout = new GridBagLayout();
-	private GridBagConstraints _bagConsts = new GridBagConstraints();
+	private GridLayout _layout;
 
 	public RayGrid(int[][] pNumbers, Object[][] pRays)
 	{
 		_numbers = pNumbers;
 		_rays = pRays;
 
+		_layout = new GridLayout(_numbers.length, _numbers[0].length);
+		
 		this.setLayout(_layout);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		resetLayout();
@@ -44,10 +44,6 @@ public class RayGrid extends JPanel
 		{
 			for(int x = 0; x < _numbers[y].length; x++)
 			{
-				_bagConsts.gridx = x;
-				_bagConsts.gridy = y;
-				_bagConsts.insets = new Insets(10, 10, 10, 10);
-								
 				if(_numbers[y][x] != 0)
 				{
 					tempLabel = new JLabel(Integer.toString(_numbers[y][x]));
@@ -55,10 +51,11 @@ public class RayGrid extends JPanel
 				else
 				{
 					tempLabel = new JLabel("");
-					tempLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				}
+
+				tempLabel.setHorizontalAlignment(SwingConstants.CENTER);
+				tempLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				
-				_layout.setConstraints(tempLabel, _bagConsts);
 				this.add(tempLabel);
 			}
 		}
