@@ -7,18 +7,19 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 public class SaveLoader {
+	
+	
+	/*
+	 * Das Spielfeld wird als serialisiertes Objekt gespeichert und daraus 
+	 * auch wiederhergestellt
+	 * siehe: http://openbook.galileocomputing.de/javainsel9/javainsel_17_010.htm#mjfbe8cb1105d7dfaf6adbc23f31c81b93
+	 */
 	public void spielSpeichern(){
-		
-		
-		/*
-		 * siehe: http://openbook.galileocomputing.de/javainsel9/javainsel_17_010.htm#mjfbe8cb1105d7dfaf6adbc23f31c81b93
-		 */
 		OutputStream fos = null;
 		
 		try {
 			fos = new FileOutputStream("Spiel1");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(getClass());
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -33,5 +34,9 @@ public class SaveLoader {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void spielLaden(){
+		
 	}
 }
