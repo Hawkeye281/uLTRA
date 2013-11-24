@@ -35,6 +35,7 @@ public class GameMenu extends JPanel {
 		load.setName("load");
 		JButton editor = new JButton("Editor starten");
 		editor.setName("editor");
+		editor.addActionListener(ah);
 		JButton exitGame = new JButton("Spiel beenden");
 		exitGame.setName("exit");
 		exitGame.addActionListener(ah);
@@ -50,17 +51,17 @@ public class GameMenu extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton clicked = (JButton) e.getSource();
-			if (clicked.getName()=="start"){
-				mainFrame.getMenuFrame().setVisible(false);
-				mainFrame.getGameFrame().setVisible(true);
+			if (clicked.getName().equals("start")){
+				mainFrame.setMenuVisibility(false);
+				mainFrame.setGameVisibility(true);
 			}
-			else if (clicked.getName()=="load"){
-				
+			else if (clicked.getName().equals("load")){
 			}
-			else if (clicked.getName()=="editor"){
-				
+			else if (clicked.getName().equals("editor")){
+				mainFrame.setMenuVisibility(false);
+				mainFrame.setEditorVisibility(true);
 			}
-			else if(clicked.getName()=="exit"){
+			else if(clicked.getName().equals("exit")){
 				System.exit(0);
 			}
 			

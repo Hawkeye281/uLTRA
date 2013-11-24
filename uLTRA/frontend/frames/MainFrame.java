@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 
@@ -26,6 +25,7 @@ public class MainFrame extends JFrame{
 	private JDesktopPane desktop;
 	private MenuFrame menuFrame = new MenuFrame(this);
 	private GameFrame gameFrame = new GameFrame(this);
+	private EditorFrame editorFrame = new EditorFrame(this);
 	private Image img;
 	
 	public MainFrame(){
@@ -58,15 +58,21 @@ public class MainFrame extends JFrame{
 		};
 		desktop.add(menuFrame);
 		desktop.add(gameFrame);
+		desktop.add(editorFrame);
 		desktop.setVisible(true);
 		this.add(this.desktop);
 	}
 	
-	public MenuFrame getMenuFrame(){
-		return menuFrame;
+	public void setMenuVisibility(boolean visible){
+		menuFrame.setVisible(visible);
 	}
 	
-	public GameFrame getGameFrame(){
-		return gameFrame;
+	public void setGameVisibility(boolean visible){
+		gameFrame.setVisible(visible);
 	}
+	
+	public void setEditorVisibility(boolean visible){
+		editorFrame.setVisible(visible);
+	}
+	
 }

@@ -6,6 +6,10 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JToolBar;
 
+import panels.EditorPanel;
+
+import dialogs.FieldSizeDialog;
+
 import frames.MainFrame;
 
 public class CommonToolbar extends JToolBar{
@@ -15,8 +19,29 @@ public class CommonToolbar extends JToolBar{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public CommonToolbar(final MainFrame mainFrame){
+	public CommonToolbar(final MainFrame mainFrame, final EditorPanel editPanel, final String whoYouAre){
 		setFloatable(false);
+		if (whoYouAre.equals("editor")){
+			add(new AbstractAction(){
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+				
+				{
+					putValue(Action.NAME, "Feld generieren");
+				}
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					@SuppressWarnings("unused")
+					FieldSizeDialog fsd = new FieldSizeDialog(editPanel);
+				}
+				
+			});
+		}
 		add(new AbstractAction(){
 			/**
 			 * 
@@ -30,8 +55,13 @@ public class CommonToolbar extends JToolBar{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				mainFrame.getGameFrame().setVisible(false);
-				mainFrame.getMenuFrame().setVisible(true);
+				if(whoYouAre.equals("editor")){
+					mainFrame.setEditorVisibility(false);
+				}
+				else{
+					mainFrame.setGameVisibility(false);
+				}
+				mainFrame.setMenuVisibility(true);
 			}
 		});
 		add(new AbstractAction(){
