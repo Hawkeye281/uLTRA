@@ -58,12 +58,12 @@ public class EditorPanel extends JPanel{
 		return generated;
 	}
 	
-	public int getHeight(){
-		return height;
+	public int getFieldHeight(){
+		return this.height;
 	}
 	
-	public int getWidth(){
-		return width;
+	public int getFieldWidth(){
+		return this.width;
 	}
 
 }

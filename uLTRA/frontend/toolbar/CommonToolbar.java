@@ -21,6 +21,42 @@ public class CommonToolbar extends JToolBar{
 	
 	public CommonToolbar(final MainFrame mainFrame, final EditorPanel editPanel, final String whoYouAre){
 		setFloatable(false);
+		add(new AbstractAction(){
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			
+			{
+				putValue(Action.NAME, "laden");
+			}
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		add(new AbstractAction(){
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			
+			{
+				putValue(Action.NAME, "speichern");
+			}
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		if (whoYouAre.equals("editor")){
 			add(new AbstractAction(){
 
