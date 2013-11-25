@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Controller.MenuController;
+
 import frames.MainFrame;
 
 /**
@@ -48,21 +50,20 @@ public class GameMenu extends JPanel {
 	
 	class ActionHandler implements ActionListener{
 
+		private MenuController gameController = new MenuController();
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton clicked = (JButton) e.getSource();
 			if (clicked.getName().equals("start")){
-				mainFrame.setMenuVisibility(false);
-				mainFrame.setGameVisibility(true);
+				gameController.newGame(mainFrame);
 			}
 			else if (clicked.getName().equals("load")){
 			}
 			else if (clicked.getName().equals("editor")){
-				mainFrame.setMenuVisibility(false);
-				mainFrame.setEditorVisibility(true);
+				gameController.editor(mainFrame);
 			}
 			else if(clicked.getName().equals("exit")){
-				System.exit(0);
+				gameController.exit();
 			}
 			
 		}

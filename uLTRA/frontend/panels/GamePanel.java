@@ -21,7 +21,7 @@ import frames.MainFrame;
 public class GamePanel extends JPanel {
 	
 	/**
-	 * 
+	 * @todo Controller uebernimmt in Zukunft die Initialisierung
 	 */
 	private static final long serialVersionUID = 1L;
 
