@@ -1,14 +1,12 @@
 package toolbar;
 
-import java.awt.event.ActionEvent;
+import java.awt.Font;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
+import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 import panels.EditorPanel;
-
-import dialogs.FieldSizeDialog;
+import toolbarActions.*;
 
 import frames.MainFrame;
 
@@ -21,101 +19,23 @@ public class CommonToolbar extends JToolBar{
 	
 	public CommonToolbar(final MainFrame mainFrame, final EditorPanel editPanel, final String whoYouAre){
 		setFloatable(false);
-		add(new AbstractAction(){
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			
-			{
-				putValue(Action.NAME, "laden");
-			}
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
-		add(new AbstractAction(){
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			
-			{
-				putValue(Action.NAME, "speichern");
-			}
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+		add(new LoadAction());
+		add(new SaveAction());
 		if (whoYouAre.equals("editor")){
-			add(new AbstractAction(){
-
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
-				
-				{
-					putValue(Action.NAME, "Feld generieren");
-				}
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-					@SuppressWarnings("unused")
-					FieldSizeDialog fsd = new FieldSizeDialog(editPanel);
-				}
-				
-			});
+			add(seperator());
+			add(new GenerateAction(editPanel));
+			add(new ResetAction(editPanel));
 		}
-		add(new AbstractAction(){
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			{
-				putValue(Action.NAME, "Hauptmenü");
-			}
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if(whoYouAre.equals("editor")){
-					mainFrame.setEditorVisibility(false);
-				}
-				else{
-					mainFrame.setGameVisibility(false);
-				}
-				mainFrame.setMenuVisibility(true);
-			}
-		});
-		add(new AbstractAction(){
-			{
-				putValue(Action.NAME, "Beenden");
-			}
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.exit(0);
-			}
-			
-		});
+		add(seperator());
+		add(new MainMenuAction(mainFrame, whoYouAre));
+		add(new CloseAction());
 		
+	}
+	
+	private JLabel seperator(){
+		JLabel l = new JLabel();
+		l.setText("|");
+		l.setFont(new Font("|",Font.PLAIN, 20));
+		return l;
 	}
 }
