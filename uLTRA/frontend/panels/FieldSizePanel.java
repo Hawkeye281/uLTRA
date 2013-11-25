@@ -30,13 +30,13 @@ public class FieldSizePanel extends JPanel{
 	
 	public FieldSizePanel(FieldSizeDialog fsd, EditorPanel editPanel){
 		super(new GridLayout(3,2));
-		SpinnerNumberModel spinNumberH = new SpinnerNumberModel(3,3,20,1);
-		SpinnerNumberModel spinNumberW = new SpinnerNumberModel(3,3,20,1);
+		SpinnerNumberModel spinNumberH = new SpinnerNumberModel(editPanel.getHeight(),3,20,1);
+		SpinnerNumberModel spinNumberW = new SpinnerNumberModel(editPanel.getWidth(),3,20,1);
 		spinHeight = new JSpinner(spinNumberH);
 		spinWidth = new JSpinner(spinNumberW);
 		JButton gen = new JButton("Feld generieren");
 		gen.addActionListener(new ActionHandler(fsd, editPanel));
-		add(new JLabel("Feldhöhe:"));
+		add(new JLabel("Feldhöhe"));
 		add(spinHeight);
 		add(new JLabel("Feldbreite"));
 		add(spinWidth);
