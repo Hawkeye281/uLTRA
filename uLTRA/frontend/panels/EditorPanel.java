@@ -25,8 +25,8 @@ public class EditorPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private boolean generated = false;
 	private RayGrid ray;
-	private int height = 3;
-	private int width = 3;
+	private int fieldHeight = 3;
+	private int fieldWidth = 3;
 	
 	public EditorPanel(MainFrame mainFrame){
 		super(new BorderLayout());
@@ -35,8 +35,8 @@ public class EditorPanel extends JPanel{
 	}
 	
 	public void generateField(int height, int width){
-		this.height=height;
-		this.width=width;
+		this.fieldHeight=height;
+		this.fieldWidth=width;
 		if (generated) remove(ray);
 		add(createRay(new int[height][width]), BorderLayout.CENTER);
 		setVisible(false);
@@ -59,11 +59,21 @@ public class EditorPanel extends JPanel{
 	}
 	
 	public int getFieldHeight(){
-		return this.height;
+		return this.fieldHeight;
 	}
 	
 	public int getFieldWidth(){
-		return this.width;
+		return this.fieldWidth;
+	}
+	
+	public void resetRay(){
+		if (isGenerated()){
+			this.fieldHeight = 3;
+			this.fieldWidth = 3;
+			remove(ray);
+			setVisible(false);
+			setVisible(true);
+		}
 	}
 
 }
