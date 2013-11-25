@@ -3,11 +3,11 @@
  */
 package main;
 
-import frames.MainFrame;
+import Controller.MainController;
 
 /**
  * @author Sebastian Kiepert
- *
+ * @author Martin Dickau
  */
 public class UltraExe {
 
@@ -17,8 +17,8 @@ public class UltraExe {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		MainFrame frame = new MainFrame();
-		frame.init();
+		MainController game = new MainController();
+		game.initializeGame();
 	}
 
 }
