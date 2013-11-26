@@ -20,17 +20,24 @@ import frames.MainFrame;
  */
 public class GamePanel extends JPanel {
 	
-	/**
-	 * @todo Controller uebernimmt in Zukunft die Initialisierung
-	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Spielbrett der Anwendung. Hier werden alle zum Spielen benötigten Funktionen geladen
+	 * (ggfs. bitte umformulieren)
+	 * 
+	 * @author Sebastian Kiepert & Stephan Humme
+	 * @version 1.0
+	 * @todo Controller uebernimmt in Zukunft die Initialisierung
+	 * @see components.RayGrid
+	 * @see components.TurnList
+	 */
 	public GamePanel(MainFrame mainFrame){
 		super(new BorderLayout());
 		add(new CommonToolbar(mainFrame, null, "game"), BorderLayout.PAGE_START);
 		setMaximumSize(mainFrame.getMaximumSize());
 		
-		// Nur zu Testzwecken. Sind die Zahlen vom vierten Rätsel vom Beispielblatt 
+		//TODO Nur zu Testzwecken. Sind die Zahlen vom vierten Rätsel vom Beispielblatt 
 		int[][] _numbers = new int[12][12];
 		
 		_numbers[0][4] = 5;

@@ -18,15 +18,19 @@ import frames.MainFrame;
  * @author Sebastian Kiepert
  *
  */
-public class GameMenu extends JPanel {
+public class MenuPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private MainFrame mainFrame;
-
-	public GameMenu(MainFrame mainFrame){
+	
+	/**
+	 * Hauptmenü der Anwendung, das im MenuPanel geladen
+	 * @author Sebastian Kiepert
+	 * @version 1.0
+	 * @param MainFrame mainFrame
+	 * @see panels.MenuPanel.ActionHandler#actionPerformed(ActionEvent)
+	 */
+	public MenuPanel(MainFrame mainFrame){
 		this.mainFrame = mainFrame;
 		ActionHandler ah = new ActionHandler();
 		setLayout(new GridLayout(4,1));
@@ -49,8 +53,15 @@ public class GameMenu extends JPanel {
 	}
 	
 	class ActionHandler implements ActionListener{
+		
+
 
 		private MenuController gameController = new MenuController();
+		
+		/**
+		 * implementiert die von den Schaltflächen auszuführenden Funktionen
+		 * @see Controller.GameController
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton clicked = (JButton) e.getSource();
@@ -58,6 +69,7 @@ public class GameMenu extends JPanel {
 				gameController.newGame(mainFrame);
 			}
 			else if (clicked.getName().equals("load")){
+				// TODO Load-Methode im Hauptmenü implementieren
 			}
 			else if (clicked.getName().equals("editor")){
 				gameController.editor(mainFrame);

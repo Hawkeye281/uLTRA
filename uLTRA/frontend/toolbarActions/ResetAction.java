@@ -11,9 +11,13 @@ import javax.swing.Action;
 import panels.EditorPanel;
 
 /**
+ * Toolbar-Schaltfläche zum Zurücksetzen des Editorfeldes
+ * 
  * @author basti
- *
+ * @see EditorPanel.resetRay()
+ * @version 1.0
  */
+
 public class ResetAction extends AbstractAction{
 	
 	/**

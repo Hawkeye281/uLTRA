@@ -16,7 +16,8 @@ import javax.swing.SpinnerNumberModel;
 import dialogs.FieldSizeDialog;
 
 /**
- * @author basti
+ * @author Sebastian Kiepert
+ * @see panels.FieldSizePanel#FieldSizePanel(FieldSizeDialog, EditorPanel)
  *
  */
 public class FieldSizePanel extends JPanel{
@@ -28,6 +29,14 @@ public class FieldSizePanel extends JPanel{
 	private JSpinner spinHeight;
 	private JSpinner spinWidth;
 	
+	/**
+	 * Das Panel zum FieldSizeDialog - hier sind die Auswahlboxen (JSpinner) zur Einstellung der Spielfeldgrˆﬂe
+	 * untergebracht. Nach dem Klick auf "start" zur Best‰tigung der Eingaben werden diese an das Panel des Editors
+	 * (--> editPanel) weitergegeben. editPanel erstellt anschlieﬂend das Spielfeld.
+	 * @param fsd
+	 * @param editPanel
+	 * @see panels.FieldSizePanel.ActionHandler#actionPerformed(ActionEvent)
+	 */
 	public FieldSizePanel(FieldSizeDialog fsd, EditorPanel editPanel){
 		super(new GridLayout(3,2));
 		SpinnerNumberModel spinNumberH = new SpinnerNumberModel(editPanel.getFieldHeight(),3,20,1);
@@ -54,6 +63,12 @@ public class FieldSizePanel extends JPanel{
 			this.editPanel = editPanel;
 		}
 		
+		/**
+		 * ‹bergabe der Eingabeparameter und Spielfeldgenerierung
+		 * @see panels.EditorPanel#generateField(int, int)
+		 * @author Sebastian Kiepert
+		 * @version 1.0
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int height = (int) spinHeight.getValue();

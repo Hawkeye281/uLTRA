@@ -11,9 +11,13 @@ import javax.swing.Action;
 import frames.MainFrame;
 
 /**
+ * Toolbar-Schaltfläche zum Zurückkehren ins Hauptmenü
+ * 
  * @author basti
- *
+ * @see folgt
+ * @version 1.0
  */
+
 public class MainMenuAction extends AbstractAction {
 
 	/**
@@ -30,8 +34,8 @@ public class MainMenuAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Zum Hauptmenü zurückkehren");
 	}
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	/**
+	 * schaltet auf das Hauptmenü um
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

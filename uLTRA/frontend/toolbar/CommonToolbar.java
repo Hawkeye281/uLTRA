@@ -12,11 +12,24 @@ import frames.MainFrame;
 
 public class CommonToolbar extends JToolBar{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Von Spielbrett und Editor gemeinsam verwendete Toolbar, die entsprechend ihres Erzeugers die entsprechenden
+	 * Schaltflächen einbaut
+	 * 
+	 * @param final MainFrame mainFrame
+	 * @param final EditorPanel editorPanel
+	 * @param final String whoYouAre
+	 * @author Sebatian Kiepert
+	 * @version 1.2
+	 * @see toolbarActions.SaveAction
+	 * @see toolbarActions.LoadAction
+	 * @see toolbarActions.GenerateAction
+	 * @see toolbarActions.ResetAction
+	 * @see toolbarActions.MainMenuAction
+	 * @see toolbarActions.CloseAction
+	 */
 	public CommonToolbar(final MainFrame mainFrame, final EditorPanel editPanel, final String whoYouAre){
 		setFloatable(false);
 		add(new LoadAction());
@@ -34,8 +47,8 @@ public class CommonToolbar extends JToolBar{
 	
 	private JLabel seperator(){
 		JLabel l = new JLabel();
-		l.setText("|");
-		l.setFont(new Font("|",Font.PLAIN, 20));
+		l.setText(" ");
+		l.setFont(new Font(" ",Font.PLAIN, 14));
 		return l;
 	}
 }

@@ -9,7 +9,11 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 /**
+ * 
+ * Toolbar-Schaltfl‰che zum Schlieﬂen des Frames und Beenden der Anwendung
+ * 
  * @author basti
+ * @version 1.0
  *
  */
 public class CloseAction extends AbstractAction {
@@ -24,8 +28,8 @@ public class CloseAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Programm schlieﬂen");
 	}
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	/** 
+	 * 
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {

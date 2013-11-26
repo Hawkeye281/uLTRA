@@ -13,9 +13,13 @@ import panels.EditorPanel;
 import dialogs.FieldSizeDialog;
 
 /**
+ * Toolbar-Schaltfläche zum Generieren eines Spielfeldes
+ * 
  * @author basti
- *
+ * @see folgt
+ * @version 1.0
  */
+
 public class GenerateAction extends AbstractAction {
 
 	/**
@@ -30,8 +34,8 @@ public class GenerateAction extends AbstractAction {
 		putValue(Action.SHORT_DESCRIPTION, "Spielfeld erstellen");
 	}
 
-	/* (non-Javadoc)
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	/** 
+	 * öffnet einen Dialog, in dem die Spielfeldgröße eingestellt wird
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
