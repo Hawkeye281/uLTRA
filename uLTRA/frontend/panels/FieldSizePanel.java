@@ -22,9 +22,7 @@ import dialogs.FieldSizeDialog;
  */
 public class FieldSizePanel extends JPanel{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JSpinner spinHeight;
 	private JSpinner spinWidth;

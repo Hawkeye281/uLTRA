@@ -41,6 +41,7 @@ public class MainFrame extends JFrame{
 		setVisible(true);
 	}
 	
+	
 	/**
 	 * initialisiert das Anwendungsfenster und fügt einen Desktop hinzu, auf dem weiterhin gearbeitet wird.
 	 * Es werden alle internen Fenster initialisiert und dem Desktop hinzugefügt. Zusätzlich wird ein

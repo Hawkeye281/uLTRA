@@ -18,9 +18,7 @@ import javax.swing.Action;
  */
 public class CloseAction extends AbstractAction {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	public CloseAction(){

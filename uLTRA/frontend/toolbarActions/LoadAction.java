@@ -17,9 +17,6 @@ import javax.swing.Action;
  */
 public class LoadAction extends AbstractAction {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	public LoadAction(){

@@ -29,4 +29,5 @@ public class EditorFrame extends JInternalFrame{
 		setVisible(false);
 	}
 
+	
 }

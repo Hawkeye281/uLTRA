@@ -32,3 +32,4 @@ public class MenuFrame extends JInternalFrame {
 	}
 	
 }
+

@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 /**
  * 
  * @author Stephan
+ * 
  *
  */
 public class RayGrid extends JPanel

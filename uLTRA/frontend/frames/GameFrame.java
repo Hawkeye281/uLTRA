@@ -32,5 +32,6 @@ public class GameFrame extends JInternalFrame{
 		add(new GamePanel(mainFrame));
 		setVisible(false);
 	}
+	
 
 }

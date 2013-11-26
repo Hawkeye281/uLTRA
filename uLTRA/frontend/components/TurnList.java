@@ -11,6 +11,7 @@ import javax.swing.JList;
 /**
  * 
  * @author Stephan
+ * 
  *
  */
 public class TurnList extends JList<Object> implements Observer

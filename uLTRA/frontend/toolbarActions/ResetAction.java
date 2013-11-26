@@ -19,10 +19,7 @@ import panels.EditorPanel;
  */
 
 public class ResetAction extends AbstractAction{
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private EditorPanel editPanel;
 	

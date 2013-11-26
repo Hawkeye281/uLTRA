@@ -29,6 +29,7 @@ public class CommonToolbar extends JToolBar{
 	 * @see toolbarActions.ResetAction
 	 * @see toolbarActions.MainMenuAction
 	 * @see toolbarActions.CloseAction
+	 * 
 	 */
 	public CommonToolbar(final MainFrame mainFrame, final EditorPanel editPanel, final String whoYouAre){
 		setFloatable(false);

@@ -70,4 +70,5 @@ public class GamePanel extends JPanel {
 		add(new TurnList(), BorderLayout.EAST);
 	}
 
+	
 }

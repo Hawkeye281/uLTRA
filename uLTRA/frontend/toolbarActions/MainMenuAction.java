@@ -20,9 +20,6 @@ import frames.MainFrame;
 
 public class MainMenuAction extends AbstractAction {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private MainFrame mainFrame;
 	private String whoYouAre;

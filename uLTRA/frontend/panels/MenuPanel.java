@@ -53,8 +53,6 @@ public class MenuPanel extends JPanel {
 	}
 	
 	class ActionHandler implements ActionListener{
-		
-
 
 		private MenuController gameController = new MenuController();
 		

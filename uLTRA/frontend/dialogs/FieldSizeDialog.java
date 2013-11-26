@@ -32,4 +32,5 @@ public class FieldSizeDialog extends JDialog{
 		add(new FieldSizePanel(this, editPanel));
 		setVisible(true);
 	}
+	
 }

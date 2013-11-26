@@ -19,9 +19,7 @@ import frames.MainFrame;
  */
 public class EditorPanel extends JPanel{
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private boolean generated = false;
 	private RayGrid ray;
