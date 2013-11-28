@@ -32,7 +32,7 @@ public class GameGrid {
 		return width;
 	}
 	
-	public int height() {
+	public int getHeight() {
 		return height;
 	}
 	
@@ -40,14 +40,14 @@ public class GameGrid {
 		if (!isInGrid(x, y))
 			throw new IllegalArgumentException();
 
-		return gameGrid.get(x).get(y);
+		return gameGrid.get(y).get(x);
 	}
 	
 	public void setCell(Cell pCell, int x, int y) {
 		if (!isInGrid(x, y))
 			throw new IllegalArgumentException();
 		
-		gameGrid.get(x).set(y, pCell);
+		gameGrid.get(y).set(x, pCell);
 	}
 	
 	private boolean isInGrid(int x, int y) {

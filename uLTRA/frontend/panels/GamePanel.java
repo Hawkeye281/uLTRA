@@ -13,6 +13,8 @@ import components.TurnList;
 import toolbar.CommonToolbar;
 
 import frames.MainFrame;
+import gamegrid.GameGrid;
+import gamegrid.LightSource;
 
 /**
  * @author Sebastian Kiepert
@@ -21,6 +23,9 @@ import frames.MainFrame;
 public class GamePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
+	
+	private static TurnList _turnList = new TurnList();
+	
 
 	/**
 	 * Spielbrett der Anwendung. Hier werden alle zum Spielen benötigten Funktionen geladen
@@ -38,37 +43,70 @@ public class GamePanel extends JPanel {
 		setMaximumSize(mainFrame.getMaximumSize());
 		
 		//TODO Nur zu Testzwecken. Sind die Zahlen vom vierten Rätsel vom Beispielblatt 
-		int[][] _numbers = new int[12][12];
+		GameGrid testGrid = new GameGrid(12, 13);
 		
-		_numbers[0][4] = 5;
-		_numbers[0][9] = 2;
-		_numbers[1][1] = 6;
-		_numbers[1][6] = 8;
-		_numbers[2][4] = 3;
-		_numbers[2][11] = 3;
-		_numbers[3][0] = 4;
-		_numbers[3][7] = 2;
-		_numbers[4][2] = 6;
-		_numbers[4][5] = 4;
-		_numbers[4][11] = 4;
-		_numbers[5][9] = 4;
-		_numbers[6][1] = 6;
-		_numbers[6][4] = 6;
-		_numbers[7][6] = 5;
-		_numbers[7][8] = 6;
-		_numbers[8][3] = 4;
-		_numbers[8][10] = 9;
-		_numbers[9][0] = 6;
-		_numbers[9][5] = 5;
-		_numbers[9][7] = 4;
-		_numbers[10][2] = 2;
-		_numbers[10][11] = 6;
-		_numbers[11][4] = 6;
-		_numbers[11][9] = 2;
+//		erste Zahl ist x, zweite ist y
+		testGrid.getCell(4, 0).setContent(new LightSource(5));
+		testGrid.getCell(9, 0).setContent(new LightSource(2));
+		testGrid.getCell(1, 1).setContent(new LightSource(6));
+		testGrid.getCell(6, 1).setContent(new LightSource(8));
+		testGrid.getCell(4, 2).setContent(new LightSource(3));
+		testGrid.getCell(11, 2).setContent(new LightSource(3));
+		testGrid.getCell(0, 3).setContent(new LightSource(4));
+		testGrid.getCell(7, 3).setContent(new LightSource(2));
+		testGrid.getCell(2, 4).setContent(new LightSource(6));
+		testGrid.getCell(5, 4).setContent(new LightSource(4));
+		testGrid.getCell(11, 4).setContent(new LightSource(4));
+		testGrid.getCell(9, 5).setContent(new LightSource(4));
+		testGrid.getCell(1, 6).setContent(new LightSource(6));
+		testGrid.getCell(4, 6).setContent(new LightSource(6));
+		testGrid.getCell(7, 6).setContent(new LightSource(5));
+		testGrid.getCell(8, 7).setContent(new LightSource(6));
+		testGrid.getCell(3, 8).setContent(new LightSource(4));
+		testGrid.getCell(10, 8).setContent(new LightSource(9));
+		testGrid.getCell(0, 9).setContent(new LightSource(6));
+		testGrid.getCell(5, 9).setContent(new LightSource(5));
+		testGrid.getCell(7, 9).setContent(new LightSource(4));
+		testGrid.getCell(2, 10).setContent(new LightSource(2));
+		testGrid.getCell(11, 10).setContent(new LightSource(6));
+		testGrid.getCell(4, 11).setContent(new LightSource(6));
+		testGrid.getCell(9, 11).setContent(new LightSource(2));
+
+//		erste Zahl ist y, zweite ist x
+//		testGrid.getCell(0, 4).setContent(new LightSource(5));
+//		testGrid.getCell(0, 9).setContent(new LightSource(2));
+//		testGrid.getCell(1, 1).setContent(new LightSource(6));
+//		testGrid.getCell(1, 6).setContent(new LightSource(8));
+//		testGrid.getCell(2, 4).setContent(new LightSource(3));
+//		testGrid.getCell(2, 11).setContent(new LightSource(3));
+//		testGrid.getCell(3, 0).setContent(new LightSource(4));
+//		testGrid.getCell(3, 7).setContent(new LightSource(2));
+//		testGrid.getCell(4, 2).setContent(new LightSource(6));
+//		testGrid.getCell(4, 5).setContent(new LightSource(4));
+//		testGrid.getCell(4, 11).setContent(new LightSource(4));
+//		testGrid.getCell(5, 9).setContent(new LightSource(4));
+//		testGrid.getCell(6, 1).setContent(new LightSource(6));
+//		testGrid.getCell(6, 4).setContent(new LightSource(6));
+//		testGrid.getCell(6, 7).setContent(new LightSource(5));
+//		testGrid.getCell(7, 8).setContent(new LightSource(6));
+//		testGrid.getCell(8, 3).setContent(new LightSource(4));
+//		testGrid.getCell(8, 10).setContent(new LightSource(9));
+//		testGrid.getCell(9, 0).setContent(new LightSource(6));
+//		testGrid.getCell(9, 5).setContent(new LightSource(5));
+//		testGrid.getCell(9, 7).setContent(new LightSource(4));
+//		testGrid.getCell(10, 2).setContent(new LightSource(2));
+//		testGrid.getCell(10, 11).setContent(new LightSource(6));
+//		testGrid.getCell(11, 4).setContent(new LightSource(6));
+//		testGrid.getCell(11, 9).setContent(new LightSource(2));
 		
-		add(new RayGrid(_numbers, null), BorderLayout.CENTER);
-		add(new TurnList(), BorderLayout.EAST);
+		RayGrid rg = new RayGrid(testGrid);
+		
+		add(rg, BorderLayout.CENTER);
+		add(_turnList, BorderLayout.EAST);
 	}
 
-	
+	public static TurnList getTurnList()
+	{
+		return _turnList;
+	}
 }

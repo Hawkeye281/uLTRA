@@ -1,5 +1,7 @@
 package components;
 
+import gamegrid.Turn;
+
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class TurnList extends JList<Object> implements Observer
 	//TODO Kann erst richtig implementiert werden, wenn die Spielzug Objekte implementiert wurden 
 	
 	private static final long serialVersionUID = 1L;
-	private List<Object> _turns;
+	private List<Turn> _turns;
 	
 	public TurnList()
 	{
@@ -30,31 +32,26 @@ public class TurnList extends JList<Object> implements Observer
 		this.setPreferredSize(new Dimension(200, 100));
 		this.setVisible(true);
 		
-		_turns = new ArrayList<Object>();
-		_turns.add("Foo");
-		_turns.add("Bar");
+		_turns = new ArrayList<Turn>();
 		
 		resetList(_turns);
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public void update(Observable pObservable, Object pNewTurns)
+	public void update(Observable pObservable, Object pNewTurn)
 	{
-		if(pObservable.hasChanged())
+		if(pNewTurn != null)
 		{
-			if(pNewTurns != null)
+			if(pNewTurn instanceof Turn)
 			{
-				if(pNewTurns instanceof List)
-				{
-					resetList((List<Object>) pNewTurns);
-				}
+				_turns.add((Turn) pNewTurn);
+				resetList(_turns);
 			}
 		}
 	}
 	
-	private void resetList(List<Object> pNewTurns)
+	private void resetList(List<Turn> pNewTurns)
 	{
 		_turns = pNewTurns;
 		this.setListData(_turns.toArray());

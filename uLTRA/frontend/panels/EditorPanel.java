@@ -12,6 +12,7 @@ import components.RayGrid;
 import toolbar.CommonToolbar;
 
 import frames.MainFrame;
+import gamegrid.GameGrid;
 
 /**
  * @author Sebastian Kiepert
@@ -56,7 +57,7 @@ public class EditorPanel extends JPanel{
 		this.fieldHeight=height;
 		this.fieldWidth=width;
 		if (generated) remove(ray);
-		add(createRay(new int[height][width]), BorderLayout.CENTER);
+		add(createRay(new GameGrid(width, height)), BorderLayout.CENTER);
 		setVisible(false);
 		setVisible(true);
 		setGenerated(true);
@@ -70,8 +71,8 @@ public class EditorPanel extends JPanel{
 	 * @return ray
 	 * @see panels.EditorPanel#EditorPanel(MainFrame)
 	 */
-	private RayGrid createRay(int[][] _numbers){
-		ray = new RayGrid(_numbers, null);
+	private RayGrid createRay(GameGrid pGrid){
+		ray = new RayGrid(pGrid);
 		return ray;
 	}
 	
