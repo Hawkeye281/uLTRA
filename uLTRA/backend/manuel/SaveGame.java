@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
+/**
+ * @author Manuel Buhr
+ */
+
 public class SaveGame {
 	
 	
@@ -17,9 +21,6 @@ public class SaveGame {
 	 * siehe: http://openbook.galileocomputing.de/javainsel9/javainsel_17_010.htm#mjfbe8cb1105d7dfaf6adbc23f31c81b93
 	 */
 	
-	/**
-	 * @author Manuel Buhr
-	 */
 	public void spielSpeichern(GameGrid spielfeld){
 		OutputStream fos = null;
 		
