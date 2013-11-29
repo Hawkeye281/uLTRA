@@ -3,6 +3,7 @@
  */
 package frames;
 
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -11,6 +12,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+
+import panels.*;
 
 /**
  * @author Sebastian Kiepert
@@ -23,9 +26,6 @@ public class MainFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JDesktopPane desktop;
-	private MenuFrame menuFrame = new MenuFrame(this);
-	private GameFrame gameFrame = new GameFrame(this);
-	private EditorFrame editorFrame = new EditorFrame(this);
 	private Image img;
 	
 	/**
@@ -37,8 +37,7 @@ public class MainFrame extends JFrame{
 	public MainFrame(){
 		setSize(800,600);
 		setLocationRelativeTo(null);
-		setUndecorated(true);
-		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	
@@ -53,18 +52,27 @@ public class MainFrame extends JFrame{
 	 * 
 	 */
 	public void init(){		
+		desktop = setDesktopBackground();
+		desktop.add(new MenuPanel(this));
+		desktop.setVisible(true);
+		this.add(desktop);
+		this.setVisible(true);
+	}
+	
+	/**
+     * erzeugt das Hintergrundbild des Hauptfensters, das im Hauptmenü zu sehen ist
+	 *
+	 */
+	private JDesktopPane setDesktopBackground(){
 		File imgFile = new File("../uLTRA/Documents/images/light.jpg");
 		try {
 			img = ImageIO.read(imgFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		desktop = new JDesktopPane()
+		JDesktopPane desk = new JDesktopPane()
 		{
-	        /**
-	         * erzeugt das Hintergrundbild des Hauptfensters, das im Hauptmenü zu sehen ist
-			 *
-			 */
+	        
 			private static final long serialVersionUID = 1L;			
 			Image scaledImg = img.getScaledInstance(800, 600, Image.SCALE_SMOOTH);
 			public void paintComponent(Graphics g) {
@@ -72,35 +80,20 @@ public class MainFrame extends JFrame{
 	            g.drawImage(scaledImg,0,0,this.getWidth(),this.getHeight(),this);
 	        }
 		};
-		desktop.add(menuFrame);
-		desktop.add(gameFrame);
-		desktop.add(editorFrame);
-		desktop.setVisible(true);
-		this.add(this.desktop);
+		return desk;
 	}
 	
-	/**
-	 * De-/Aktiviert das Hauptmenü
-	 * @param visible
-	 */
-	public void setMenuVisibility(boolean visible){
-		menuFrame.setVisible(visible);
+	public void addToDesktop(Component comp){
+		this.desktop.add(comp);
 	}
 	
-	/**
-	 * De-/Aktiviert das Spielfenster
-	 * @param visible
-	 */
-	public void setGameVisibility(boolean visible){
-		gameFrame.setVisible(visible);
+	public void removeFromDesktop(int index){
+		this.desktop.remove(index);
 	}
 	
-	/**
-	 * De-/Aktiviert das Editorfenster
-	 * @param visible
-	 */
-	public void setEditorVisibility(boolean visible){
-		editorFrame.setVisible(visible);
+	public void refreshDesktop(){
+		this.desktop.setVisible(false);
+		this.desktop.setVisible(true);
 	}
 	
 }

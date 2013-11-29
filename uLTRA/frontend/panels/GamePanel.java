@@ -42,7 +42,8 @@ public class GamePanel extends JPanel {
 	public GamePanel(MainFrame mainFrame){
 		super(new BorderLayout());
 		add(new CommonToolbar(mainFrame, null, "game"), BorderLayout.PAGE_START);
-		setMaximumSize(mainFrame.getMaximumSize());
+		setSize(800, 600);
+		setLocation(0,0);
 		
 		//TODO Nur zu Testzwecken. Sind die Zahlen vom vierten Rätsel vom Beispielblatt 
 		GameGrid testGrid = GridController.getGameGrid();

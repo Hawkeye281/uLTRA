@@ -1,21 +1,19 @@
 package Controller;
 
+import panels.EditorPanel;
+import panels.GamePanel;
 import frames.MainFrame;
 
 public class MenuController {
 	
-	private MainFrame mainFrame;
-	
 	public void newGame(MainFrame mainFrame){
-		this.mainFrame = mainFrame;
-		mainFrame.setMenuVisibility(false);
-		mainFrame.setGameVisibility(true);
+		mainFrame.removeFromDesktop(0);
+		mainFrame.addToDesktop(new GamePanel(mainFrame));
 	}
 	
 	public void editor(MainFrame mainFrame){
-		this.mainFrame = mainFrame;
-		mainFrame.setMenuVisibility(false);
-		mainFrame.setEditorVisibility(true);
+		mainFrame.removeFromDesktop(0);
+		mainFrame.addToDesktop(new EditorPanel(mainFrame));
 	}
 	
 	public void exit(){

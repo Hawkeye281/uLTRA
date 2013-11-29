@@ -42,7 +42,8 @@ public class EditorPanel extends JPanel{
 	public EditorPanel(MainFrame mainFrame){
 		super(new BorderLayout());
 		add(new CommonToolbar(mainFrame, this, "editor"), BorderLayout.PAGE_START);
-		setMaximumSize(mainFrame.getMaximumSize());
+		setSize(800, 600);
+		setLocation(0, 0);
 	}
 	
 	/**

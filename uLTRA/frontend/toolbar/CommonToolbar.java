@@ -41,7 +41,7 @@ public class CommonToolbar extends JToolBar{
 			add(new ResetAction(editPanel));
 		}
 		add(seperator());
-		add(new MainMenuAction(mainFrame, whoYouAre));
+		add(new MainMenuAction(mainFrame));
 		add(new CloseAction());
 		
 	}
