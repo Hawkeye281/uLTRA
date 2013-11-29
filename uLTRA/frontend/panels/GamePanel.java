@@ -42,7 +42,7 @@ public class GamePanel extends JPanel {
 	public GamePanel(MainFrame mainFrame){
 		super(new BorderLayout());
 		add(new CommonToolbar(mainFrame, null, "game"), BorderLayout.PAGE_START);
-		setSize(800, 600);
+		setSize(782,553);
 		setLocation(0,0);
 		
 		//TODO Nur zu Testzwecken. Sind die Zahlen vom vierten Rätsel vom Beispielblatt 
