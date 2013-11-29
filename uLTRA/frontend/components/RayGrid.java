@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import Controller.GameController;
+
 import panels.GamePanel;
 
 /**
@@ -83,9 +85,8 @@ public class RayGrid extends JPanel
 					_endFieldX = endX;
 					_endFieldY = endY;
 
-					Turn t = new Turn(getStartingPosition(), getEndingPosition());
-					t.addObserver(GamePanel.getTurnList());
-					t.insertIntoTurnList();
+					GameController gC = new GameController();
+					gC.addTurn(getStartingPosition(), getEndingPosition());
 				}
 			}
 			

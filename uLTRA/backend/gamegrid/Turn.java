@@ -1,14 +1,13 @@
 package gamegrid;
 
 import java.awt.Point;
-import java.util.Observable;
 
 /**
  * 
  * @author Stephan
  *
  */
-public class Turn extends Observable
+public class Turn 
 {
 	private Point _start;
 	private Point _end;
@@ -18,7 +17,6 @@ public class Turn extends Observable
 		_start = pStart;
 		_end = pEnd;
 		
-		insertIntoTurnList();
 	}
 	
 	public Point getStart()
@@ -29,12 +27,6 @@ public class Turn extends Observable
 	public Point getEnd()
 	{
 		return _end;
-	}
-	
-	public void insertIntoTurnList()
-	{
-		setChanged();
-		notifyObservers(this);		
 	}
 	
 	@Override
