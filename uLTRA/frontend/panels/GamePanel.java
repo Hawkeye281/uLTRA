@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import Controller.GridController;
+
 import components.RayGrid;
 import components.TurnList;
 
@@ -43,35 +45,8 @@ public class GamePanel extends JPanel {
 		setMaximumSize(mainFrame.getMaximumSize());
 		
 		//TODO Nur zu Testzwecken. Sind die Zahlen vom vierten Rätsel vom Beispielblatt 
-		GameGrid testGrid = new GameGrid(12, 13);
+		GameGrid testGrid = GridController.getGameGrid();
 		
-//		erste Zahl ist x, zweite ist y
-		testGrid.getCell(4, 0).setContent(new LightSource(5));
-		testGrid.getCell(9, 0).setContent(new LightSource(2));
-		testGrid.getCell(1, 1).setContent(new LightSource(6));
-		testGrid.getCell(6, 1).setContent(new LightSource(8));
-		testGrid.getCell(4, 2).setContent(new LightSource(3));
-		testGrid.getCell(11, 2).setContent(new LightSource(3));
-		testGrid.getCell(0, 3).setContent(new LightSource(4));
-		testGrid.getCell(7, 3).setContent(new LightSource(2));
-		testGrid.getCell(2, 4).setContent(new LightSource(6));
-		testGrid.getCell(5, 4).setContent(new LightSource(4));
-		testGrid.getCell(11, 4).setContent(new LightSource(4));
-		testGrid.getCell(9, 5).setContent(new LightSource(4));
-		testGrid.getCell(1, 6).setContent(new LightSource(6));
-		testGrid.getCell(4, 6).setContent(new LightSource(6));
-		testGrid.getCell(7, 6).setContent(new LightSource(5));
-		testGrid.getCell(8, 7).setContent(new LightSource(6));
-		testGrid.getCell(3, 8).setContent(new LightSource(4));
-		testGrid.getCell(10, 8).setContent(new LightSource(9));
-		testGrid.getCell(0, 9).setContent(new LightSource(6));
-		testGrid.getCell(5, 9).setContent(new LightSource(5));
-		testGrid.getCell(7, 9).setContent(new LightSource(4));
-		testGrid.getCell(2, 10).setContent(new LightSource(2));
-		testGrid.getCell(11, 10).setContent(new LightSource(6));
-		testGrid.getCell(4, 11).setContent(new LightSource(6));
-		testGrid.getCell(9, 11).setContent(new LightSource(2));
-
 //		erste Zahl ist y, zweite ist x
 //		testGrid.getCell(0, 4).setContent(new LightSource(5));
 //		testGrid.getCell(0, 9).setContent(new LightSource(2));
