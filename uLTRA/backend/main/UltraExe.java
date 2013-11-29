@@ -3,7 +3,7 @@
  */
 package main;
 
-import Controller.MainController;
+import Controller.GridController;
 
 /**
  * @author Sebastian Kiepert
@@ -15,9 +15,7 @@ public class UltraExe {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		MainController game = new MainController();
+		GridController game = new GridController();
 		game.initializeGame();
 	}
 
