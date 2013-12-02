@@ -4,6 +4,7 @@
 package frames;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -36,6 +37,7 @@ public class MainFrame extends JFrame{
 	 */
 	public MainFrame(){
 		setSize(800,600);
+		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
@@ -94,6 +96,10 @@ public class MainFrame extends JFrame{
 	public void refreshDesktop(){
 		this.desktop.setVisible(false);
 		this.desktop.setVisible(true);
+	}
+	
+	public Dimension getDesktopSize(){
+		return this.desktop.getSize();
 	}
 	
 }
