@@ -6,6 +6,7 @@
 
 package gamegrid;
 
+import java.awt.Point;
 import java.util.*;
 
 public class GameGrid {
@@ -41,6 +42,11 @@ public class GameGrid {
 			throw new IllegalArgumentException();
 
 		return gameGrid.get(y).get(x);
+	}
+	
+	public Cell getCell(Point pPoint)
+	{
+		return getCell(pPoint.x, pPoint.y);
 	}
 	
 	public void setCell(Cell pCell, int x, int y) {

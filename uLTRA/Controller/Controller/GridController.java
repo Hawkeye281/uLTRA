@@ -27,7 +27,7 @@ public class GridController {
 	 */
 	public void initializeGame(){
 		MainFrame frame = new MainFrame();
-		spielfeld = new GameGrid(12, 13);
+		spielfeld = new GameGrid(12, 12);
 		
 		/* TODO   !!!! NUR TESTDATEN !!!! */
 		// erste Zahl ist x, zweite ist y
@@ -62,7 +62,6 @@ public class GridController {
 	}
 	
 	public static GameGrid getGameGrid(){
-		System.out.println(spielfeld);
 		return spielfeld;
 	}
 	

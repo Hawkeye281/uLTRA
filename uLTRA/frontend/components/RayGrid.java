@@ -1,23 +1,21 @@
 package components;
 
+import gamegrid.Beam;
+import gamegrid.CellContent;
 import gamegrid.GameGrid;
 import gamegrid.LightSource;
-import gamegrid.Turn;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import Controller.GameController;
-
-import panels.GamePanel;
+import listener.MouseTurnListener;
 
 /**
  * 
@@ -29,12 +27,6 @@ public class RayGrid extends JPanel
 	private static final long serialVersionUID = 1L;
 	private GameGrid _grid;
 	
-	private int _windowHeight = 0;
-	private int _windowWidth = 0;
-	
-	private int _fieldHeight = 0;
-	private int _fieldWidth = 0;
-	
 	private int _startFieldX = 0;
 	private int _startFieldY = 0;
 	
@@ -42,125 +34,59 @@ public class RayGrid extends JPanel
 	private int _endFieldY = 0;
 	
 	private GridLayout _layout;
+	
+	private static Dimension _size = new Dimension(592,539);
 
 	public RayGrid(GameGrid pGrid)
 	{
 		_grid = pGrid;
-		_layout = new GridLayout(_grid.getWidth(), _grid.getHeight());
+		_layout = new GridLayout(_grid.getHeight(), _grid.getWidth());
 		
 		this.setLayout(_layout);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		this.setPreferredSize(_size);
 		resetLayout();
 		this.setVisible(true);
 
-		this.addMouseListener(new MouseListener()
-		{	
-			@Override
-			public void mouseReleased(MouseEvent e)
-			{
-				int endX = e.getX();
-				int endY = e.getY();
-				boolean inField = true;
-				
-				if(endX > 0 && endX < _windowWidth)
-				{
-					endX /= _fieldWidth;
-				}
-				else
-				{
-					inField = false;
-				}
-				
-				if(endX > 0 && endY < _windowHeight)
-				{
-					endY /= _fieldHeight;
-				}
-				else
-				{
-					inField = false;
-				}
-				
-				if(inField)
-				{
-					_endFieldX = endX;
-					_endFieldY = endY;
-
-					GameController gC = new GameController();
-					gC.addTurn(getStartingPosition(), getEndingPosition());
-				}
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e)
-			{
-				if(_windowWidth == 0 || _windowHeight == 0)
-				{
-					_windowWidth = e.getComponent().getSize().width;
-					_windowHeight = e.getComponent().getSize().height;
-					
-					_fieldWidth = (_windowWidth /_grid.getWidth());
-					_fieldHeight = (_windowHeight / _grid.getHeight());
-				}
-				
-				int startX = e.getX();
-				int startY = e.getY();
-				boolean inField = true;
-				
-				if(startX > 0 && startX < _windowWidth)
-				{
-					startX /= _fieldWidth;
-				}
-				else
-				{
-					inField = false;
-				}
-				
-				if(startY > 0 && startY < _windowHeight)
-				{
-					startY /= _fieldHeight;
-				}
-				else
-				{
-					inField = false;
-				}
-				
-				if(inField)
-				{
-					_startFieldX = startX;
-					_startFieldY = startY;
-				}
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e)
-			{
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e)
-			{
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				
-			}
-		});
+		this.addMouseListener(new MouseTurnListener());
 	}
 	
-	private void resetLayout()
+	public void resetLayout()
 	{
+		this.removeAll();
 		JLabel tempLabel;
+		CellContent cc = null;
+		String direction = "";
+		
 		for(int y = 0; y < _grid.getHeight(); y++)
 		{
 			for(int x = 0; x < _grid.getWidth(); x++)
 			{
-				if(_grid.getCell(x, y).getContent() instanceof LightSource)
+				cc = _grid.getCell(x, y).getContent();
+				
+				if(cc instanceof LightSource)
 				{
 					tempLabel = new JLabel(Integer.toString(((LightSource)_grid.getCell(x, y).getContent()).getCapacity()));
+				}
+				else if(cc instanceof Beam)
+				{
+					switch(((Beam)cc).getDirection())
+					{
+						case BEAM_UP:
+							direction = "^";
+							break;
+						case BEAM_RIGHT:
+							direction = ">";
+							break;
+						case BEAM_DOWN:
+							direction = "v";
+							break;
+						case BEAM_LEFT:
+							direction = "<";
+							break;
+					}
+
+					tempLabel = new JLabel(direction);
 				}
 				else
 				{
@@ -183,5 +109,10 @@ public class RayGrid extends JPanel
 	public Point getEndingPosition()
 	{
 		return new Point(_endFieldX, _endFieldY);
+	}
+	
+	public static Dimension getGridSize()
+	{
+		return _size;
 	}
 }

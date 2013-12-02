@@ -4,11 +4,13 @@ import gamegrid.Turn;
 
 import java.awt.Point;
 
+import panels.GamePanel;
 
 public class GameController {
 	
-	public Turn addTurn(Point start, Point end){
+	public void addTurn(Point start, Point end)
+	{
 		Turn t = new Turn(start, end);
-		return t;
+		GamePanel.getTurnList().addTurn(t);
 	}
 }

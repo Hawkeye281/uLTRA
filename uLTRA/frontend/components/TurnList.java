@@ -5,8 +5,6 @@ import gamegrid.Turn;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.JList;
 
@@ -16,20 +14,22 @@ import javax.swing.JList;
  * 
  *
  */
-public class TurnList extends JList<Object> implements Observer
+public class TurnList extends JList<Object>
 {
 	//TODO Kann erst richtig implementiert werden, wenn die Spielzug Objekte implementiert wurden 
 	
 	private static final long serialVersionUID = 1L;
 	private List<Turn> _turns;
 	
+	private final Dimension _size = new Dimension(200, 100);
+	
 	public TurnList()
 	{
 		super();
 		this.setAutoscrolls(true);
-		this.setMinimumSize(new Dimension(200, 100));
-		this.setSize(new Dimension(200, 100));
-		this.setPreferredSize(new Dimension(200, 100));
+		this.setMinimumSize(_size);
+		this.setSize(_size);
+		this.setPreferredSize(_size);
 		this.setVisible(true);
 		
 		_turns = new ArrayList<Turn>();
@@ -37,23 +37,16 @@ public class TurnList extends JList<Object> implements Observer
 		resetList(_turns);
 		
 	}
-
-	@Override
-	public void update(Observable pObservable, Object pNewTurn)
-	{
-		if(pNewTurn != null)
-		{
-			if(pNewTurn instanceof Turn)
-			{
-				_turns.add((Turn) pNewTurn);
-				resetList(_turns);
-			}
-		}
-	}
 	
 	private void resetList(List<Turn> pNewTurns)
 	{
 		_turns = pNewTurns;
 		this.setListData(_turns.toArray());
+	}
+	
+	public void addTurn(Turn pNewTurn)
+	{
+		_turns.add(pNewTurn);
+		resetList(_turns);
 	}
 }
