@@ -7,12 +7,13 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import Controller.EditorController;
+
 import components.RayGrid;
 
 import toolbar.CommonToolbar;
 
 import frames.MainFrame;
-import gamegrid.GameGrid;
 
 /**
  * @author Sebastian Kiepert
@@ -22,10 +23,8 @@ public class EditorPanel extends JPanel{
 
 
 	private static final long serialVersionUID = 1L;
-	private boolean generated = false;
-	private RayGrid ray;
-	private int fieldHeight = 3;
-	private int fieldWidth = 3;
+	private EditorController editorController = new EditorController();
+	private RayGrid editorGrid;
 	
 	/**
 	 * Hier wird das im EditorFrame eingebundene Panel editPanel erzeugt.
@@ -37,12 +36,12 @@ public class EditorPanel extends JPanel{
 	 * @see panels.EditorPanel#isGenerated()
 	 * @see panels.EditorPanel#getFieldHeight()
 	 * @see panels.EditorPanel#getFieldWidth()
-	 * @see panels.EditorPanel#resetRay()
+	 * @see panels.EditorPanel#resetGrid()
 	 */
 	public EditorPanel(MainFrame mainFrame){
 		super(new BorderLayout());
 		add(new CommonToolbar(mainFrame, this, "editor"), BorderLayout.PAGE_START);
-		setSize(782,553);
+		setSize(mainFrame.getWidth(),mainFrame.getHeight());
 		setLocation(0, 0);
 	}
 	
@@ -55,13 +54,9 @@ public class EditorPanel extends JPanel{
 	 * @see panels.EditorPanel#EditorPanel(MainFrame)
 	 */
 	public void generateField(int height, int width){
-		this.fieldHeight=height;
-		this.fieldWidth=width;
-		if (generated) remove(ray);
-		add(createRay(new GameGrid(width, height)), BorderLayout.CENTER);
-		setVisible(false);
-		setVisible(true);
-		setGenerated(true);
+		if (editorController.isSet()) remove(editorGrid);
+		add(createEditorGrid(height, width));
+		refresh();
 //		System.out.println("ja hier:" + height + ", " + width);
 	}
 	
@@ -72,59 +67,30 @@ public class EditorPanel extends JPanel{
 	 * @return ray
 	 * @see panels.EditorPanel#EditorPanel(MainFrame)
 	 */
-	private RayGrid createRay(GameGrid pGrid){
-		ray = new RayGrid(pGrid);
-		return ray;
-	}
-	
-	/**
-	 * setzt, ob ein Spielfeld erzeugt wurde
-	 * @param isGenerated
-	 * @see panels.EditorPanel#EditorPanel(MainFrame)
-	 */
-	private void setGenerated(boolean isGenerated){
-		generated = isGenerated;
-	}
-	
-	/**
-	 * gibt zurück, ob bereits ein Spielfeld erzeugt wurde
-	 * @return boolean
-	 * @see panels.EditorPanel#EditorPanel(MainFrame)
-	 */
-	public boolean isGenerated(){
-		return generated;
-	}
-	
-	/**
-	 * gibt die Höhe des Spielfeldes zurück
-	 * @return int
-	 * @see panels.EditorPanel#EditorPanel(MainFrame)
-	 */
-	public int getFieldHeight(){
-		return this.fieldHeight;
-	}
-	
-	/**
-	 * gibt die Breite des Spielfeldes zurück
-	 * @return int
-	 * @see panels.EditorPanel#EditorPanel(MainFrame)
-	 */
-	public int getFieldWidth(){
-		return this.fieldWidth;
+	private RayGrid createEditorGrid(int height, int width){
+		editorController.setGrid(height, width);
+		editorGrid = editorController.getActivGrid();
+		return editorGrid;
 	}
 	
 	/**
 	 * löscht das erstellte Spielfeld und aktualisiert das Panel
 	 * @see panels.EditorPanel#EditorPanel(MainFrame)
 	 */
-	public void resetRay(){
-		if (isGenerated()){
-			this.fieldHeight = 3;
-			this.fieldWidth = 3;
-			remove(ray);
-			setVisible(false);
-			setVisible(true);
+	public void resetGrid(){
+		if (editorController.isSet()){
+			remove(editorGrid);
+			refresh();
 		}
+	}
+	
+	private void refresh(){
+		setVisible(false);
+		setVisible(true);
+	}
+	
+	public EditorController getController(){
+		return editorController;
 	}
 
 }
