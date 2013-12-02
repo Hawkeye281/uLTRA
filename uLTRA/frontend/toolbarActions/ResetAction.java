@@ -31,7 +31,7 @@ public class ResetAction extends AbstractAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		editPanel.resetRay();
+		editPanel.resetGrid();
 	}
 
 }
