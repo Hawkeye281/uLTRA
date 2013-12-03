@@ -15,8 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import listener.MouseTurnListener;
-
 /**
  * 
  * @author Stephan
@@ -47,8 +45,6 @@ public class RayGrid extends JPanel
 		this.setPreferredSize(_size);
 		resetLayout();
 		this.setVisible(true);
-
-		this.addMouseListener(new MouseTurnListener());
 	}
 	
 	public void resetLayout()

@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import listener.MouseTurnListener;
+
 import Controller.GridController;
 
 import components.RayGrid;
@@ -49,6 +51,7 @@ public class GamePanel extends JPanel {
 		GameGrid testGrid = GridController.getGameGrid();
 		
 		_rayGrid = new RayGrid(testGrid);
+		_rayGrid.addMouseListener(new MouseTurnListener());
 		
 		add(_rayGrid, BorderLayout.CENTER);
 		add(_turnList, BorderLayout.EAST);
