@@ -7,10 +7,10 @@
 package gamegrid;
 
 import java.awt.Point;
-import java.util.*;
+import java.util.Observable;
 
-public class GameGrid {
-	private ArrayList<ArrayList<Cell>> gameGrid = new ArrayList<ArrayList<Cell>>();
+public class GameGrid extends Observable {
+	private Cell[][] gameGrid;
 	private int width, height = 0;
 	
 	public GameGrid(int width, int height) {
@@ -20,14 +20,16 @@ public class GameGrid {
 		this.width = width;
 		this.height = height;
 		
-		for (int i = 0; i < height; i++) {
-			gameGrid.add(i, new ArrayList<Cell>());
-
-			for (int j = 0; j < width; j++) {
-				gameGrid.get(i).add(j, new Cell());
-			}
-		}
+		gameGrid = new Cell[width][height];
+		
+		for (int x = 0; x < width; x++)
+			for (int y = 0; y < height; y++)
+				gameGrid[x][y] = new Cell();
 	}
+	
+//	public void solve(SolveAlgorithm pSolveAlgorithm) {
+//		
+//	}
 	
 	public int getWidth() {
 		return width;
@@ -41,7 +43,7 @@ public class GameGrid {
 		if (!isInGrid(x, y))
 			throw new IllegalArgumentException();
 
-		return gameGrid.get(y).get(x);
+		return gameGrid[x][y];
 	}
 	
 	public Cell getCell(Point pPoint)
@@ -53,7 +55,10 @@ public class GameGrid {
 		if (!isInGrid(x, y))
 			throw new IllegalArgumentException();
 		
-		gameGrid.get(y).set(x, pCell);
+		gameGrid[x][y] = pCell;
+		
+		setChanged();
+		notifyObservers();
 	}
 	
 	private boolean isInGrid(int x, int y) {
