@@ -1,17 +1,21 @@
 package listener;
 
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import components.RayGrid;
+import frames.MainFrame;
 
+import Controller.EditorController;
 import Controller.GridController;
 
 public abstract class AbstractMousePositionListener implements MouseListener
 {
 	protected Point _startPoint;
 	protected Point _endPoint;
+	protected Point _cell;
 	
 	private double _fieldHeight = (float)RayGrid.getGridSize().height / (float)GridController.getGameGrid().getHeight();
 	private double _fieldWidth = (float)RayGrid.getGridSize().width / (float)GridController.getGameGrid().getWidth();
@@ -19,7 +23,38 @@ public abstract class AbstractMousePositionListener implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent pEvent)
 	{
-
+		if (pEvent.getClickCount()==2){
+			double cellHeight = (float)MainFrame.getDesktopSize().getHeight() / (float) EditorController.getGridHeight();
+			double cellWidth = (float)MainFrame.getDesktopSize().getWidth() / (float) EditorController.getGridWidth();
+			int posX = pEvent.getX();
+			int posY = pEvent.getY();
+			int x=0, y=0;
+//			System.out.println(posX + ", " + posY);
+//			System.out.println(cellWidth + ", " + cellHeight);
+			if(posY > (int)cellHeight){
+//				System.out.println("1");
+				for (int i=1;;i++){
+//					System.out.println("i: " + i);
+					cellHeight *= i;
+					if ((int) cellHeight > posY) {
+						y=i-1;
+						break;
+					}
+				}
+			}
+			if(posX > (int)cellWidth){
+				for (int i=1;;i++){
+					cellWidth*=i;
+					if ((int) cellWidth > posX) {
+						x=i-1;
+						break;
+					}
+				}
+			}
+//			System.out.println(y + ", " + x);
+			_cell = new Point(x, y);
+//			System.out.println((int)_cell.getX() + ", " + (int)_cell.getY());
+		}
 	}
 
 	@Override

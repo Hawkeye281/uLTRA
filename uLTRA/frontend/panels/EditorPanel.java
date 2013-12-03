@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import listener.EditorMouseListener;
+
 import Controller.EditorController;
 
 import components.RayGrid;
@@ -41,7 +43,7 @@ public class EditorPanel extends JPanel{
 	public EditorPanel(MainFrame mainFrame){
 		super(new BorderLayout());
 		add(new CommonToolbar(mainFrame, this, "editor"), BorderLayout.PAGE_START);
-		setSize(mainFrame.getDesktopSize());
+		setSize(MainFrame.getDesktopSize());
 		setLocation(0, 0);
 	}
 	
@@ -70,6 +72,7 @@ public class EditorPanel extends JPanel{
 	private RayGrid createEditorGrid(int height, int width){
 		editorController.setGrid(height, width);
 		editorGrid = editorController.getActivGrid();
+		editorGrid.addMouseListener(new EditorMouseListener());
 		return editorGrid;
 	}
 	

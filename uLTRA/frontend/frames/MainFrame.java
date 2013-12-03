@@ -26,7 +26,7 @@ public class MainFrame extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JDesktopPane desktop;
+	private static JDesktopPane desktop;
 	private Image img;
 	
 	/**
@@ -86,20 +86,23 @@ public class MainFrame extends JFrame{
 	}
 	
 	public void addToDesktop(Component comp){
-		this.desktop.add(comp);
+		desktop.add(comp);
 	}
 	
 	public void removeFromDesktop(int index){
-		this.desktop.remove(index);
+		desktop.remove(index);
 	}
 	
 	public void refreshDesktop(){
-		this.desktop.setVisible(false);
-		this.desktop.setVisible(true);
+		desktop.setVisible(false);
+		desktop.setVisible(true);
 	}
 	
-	public Dimension getDesktopSize(){
-		return this.desktop.getSize();
+	public static Dimension getDesktopSize(){
+		return desktop.getSize();
 	}
 	
+	public static JDesktopPane getDesktop(){
+		return desktop;
+	}
 }

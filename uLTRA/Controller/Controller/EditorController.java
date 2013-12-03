@@ -1,5 +1,6 @@
 package Controller;
 
+import listener.EditorMouseListener;
 import components.RayGrid;
 
 import gamegrid.GameGrid;
@@ -7,7 +8,7 @@ import gamegrid.LightSource;
 
 public class EditorController {
 
-	private GameGrid editorGrid = null;
+	private static GameGrid editorGrid = null;
 	
 	/**
 	 * Erstellt ein neues Grid nach Anwendervorgaben und gibt 'true' zurück
@@ -17,7 +18,7 @@ public class EditorController {
 	 * @author Sebastian Kiepert
 	 */
 	public void setGrid(int height, int width){
-		editorGrid = new GameGrid(height, width);	
+		editorGrid = new GameGrid(height, width);
 	}
 	
 	/**
@@ -29,6 +30,9 @@ public class EditorController {
 		return new RayGrid(editorGrid);
 	}
 	
+	/**
+	 * löscht das erstellte Grid
+	 */
 	public void removeGrid(){
 		editorGrid = null;
 	}
@@ -70,7 +74,7 @@ public class EditorController {
 	 * @return 
 	 * @author Sebastian Kiepert
 	 */
-	public int getGridHeight(){
+	public static int getGridHeight(){
 		return editorGrid.getHeight();
 	}
 	/**
@@ -78,7 +82,7 @@ public class EditorController {
 	 * @return
 	 * @author Sebastian Kiepert
 	 */
-	public int getGridWidth(){
+	public static int getGridWidth(){
 		return editorGrid.getWidth();
 	}
 

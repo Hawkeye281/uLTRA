@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+import Controller.EditorController;
+
 import dialogs.FieldSizeDialog;
 
 /**
@@ -37,8 +39,9 @@ public class FieldSizePanel extends JPanel{
 	 */
 	public FieldSizePanel(FieldSizeDialog fsd, EditorPanel editPanel){
 		super(new GridLayout(3,2));
-		spinHeight = (editPanel.getController().isSet())? setSpinner(editPanel.getController().getGridHeight()): setSpinner(3);
-		spinWidth = (editPanel.getController().isSet())? setSpinner(editPanel.getController().getGridWidth()): setSpinner(3);
+		spinHeight = (editPanel.getController().isSet())? setSpinner(EditorController.getGridHeight()): setSpinner(3);
+		editPanel.getController();
+		spinWidth = (editPanel.getController().isSet())? setSpinner(EditorController.getGridWidth()): setSpinner(3);
 		JButton gen = new JButton("start");
 		gen.addActionListener(new ActionHandler(fsd, editPanel));
 		add(new JLabel("Feldhöhe"));
