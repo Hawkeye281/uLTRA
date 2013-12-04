@@ -16,7 +16,7 @@ public class MenuController {
 		mainFrame.addToDesktop(new EditorPanel(mainFrame));
 	}
 	
-	public void loadGame(GamePanel _gamePanel){
+	public static void loadGame(GamePanel _gamePanel){
 		_gamePanel.loadGame();
 	}
 	

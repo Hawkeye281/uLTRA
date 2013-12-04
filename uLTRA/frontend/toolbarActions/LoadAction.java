@@ -37,11 +37,8 @@ public class LoadAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
-		MenuController menuCont = new MenuController();
-		menuCont.loadGame(_gamePanel);
-		// TODO Load-Methode in Toolbar implementieren
+
+		 MenuController.loadGame(_gamePanel);
 
 	}
 
