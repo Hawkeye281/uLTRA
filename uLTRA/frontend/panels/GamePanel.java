@@ -45,7 +45,7 @@ public class GamePanel extends JPanel {
 	public GamePanel(MainFrame mainFrame){
 		super(new BorderLayout());
 		add(new CommonToolbar(mainFrame, null, "game"), BorderLayout.PAGE_START);
-		setSize(mainFrame.getDesktopSize());
+		setSize(MainFrame.getDesktopSize());
 		setLocation(0,0);
 
 		GameGrid testGrid = GridController.getGameGrid();
@@ -66,4 +66,18 @@ public class GamePanel extends JPanel {
 	{
 		return _rayGrid;
 	}
+	
+	public void initRayGrid(RayGrid rayGrid){
+		remove(_rayGrid);
+		_rayGrid = rayGrid;
+		_rayGrid.addMouseListener(new MouseTurnListener());
+		add(rayGrid, BorderLayout.CENTER);
+		refresh();
+	}
+	
+	private void refresh(){
+		setVisible(false);
+		setVisible(true);
+	}
+	
 }
