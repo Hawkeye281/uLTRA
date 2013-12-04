@@ -25,7 +25,7 @@ public class EditorPanel extends JPanel{
 
 
 	private static final long serialVersionUID = 1L;
-	private EditorController editorController = new EditorController();
+	private static EditorController editorController = new EditorController();
 	private RayGrid editorGrid;
 	
 	/**
@@ -59,7 +59,6 @@ public class EditorPanel extends JPanel{
 		if (editorController.isSet()) remove(editorGrid);
 		add(createEditorGrid(height, width));
 		refresh();
-//		System.out.println("ja hier:" + height + ", " + width);
 	}
 	
 	/**
@@ -72,7 +71,7 @@ public class EditorPanel extends JPanel{
 	private RayGrid createEditorGrid(int height, int width){
 		editorController.setGrid(height, width);
 		editorGrid = editorController.getActivGrid();
-		editorGrid.addMouseListener(new EditorMouseListener());
+		editorGrid.addMouseListener(new EditorMouseListener(this));
 		return editorGrid;
 	}
 	
@@ -87,12 +86,20 @@ public class EditorPanel extends JPanel{
 		}
 	}
 	
+	public void reloadEditor(){
+		remove(editorGrid);
+		editorGrid = editorController.getActivGrid();
+		editorGrid.addMouseListener(new EditorMouseListener(this));
+		add(editorGrid);
+		refresh();
+	}
+	
 	private void refresh(){
 		setVisible(false);
 		setVisible(true);
 	}
 	
-	public EditorController getController(){
+	public static EditorController getController(){
 		return editorController;
 	}
 

@@ -5,6 +5,8 @@ package dialogs;
 
 import javax.swing.JDialog;
 
+import frames.MainFrame;
+
 import panels.EditorPanel;
 import panels.FieldSizePanel;
 
@@ -25,8 +27,8 @@ public class FieldSizeDialog extends JDialog{
 	 * @see panels.FieldSizePanel
 	 */
 	public FieldSizeDialog(EditorPanel editPanel){
-		setTitle("Spielfeld generieren - Größe eingeben");
-		setLocationRelativeTo(null);
+		setUndecorated(true);
+		setLocation((int)MainFrame.getFrameLocation().getX()+125, (int)MainFrame.getFrameLocation().getY()+50);
 		setSize(200,120);
 		setModal(true);
 		add(new FieldSizePanel(this, editPanel));

@@ -1,6 +1,5 @@
 package Controller;
 
-import listener.EditorMouseListener;
 import components.RayGrid;
 
 import gamegrid.GameGrid;
@@ -57,6 +56,32 @@ public class EditorController {
 	 */
 	public void setLightSource(int x, int y, int value){
 		editorGrid.getCell(x, y).setContent(new LightSource(value));
+	}
+	
+	/**
+	 * Gibt true zurück, wenn die Zelle bereits eine Lichtquelle enthält, sonst false
+	 * @param x = Koordinate an der x-Achse
+	 * @param y = Koordinate an der y-Achse
+	 * @return
+	 */
+	public boolean contentIsLightSource(int x, int y){
+		return (editorGrid.getCell(x,y).getContent() instanceof LightSource) ? true : false;
+	}
+	
+	/**
+	 * Ist in der gewählten Zelle eine Lichtquelle vorhanden, wird die Strahlstärke zurückgegeben
+	 * @param x = Koordinate an der x-Achse
+	 * @param y = Koordinate an der y-Achse
+	 * @return
+	 */
+	public int getLightValue(int x, int y){
+		if (contentIsLightSource(x, y)){
+			LightSource light = (LightSource) editorGrid.getCell(x, y).getContent();
+			return light.getCapacity();
+		}
+		else{
+			return 0;
+		}
 	}
 	
 	/**

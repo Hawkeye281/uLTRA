@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,21 +40,24 @@ public class FieldSizePanel extends JPanel{
 	 */
 	public FieldSizePanel(FieldSizeDialog fsd, EditorPanel editPanel){
 		super(new GridLayout(3,2));
-		spinHeight = (editPanel.getController().isSet())? setSpinner(EditorController.getGridHeight()): setSpinner(3);
-		editPanel.getController();
-		spinWidth = (editPanel.getController().isSet())? setSpinner(EditorController.getGridWidth()): setSpinner(3);
+		setBorder(BorderFactory.createTitledBorder("Spielfeld erzeugen"));
+		spinHeight = (EditorPanel.getController().isSet())? setSpinner(EditorController.getGridHeight()): setSpinner(3);
+		EditorPanel.getController();
+		spinWidth = (EditorPanel.getController().isSet())? setSpinner(EditorController.getGridWidth()): setSpinner(3);
 		JButton gen = new JButton("start");
 		gen.addActionListener(new ActionHandler(fsd, editPanel));
+		JButton abort = new JButton("abbrechen");
+		abort.addActionListener(new ActionHandler(fsd, editPanel));
 		add(new JLabel("Feldhöhe"));
 		add(spinHeight);
 		add(new JLabel("Feldbreite"));
 		add(spinWidth);
-		add(new JLabel("Feld generieren"));
+		add(abort);
 		add(gen);
 	}
 	
 	private JSpinner setSpinner(int value){
-		return new JSpinner(new SpinnerNumberModel(value,3,20,1));
+		return new JSpinner(new SpinnerNumberModel(value,3,26,1));
 	}
 	
 	class ActionHandler implements ActionListener{
@@ -74,10 +78,16 @@ public class FieldSizePanel extends JPanel{
 		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int height = (int) spinHeight.getValue();
-			int width = (int) spinWidth.getValue();
-			this.editPanel.generateField(height, width);
-			this.fsd.dispose();
+			JButton b = (JButton) e.getSource();
+			if (b.getText().equals("start")){
+				int height = (int) spinHeight.getValue();
+				int width = (int) spinWidth.getValue();
+				this.editPanel.generateField(height, width);
+				this.fsd.dispose();
+			}
+			else {
+				this.fsd.dispose();
+			}
 			
 		}
 	}

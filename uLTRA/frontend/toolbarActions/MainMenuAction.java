@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+import panels.EditorPanel;
 import panels.MenuPanel;
 
 import frames.MainFrame;
@@ -36,6 +37,10 @@ public class MainMenuAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		if (mainFrame.getComponent(0) instanceof EditorPanel){
+			EditorPanel editorPanel = (EditorPanel) mainFrame.getComponent(0);
+			editorPanel.resetGrid();
+		}
 		mainFrame.removeFromDesktop(0);
 		mainFrame.addToDesktop(new MenuPanel(mainFrame));
 		mainFrame.refreshDesktop();

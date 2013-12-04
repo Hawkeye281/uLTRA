@@ -13,7 +13,7 @@ public class GameGrid extends Observable {
 	private Cell[][] gameGrid;
 	private int width, height = 0;
 	
-	public GameGrid(int width, int height) {
+	public GameGrid(int height, int width) {
 		if (width < 0 || height < 0) 
 			throw new IllegalArgumentException();
 		

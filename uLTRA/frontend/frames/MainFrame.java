@@ -7,6 +7,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,6 +28,7 @@ public class MainFrame extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private static JDesktopPane desktop;
+	private static Point location;
 	private Image img;
 	
 	/**
@@ -40,6 +42,7 @@ public class MainFrame extends JFrame{
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		location = this.getLocation();
 	}
 	
 	
@@ -104,5 +107,9 @@ public class MainFrame extends JFrame{
 	
 	public static JDesktopPane getDesktop(){
 		return desktop;
+	}
+	
+	public static Point getFrameLocation(){
+		return location;
 	}
 }
