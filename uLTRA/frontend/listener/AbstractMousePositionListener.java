@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import components.RayGrid;
+import frames.MainFrame;
 
 import Controller.GridController;
 
@@ -13,9 +14,12 @@ public abstract class AbstractMousePositionListener implements MouseListener
 {
 	protected Point _startPoint;
 	protected Point _endPoint;
+	protected Point _cell;
+	protected GridController gridCont = new GridController();
+	protected MainFrame mainFrame = new MainFrame();
 	
-	private double _fieldHeight = (float)RayGrid.getGridSize().height / (float)GridController.getGameGrid().getHeight();
-	private double _fieldWidth = (float)RayGrid.getGridSize().width / (float)GridController.getGameGrid().getWidth();
+	private double _fieldHeight = (float)RayGrid.getGridSize().height / (float)gridCont.getGameGrid().getHeight();
+	private double _fieldWidth = (float)RayGrid.getGridSize().width / (float)gridCont.getGameGrid().getWidth();
 	
 	@Override
 	public void mouseClicked(MouseEvent pEvent)

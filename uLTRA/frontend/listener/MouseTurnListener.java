@@ -15,7 +15,8 @@ import Controller.GridController;
 
 public class MouseTurnListener extends AbstractMousePositionListener
 {
-	private GameGrid gg = GridController.getGameGrid();
+	private GridController gridCont = new GridController();
+	private GameGrid gg = gridCont.getGameGrid();
 	private GameController gC = new GameController();
 	
 	@Override

@@ -17,7 +17,6 @@ import components.TurnList;
 import toolbar.CommonToolbar;
 
 import frames.MainFrame;
-import gamegrid.GameGrid;
 
 /**
  * @author Sebastian Kiepert
@@ -30,6 +29,7 @@ public class GamePanel extends JPanel {
 	private static TurnList _turnList = new TurnList();
 	
 	private static RayGrid _rayGrid; 
+	private static GridController _gridController = new GridController();
 	
 
 	/**
@@ -47,14 +47,7 @@ public class GamePanel extends JPanel {
 		add(new CommonToolbar(mainFrame, null, "game"), BorderLayout.PAGE_START);
 		setSize(MainFrame.getDesktopSize());
 		setLocation(0,0);
-
-		GameGrid testGrid = GridController.getGameGrid();
 		
-		_rayGrid = new RayGrid(testGrid);
-		_rayGrid.addMouseListener(new MouseTurnListener());
-		
-		add(_rayGrid, BorderLayout.CENTER);
-		add(_turnList, BorderLayout.EAST);
 	}
 
 	public static TurnList getTurnList()
@@ -71,10 +64,15 @@ public class GamePanel extends JPanel {
 		remove(_rayGrid);
 		_rayGrid = rayGrid;
 		_rayGrid.addMouseListener(new MouseTurnListener());
-		add(rayGrid, BorderLayout.CENTER);
+		add(_rayGrid, BorderLayout.CENTER);
+		add(_turnList, BorderLayout.EAST);
 		refresh();
 	}
 	
+	public void loadGame(){
+		_rayGrid = new RayGrid(_gridController);
+		initRayGrid(_rayGrid);
+	}
 	private void refresh(){
 		setVisible(false);
 		setVisible(true);

@@ -3,9 +3,11 @@ package toolbar;
 import java.awt.Font;
 
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
 import panels.EditorPanel;
+import panels.GamePanel;
 import toolbarActions.*;
 
 import frames.MainFrame;
@@ -31,14 +33,14 @@ public class CommonToolbar extends JToolBar{
 	 * @see toolbarActions.CloseAction
 	 * 
 	 */
-	public CommonToolbar(final MainFrame mainFrame, final EditorPanel editPanel, final String whoYouAre){
+	public CommonToolbar(final MainFrame mainFrame, final JPanel editPanel, final String whoYouAre){
 		setFloatable(false);
-		add(new LoadAction());
+		add(new LoadAction((GamePanel)editPanel));
 		add(new SaveAction());
 		if (whoYouAre.equals("editor")){
 			add(seperator());
-			add(new GenerateAction(editPanel));
-			add(new ResetAction(editPanel));
+			add(new GenerateAction((EditorPanel)editPanel));
+			add(new ResetAction((EditorPanel)editPanel));
 		}
 		add(seperator());
 		add(new MainMenuAction(mainFrame));

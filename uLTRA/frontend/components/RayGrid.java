@@ -2,7 +2,6 @@ package components;
 
 import gamegrid.Beam;
 import gamegrid.CellContent;
-import gamegrid.GameGrid;
 import gamegrid.LightSource;
 
 import java.awt.Color;
@@ -15,6 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+
+import Controller.GridController;
+
 /**
  * 
  * @author Stephan
@@ -23,7 +25,6 @@ import javax.swing.SwingConstants;
 public class RayGrid extends JPanel
 {
 	private static final long serialVersionUID = 1L;
-	private GameGrid _grid;
 	
 	private int _startFieldX = 0;
 	private int _startFieldY = 0;
@@ -32,13 +33,15 @@ public class RayGrid extends JPanel
 	private int _endFieldY = 0;
 	
 	private GridLayout _layout;
+	private GridController _gridCont;
 	
 	private static Dimension _size = new Dimension(592,539);
 
-	public RayGrid(GameGrid pGrid)
+	public RayGrid(GridController gridCont)
 	{
-		_grid = pGrid;
-		_layout = new GridLayout(_grid.getHeight(), _grid.getWidth());
+		_gridCont = gridCont;
+		_gridCont.getGameGrid();
+		_layout = new GridLayout(_gridCont.getHeight(), _gridCont.getWidth());
 		
 		this.setLayout(_layout);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -54,15 +57,15 @@ public class RayGrid extends JPanel
 		CellContent cc = null;
 		String direction = "";
 		
-		for(int y = 0; y < _grid.getHeight(); y++)
+		for(int y = 0; y < _gridCont.getHeight(); y++)
 		{
-			for(int x = 0; x < _grid.getWidth(); x++)
+			for(int x = 0; x < _gridCont.getWidth(); x++)
 			{
-				cc = _grid.getCell(x, y).getContent();
+				cc = _gridCont.getCell(x, y).getContent();
 				
 				if(cc instanceof LightSource)
 				{
-					tempLabel = new JLabel(Integer.toString(((LightSource)_grid.getCell(x, y).getContent()).getCapacity()));
+					tempLabel = new JLabel(Integer.toString(((LightSource)_gridCont.getCell(x, y).getContent()).getCapacity()));
 				}
 				else if(cc instanceof Beam)
 				{

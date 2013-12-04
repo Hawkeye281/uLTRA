@@ -26,7 +26,8 @@ public class EditorController {
 	 * @author Sebastian Kiepert
 	 */
 	public RayGrid getActivGrid(){
-		return new RayGrid(editorGrid);
+		GridController gridCont = new GridController();
+		return new RayGrid(gridCont);
 	}
 	
 	/**
