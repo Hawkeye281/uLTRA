@@ -1,6 +1,6 @@
 package Controller;
 
-import components.RayGrid;
+import panels.GridPanel;
 
 import gamegrid.GameGrid;
 import gamegrid.LightSource;
@@ -22,12 +22,12 @@ public class EditorController {
 	
 	/**
 	 * gibt das aktuell aktive Grid zurück
-	 * @return editorGrid als RayGrid
+	 * @return editorGrid als GridDesigner
 	 * @author Sebastian Kiepert
 	 */
-	public RayGrid getActivGrid(){
+	public GridPanel getActivGrid(){
 		GridController gridCont = new GridController();
-		return new RayGrid(gridCont);
+		return new GridPanel(gridCont);
 	}
 	
 	/**

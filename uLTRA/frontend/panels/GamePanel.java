@@ -11,7 +11,6 @@ import listener.MouseTurnListener;
 
 import Controller.GridController;
 
-import components.RayGrid;
 import components.TurnList;
 
 import toolbar.CommonToolbar;
@@ -28,7 +27,7 @@ public class GamePanel extends JPanel {
 	
 	private static TurnList _turnList = new TurnList();
 	
-	private static RayGrid _rayGrid; 
+	private static GridPanel _gridDesigner; 
 	private static GridController _gridController = new GridController();
 	
 
@@ -39,7 +38,7 @@ public class GamePanel extends JPanel {
 	 * @author Sebastian Kiepert & Stephan Humme
 	 * @version 1.0
 	 * @todo Controller uebernimmt in Zukunft die Initialisierung
-	 * @see components.RayGrid
+	 * @see panels.GridPanel
 	 * @see components.TurnList
 	 */
 	public GamePanel(MainFrame mainFrame){
@@ -55,23 +54,23 @@ public class GamePanel extends JPanel {
 		return _turnList;
 	}
 	
-	public static RayGrid getRayGrid()
+	public static GridPanel getGridDesigner()
 	{
-		return _rayGrid;
+		return _gridDesigner;
 	}
 	
-	public void initRayGrid(RayGrid rayGrid){
-		remove(_rayGrid);
-		_rayGrid = rayGrid;
-		_rayGrid.addMouseListener(new MouseTurnListener());
-		add(_rayGrid, BorderLayout.CENTER);
+	public void initGridDesigner(GridPanel GridDesigner){
+		remove(_gridDesigner);
+		_gridDesigner = GridDesigner;
+		_gridDesigner.addMouseListener(new MouseTurnListener());
+		add(_gridDesigner, BorderLayout.CENTER);
 		add(_turnList, BorderLayout.EAST);
 		refresh();
 	}
 	
 	public void loadGame(){
-		_rayGrid = new RayGrid(_gridController);
-		initRayGrid(_rayGrid);
+		_gridDesigner = new GridPanel(_gridController);
+		initGridDesigner(_gridDesigner);
 	}
 	private void refresh(){
 		setVisible(false);

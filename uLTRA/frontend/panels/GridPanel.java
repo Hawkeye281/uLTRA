@@ -1,4 +1,4 @@
-package components;
+package panels;
 
 import gamegrid.Beam;
 import gamegrid.CellContent;
@@ -22,7 +22,7 @@ import Controller.GridController;
  * @author Stephan
  *
  */
-public class RayGrid extends JPanel
+public class GridPanel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -37,7 +37,7 @@ public class RayGrid extends JPanel
 	
 	private static Dimension _size = new Dimension(592,539);
 
-	public RayGrid(GridController gridCont)
+	public GridPanel(GridController gridCont)
 	{
 		_gridCont = gridCont;
 		_gridCont.getGameGrid();

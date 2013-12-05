@@ -11,7 +11,6 @@ import listener.EditorMouseListener;
 
 import Controller.EditorController;
 
-import components.RayGrid;
 
 import toolbar.CommonToolbar;
 
@@ -26,7 +25,7 @@ public class EditorPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	private static EditorController editorController = new EditorController();
-	private RayGrid editorGrid;
+	private GridPanel editorGrid;
 	
 	/**
 	 * Hier wird das im EditorFrame eingebundene Panel editPanel erzeugt.
@@ -62,13 +61,13 @@ public class EditorPanel extends JPanel{
 	}
 	
 	/**
-	 * generiert die Spielfeldgrundlage, das RayGrid
-	 * @see components.RayGrid
+	 * generiert die Spielfeldgrundlage, das GridDesigner
+	 * @see panels.GridPanel
 	 * @param _numbers
 	 * @return ray
 	 * @see panels.EditorPanel#EditorPanel(MainFrame)
 	 */
-	private RayGrid createEditorGrid(int height, int width){
+	private GridPanel createEditorGrid(int height, int width){
 		editorController.setGrid(height, width);
 		editorGrid = editorController.getActivGrid();
 		editorGrid.addMouseListener(new EditorMouseListener(this));

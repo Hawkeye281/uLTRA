@@ -14,7 +14,8 @@ public class GameController {
 		GamePanel.getTurnList().addTurn(t);
 	}
 	
-	public void pushHistory(Turn turn){
+	public void pushHistory(Turn turn)
+	{
 		
 	}
 }

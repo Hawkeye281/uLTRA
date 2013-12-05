@@ -91,7 +91,7 @@ public class MouseTurnListener extends AbstractMousePositionListener
 			if(!super._startPoint.equals(super._endPoint))
 			{
 				gC.addTurn(super._startPoint, super._endPoint);
-				GamePanel.getRayGrid().resetLayout();
+				GamePanel.getGridDesigner().resetLayout();
 			}
 		}
 	}
