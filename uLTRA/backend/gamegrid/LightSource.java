@@ -10,10 +10,11 @@ public class LightSource implements CellContent {
 	private int remainingCapacity = 0;	
 	
 	public LightSource(int initialCapacity) {
-		if (initialCapacity < 0)
-			throw new IllegalArgumentException();
+		if (initialCapacity < 1)
+			throw new IllegalArgumentException("Initialkapazität muss 1 oder höher sein.");
 		
 		capacity = initialCapacity;
+		remainingCapacity = capacity;
 	}
 	
 	public int getCapacity() {
@@ -21,6 +22,8 @@ public class LightSource implements CellContent {
 	}
 	
 	public void setCapacity(int newCapacity) {
+		if(newCapacity < 0)
+			throw new IllegalArgumentException("Kapazität darf nicht unter 0 sein.");
 		capacity = newCapacity;
 	}
 	
@@ -29,6 +32,8 @@ public class LightSource implements CellContent {
 	}
 	
 	public void setRemainingCapacity(int newRemainingCapacity) {
+		if(newRemainingCapacity < 0)
+			throw new IllegalArgumentException("Kapazität darf nicht unter 0 sinken.");
 		remainingCapacity = newRemainingCapacity;
 	}
 }
