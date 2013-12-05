@@ -44,7 +44,7 @@ public class GamePanel extends JPanel {
 	 */
 	public GamePanel(MainFrame mainFrame){
 		super(new BorderLayout());
-		add(new CommonToolbar(mainFrame, null, "game"), BorderLayout.PAGE_START);
+		add(new CommonToolbar(mainFrame, this, "game"), BorderLayout.PAGE_START);
 		setSize(MainFrame.getDesktopSize());
 		setLocation(0,0);
 		
