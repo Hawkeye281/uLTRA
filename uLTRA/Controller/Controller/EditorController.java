@@ -22,7 +22,7 @@ public class EditorController {
 	
 	/**
 	 * gibt das aktuell aktive Grid zurück
-	 * @return editorGrid als GridDesigner
+	 * @return editorGrid als GridPanel
 	 * @author Sebastian Kiepert
 	 */
 	public GridPanel getActivGrid(){

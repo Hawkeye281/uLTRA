@@ -13,6 +13,11 @@ import panels.GamePanel;
 import Controller.GameController;
 import Controller.GridController;
 
+/**
+ * 
+ * @author Stephan
+ *
+ */
 public class MouseTurnListener extends AbstractMousePositionListener
 {
 	private GridController gridCont = new GridController();
@@ -91,7 +96,7 @@ public class MouseTurnListener extends AbstractMousePositionListener
 			if(!super._startPoint.equals(super._endPoint))
 			{
 				gC.addTurn(super._startPoint, super._endPoint);
-				GamePanel.getGridDesigner().resetLayout();
+				GamePanel.getGridPanel().resetLayout();
 			}
 		}
 	}

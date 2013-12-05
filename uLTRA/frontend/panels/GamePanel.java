@@ -27,7 +27,7 @@ public class GamePanel extends JPanel {
 	
 	private static TurnList _turnList = new TurnList();
 	
-	private static GridPanel _gridDesigner; 
+	private static GridPanel _gridPanel; 
 	private static GridController _gridController = new GridController();
 	
 
@@ -54,23 +54,23 @@ public class GamePanel extends JPanel {
 		return _turnList;
 	}
 	
-	public static GridPanel getGridDesigner()
+	public static GridPanel getGridPanel()
 	{
-		return _gridDesigner;
+		return _gridPanel;
 	}
 	
 	public void initGridDesigner(GridPanel GridDesigner){
-		remove(_gridDesigner);
-		_gridDesigner = GridDesigner;
-		_gridDesigner.addMouseListener(new MouseTurnListener());
-		add(_gridDesigner, BorderLayout.CENTER);
+		remove(_gridPanel);
+		_gridPanel = GridDesigner;
+		_gridPanel.addMouseListener(new MouseTurnListener());
+		add(_gridPanel, BorderLayout.CENTER);
 		add(_turnList, BorderLayout.EAST);
 		refresh();
 	}
 	
 	public void loadGame(){
-		_gridDesigner = new GridPanel(_gridController);
-		initGridDesigner(_gridDesigner);
+		_gridPanel = new GridPanel(_gridController);
+		initGridDesigner(_gridPanel);
 	}
 	private void refresh(){
 		setVisible(false);
