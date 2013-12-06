@@ -40,7 +40,7 @@ public class GridPanel extends JPanel
 	public GridPanel(GridController gridCont)
 	{
 		_gridCont = gridCont;
-		_gridCont.getGameGrid();
+		_gridCont.initGameGrid();
 		_layout = new GridLayout(_gridCont.getHeight(), _gridCont.getWidth());
 		
 		this.setLayout(_layout);

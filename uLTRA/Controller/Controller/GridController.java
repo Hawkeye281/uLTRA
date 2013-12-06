@@ -34,8 +34,12 @@ public class GridController {
 		frame.init();
 	}
 	
-	public static GameGrid getGameGrid(){
+	public static GameGrid initGameGrid(){
 		spielfeld = speicher.spielLaden();
+		return spielfeld;
+	}
+	
+	public static GameGrid getGameGrid(){
 		return spielfeld;
 	}
 	
