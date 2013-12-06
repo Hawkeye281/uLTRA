@@ -35,7 +35,12 @@ public class CommonToolbar extends JToolBar{
 	 */
 	public CommonToolbar(final MainFrame mainFrame, final JPanel editPanel, final String whoYouAre){
 		setFloatable(false);
-		add(new LoadAction((GamePanel)editPanel));
+		if (editPanel instanceof EditorPanel){
+			add(new LoadAction((EditorPanel) editPanel));
+		}
+		else {
+			add(new LoadAction((GamePanel) editPanel));
+		}
 		add(new SaveAction());
 		if (whoYouAre.equals("editor")){
 			add(seperator());

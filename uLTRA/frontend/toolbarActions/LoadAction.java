@@ -7,10 +7,12 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JPanel;
 
 
 import Controller.MenuController;
 
+import panels.EditorPanel;
 import panels.GamePanel;
 
 /**
@@ -23,11 +25,11 @@ import panels.GamePanel;
 public class LoadAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
-	private GamePanel _gamePanel;
+	private JPanel _activPanel;
 
 	
-	public LoadAction(GamePanel gamePanel){
-		this._gamePanel = gamePanel;
+	public LoadAction(JPanel activPanel){
+		this._activPanel = activPanel;
 		putValue(Action.NAME, "Laden");
 		putValue(Action.SHORT_DESCRIPTION, "Spiel laden");
 	}
@@ -37,8 +39,12 @@ public class LoadAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		 MenuController.loadGame(_gamePanel);
+		if (_activPanel instanceof GamePanel) {
+			MenuController.loadGame((GamePanel) _activPanel);
+		}
+		else {
+//			MenuController.loadGame((EditorPanel) _activPanel);
+		}
 
 	}
 
