@@ -1,14 +1,19 @@
 package gamegrid;
 
 import java.awt.Point;
+import java.io.Serializable;
 
 /**
  * 
  * @author Stephan
  *
  */
-public class Turn 
+public class Turn implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5757315100515012398L;
 	private Point _start;
 	private Point _end;
 	
