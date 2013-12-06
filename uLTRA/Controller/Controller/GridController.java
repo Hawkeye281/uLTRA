@@ -1,5 +1,8 @@
 package Controller;
 
+import java.io.File;
+
+import manuel.LoadGame;
 import manuel.SaveGame;
 import frames.MainFrame;
 import gamegrid.Cell;
@@ -15,6 +18,7 @@ import gamegrid.GameGrid;
  */
 public class GridController {
 	static SaveGame speicher = new SaveGame();
+	static LoadGame loader = new LoadGame();
 	static GameGrid spielfeld;
 	
 	/* Derzeit nicht benötigt */
@@ -40,10 +44,40 @@ public class GridController {
 	 * 
 	 * @param spielfeld
 	 * 				Das aktuelle Spielfeld
+	 * @param spielname
+	 * 				Der Name, unter dem das Spiel gespeichert wird
 	 */
-	public static void saveGame(GameGrid spielfeld){
-		speicher.spielSpeichern(spielfeld);
+	public static void saveGame(GameGrid spielfeld, String spielname){
+		speicher.spielSpeichern(spielfeld, spielname);
 	}
+	
+	public static GameGrid loadGame(int spielindex){
+		spielfeld = loader.spielLaden(getGameNameByIndex(spielindex));
+		return spielfeld;
+	}
+	
+	public static String[] getAllSavedGames(){
+		final File verzeichnis = new File("../uLTRA/Documents/Spiele");
+		String[] spiele = new String[verzeichnis.listFiles().length];
+		int iterator = 0;
+		for(final File dateien : verzeichnis.listFiles()){
+			if(dateien.isFile())
+				spiele[iterator] = dateien.getName();
+			iterator++;
+		}
+		
+		return spiele;
+	}
+	
+	public static String getGameNameByIndex(int spielindex){
+		String[] spiele = getAllSavedGames();
+		
+		System.out.println("INDEX: " + spielindex);
+		System.out.println("SPIEL: " + spiele[spielindex]);
+		
+		return spiele[spielindex];
+	}
+	
 	
 	public int getHeight(){
 		return spielfeld.getHeight();

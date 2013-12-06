@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import Controller.GridController;
 
@@ -33,8 +36,7 @@ public class SaveAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		GridController.saveGame(GridController.getGameGrid());
+		GridController.saveGame(GridController.getGameGrid(), JOptionPane.showInputDialog
+				(null, "Geben Sie hier den Spielnamen ein:", "Spielname", 1));
 	}
-
-	
 }

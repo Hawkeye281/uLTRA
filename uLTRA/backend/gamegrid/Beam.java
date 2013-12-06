@@ -5,7 +5,10 @@
 
 package gamegrid;
 
-public class Beam implements CellContent {
+import java.io.Serializable;
+
+public class Beam implements CellContent, Serializable {
+	private static final long serialVersionUID = -7518155070908255527L;
 	private BeamDirections direction;
 	
 	public Beam(BeamDirections initialDirection) {

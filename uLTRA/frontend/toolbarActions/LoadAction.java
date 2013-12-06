@@ -7,8 +7,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JOptionPane;
 
 
+import Controller.GridController;
 import Controller.MenuController;
 
 import panels.EditorPanel;
@@ -46,7 +48,8 @@ public class LoadAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) { 
 		
 		if (gamePanel!=null) {
-			MenuController.loadGame(gamePanel);
+			GridController.loadGame(JOptionPane.showOptionDialog(null, "Wählen Sie ein Spiel aus:", "Spiel laden", 1, 1, null,
+					GridController.getAllSavedGames(), null));
 		}
 		else {
 //			MenuController.loadGame(editorPanel);
