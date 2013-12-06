@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.JPanel;
 
 
 import Controller.MenuController;
@@ -47,10 +46,10 @@ public class LoadAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) { 
 		
 		if (gamePanel!=null) {
-			MenuController.loadGame((GamePanel) gamePanel);
+			MenuController.loadGame(gamePanel);
 		}
 		else {
-//			MenuController.loadGame((EditorPanel) _activPanel);
+//			MenuController.loadGame(editorPanel);
 		}
 
 	}
