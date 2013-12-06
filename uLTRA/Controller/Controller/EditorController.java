@@ -21,11 +21,11 @@ public class EditorController {
 	}
 	
 	/**
-	 * gibt das aktuell aktive Grid zurück
+	 * gibt das aktuell bzw erstellte aktive Grid zurück
 	 * @return editorGrid als GridPanel
 	 * @author Sebastian Kiepert
 	 */
-	public GridPanel getActivGrid(){
+	public GridPanel getGrid(){
 		GridController gridCont = new GridController();
 		return new GridPanel(gridCont);
 	}

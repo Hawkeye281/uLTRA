@@ -41,7 +41,7 @@ public class EditorPanel extends JPanel{
 	 */
 	public EditorPanel(MainFrame mainFrame){
 		super(new BorderLayout());
-		add(new CommonToolbar(mainFrame, this, "editor"), BorderLayout.PAGE_START);
+		add(new CommonToolbar(mainFrame, this), BorderLayout.PAGE_START);
 		setSize(MainFrame.getDesktopSize());
 		setLocation(0, 0);
 	}
@@ -69,7 +69,7 @@ public class EditorPanel extends JPanel{
 	 */
 	private GridPanel createEditorGrid(int height, int width){
 		editorController.setGrid(height, width);
-		editorGrid = editorController.getActivGrid();
+		editorGrid = editorController.getGrid();
 		editorGrid.addMouseListener(new EditorMouseListener(this));
 		return editorGrid;
 	}
@@ -87,7 +87,7 @@ public class EditorPanel extends JPanel{
 	
 	public void reloadEditor(){
 		remove(editorGrid);
-		editorGrid = editorController.getActivGrid();
+		editorGrid = editorController.getGrid();
 		editorGrid.addMouseListener(new EditorMouseListener(this));
 		add(editorGrid);
 		refresh();

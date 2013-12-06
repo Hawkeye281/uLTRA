@@ -33,24 +33,25 @@ public class CommonToolbar extends JToolBar{
 	 * @see toolbarActions.CloseAction
 	 * 
 	 */
-	public CommonToolbar(final MainFrame mainFrame, final JPanel editPanel, final String whoYouAre){
+	public CommonToolbar(final MainFrame mainFrame, final GamePanel gamePanel){
 		setFloatable(false);
-		if (editPanel instanceof EditorPanel){
-			add(new LoadAction((EditorPanel) editPanel));
-		}
-		else {
-			add(new LoadAction((GamePanel) editPanel));
-		}
+		add(new LoadAction(gamePanel));
 		add(new SaveAction());
-		if (whoYouAre.equals("editor")){
-			add(seperator());
-			add(new GenerateAction((EditorPanel)editPanel));
-			add(new ResetAction((EditorPanel)editPanel));
-		}
 		add(seperator());
 		add(new MainMenuAction(mainFrame));
 		add(new CloseAction());
-		
+	}
+	
+	public CommonToolbar(final MainFrame mainFrame, final EditorPanel editPanel){
+		setFloatable(false);
+		add(new LoadAction(editPanel));
+		add(new SaveAction());
+		add(seperator());
+		add(new GenerateAction((EditorPanel)editPanel));
+		add(new ResetAction((EditorPanel)editPanel));
+		add(seperator());
+		add(new MainMenuAction(mainFrame));
+		add(new CloseAction());
 	}
 	
 	private JLabel seperator(){

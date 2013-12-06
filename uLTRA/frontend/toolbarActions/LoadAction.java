@@ -25,11 +25,17 @@ import panels.GamePanel;
 public class LoadAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel _activPanel;
-
+	private GamePanel gamePanel = null;
+	private EditorPanel editorPanel = null;
 	
-	public LoadAction(JPanel activPanel){
-		this._activPanel = activPanel;
+	public LoadAction(GamePanel gamePanel){
+		this.gamePanel = gamePanel;
+		putValue(Action.NAME, "Laden");
+		putValue(Action.SHORT_DESCRIPTION, "Spiel laden");
+	}
+	
+	public LoadAction(EditorPanel editorPanel){
+		this.editorPanel = editorPanel;
 		putValue(Action.NAME, "Laden");
 		putValue(Action.SHORT_DESCRIPTION, "Spiel laden");
 	}
@@ -38,9 +44,10 @@ public class LoadAction extends AbstractAction {
 	 * Verknüpfung zur Load-Methode
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (_activPanel instanceof GamePanel) {
-			MenuController.loadGame((GamePanel) _activPanel);
+	public void actionPerformed(ActionEvent e) { 
+		
+		if (gamePanel!=null) {
+			MenuController.loadGame((GamePanel) gamePanel);
 		}
 		else {
 //			MenuController.loadGame((EditorPanel) _activPanel);
