@@ -59,6 +59,11 @@ public class GamePanel extends JPanel {
 		return _gridPanel;
 	}
 	
+	public static GridController getGridController()
+	{
+		return _gridController;
+	}
+	
 	public void initGridDesigner(GridPanel GridDesigner){
 		remove(_gridPanel);
 		_gridPanel = GridDesigner;
