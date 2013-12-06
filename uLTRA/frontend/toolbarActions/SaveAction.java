@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+import Controller.GridController;
+
 /**
  * Toolbar-Schaltfläche zum Speichern des Spielstandes oder Editorfeldes
  * 
@@ -31,8 +33,7 @@ public class SaveAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Save-Methode in Toolbar implementieren
-
+		GridController.saveGame(GridController.getGameGrid());
 	}
 
 	

@@ -5,6 +5,7 @@
 
 package gamegrid;
 
+
 public enum BeamDirections {
 	BEAM_UP,
 	BEAM_DOWN,

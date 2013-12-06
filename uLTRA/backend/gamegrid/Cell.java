@@ -6,8 +6,14 @@
 
 package gamegrid;
 
-public class Cell {
+import java.io.Serializable;
 
+public class Cell implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2979456417318764696L;
 	private Cell topCell, bottomCell, leftCell, rightCell = null;
 	private CellContent content;
 	

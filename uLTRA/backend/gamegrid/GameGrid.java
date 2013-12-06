@@ -7,9 +7,14 @@
 package gamegrid;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.Observable;
 
-public class GameGrid extends Observable {
+public class GameGrid extends Observable implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2537055812502261249L;
 	private Cell[][] gameGrid;
 	private int width, height = 0;
 	

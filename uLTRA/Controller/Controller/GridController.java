@@ -30,7 +30,7 @@ public class GridController {
 		frame.init();
 	}
 	
-	public GameGrid getGameGrid(){
+	public static GameGrid getGameGrid(){
 		spielfeld = speicher.spielLaden();
 		return spielfeld;
 	}

@@ -5,7 +5,13 @@
 
 package gamegrid;
 
-public class LightSource implements CellContent {
+import java.io.Serializable;
+
+public class LightSource implements CellContent, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4174054452523873042L;
 	private int capacity = 0;
 	private int remainingCapacity = 0;	
 	
