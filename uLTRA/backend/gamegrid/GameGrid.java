@@ -11,7 +11,7 @@ import java.util.Observable;
 
 public class GameGrid extends Observable implements Serializable {
 
-	private static GameGrid _instance;
+	private static GameGrid _instance = null;
 	private static final long serialVersionUID = -2537055812502261249L;
 	private Cell[][] gameGrid;
 	private int width, height = 0;
@@ -25,12 +25,12 @@ public class GameGrid extends Observable implements Serializable {
 	private GameGrid(int height, int width) {
 		if (width < 0 || height < 0) 
 			throw new IllegalArgumentException();
-		
+
 		this.width = width;
 		this.height = height;
-		
+
 		gameGrid = new Cell[width][height];
-		
+
 		for (int x = 0; x < width; x++)
 			for (int y = 0; y < height; y++)
 				gameGrid[x][y] = new Cell();
@@ -43,9 +43,9 @@ public class GameGrid extends Observable implements Serializable {
 	 * 
 	 */
 	public static GameGrid getInstance() throws Exception {
-		if (!(_instance instanceof GameGrid))
+		if (null == _instance)
 			throw new NullPointerException("Gamegrid not initialised");
-		
+
 		return _instance;		
 	}
 	
@@ -57,7 +57,7 @@ public class GameGrid extends Observable implements Serializable {
 	 * 
 	 */
 	public static GameGrid getInstance(int height, int width) {
-		if (!(_instance instanceof GameGrid))
+		if (null == _instance)
 			_instance = new GameGrid(height, width);
 
 		return _instance;
