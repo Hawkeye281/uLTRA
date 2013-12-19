@@ -104,7 +104,7 @@ public class GameGrid extends Observable implements Serializable {
 		if (!isInGrid(x, y))
 			throw new IllegalArgumentException();
 
-		return gameGrid[x][y];
+		return gameGrid[y][x];
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class GameGrid extends Observable implements Serializable {
 		if (!isInGrid(x, y))
 			throw new IllegalArgumentException();
 		
-		gameGrid[x][y] = pCell;
+		gameGrid[y][x] = pCell;
 		
 		setChanged();
 		notifyObservers();

@@ -9,9 +9,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JOptionPane;
 
-
 import Controller.GridController;
-import Controller.MenuController;
 
 import panels.EditorPanel;
 import panels.GamePanel;
@@ -55,6 +53,7 @@ public class LoadAction extends AbstractAction {
 //			MenuController.loadGame(editorPanel);
 		}
 
+		gamePanel.loadGame();
 	}
 
 }

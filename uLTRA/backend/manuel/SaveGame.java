@@ -9,10 +9,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
-import javax.swing.JOptionPane;
-
-import toolbarActions.SaveAction;
-
 /**
  * @author Manuel Buhr
  */
@@ -44,8 +40,10 @@ public class SaveGame {
 		}
 	}
 	
+	@Deprecated
 	public GameGrid spielLaden(){
-		spielfeld = new GameGrid(12, 12);
+		GameGrid.deleteInstance();
+		spielfeld = GameGrid.getInstance(12, 12);
 		spielfeld.getCell(4, 0).setContent(new LightSource(5));
 		spielfeld.getCell(9, 0).setContent(new LightSource(2));
 		spielfeld.getCell(1, 1).setContent(new LightSource(6));

@@ -20,8 +20,7 @@ import Controller.GridController;
  */
 public class MouseTurnListener extends AbstractMousePositionListener
 {
-	private GridController gridCont = new GridController();
-	private GameGrid gg = gridCont.getGameGrid();
+	private GameGrid gg = GridController.getGameGrid();
 	private GameController gC = new GameController();
 	
 	@Override
@@ -33,8 +32,6 @@ public class MouseTurnListener extends AbstractMousePositionListener
 		int y_start = 0, y_end = 0;
 		BeamDirections _direction = null;
 
-//		System.out.println(super._startPoint.toString());
-//		System.out.println(super._endPoint.toString());
 		if(gg.getCell(super._startPoint).getContent() instanceof LightSource)
 		{
 			if(super._startPoint.y < super._endPoint.y)

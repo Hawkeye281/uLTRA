@@ -20,11 +20,6 @@ public class GridController {
 	static SaveGame speicher = new SaveGame();
 	static LoadGame loader = new LoadGame();
 	static GameGrid spielfeld;
-	
-	/* Derzeit nicht benötigt */
-//	public GridController(){
-//		
-//	}
 
 	/**
 	 * Das Spiel initialisieren
@@ -34,8 +29,17 @@ public class GridController {
 		frame.init();
 	}
 	
-	public static GameGrid initGameGrid(){
-		spielfeld = speicher.spielLaden();
+	public static GameGrid initGameGrid()
+	{
+		try
+		{
+			spielfeld = GameGrid.getInstance();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		return spielfeld;
 	}
 	
@@ -56,7 +60,17 @@ public class GridController {
 	}
 	
 	public static GameGrid loadGame(int spielindex){
-		spielfeld = loader.spielLaden(getGameNameByIndex(spielindex));
+		try
+		{
+			GameGrid.setInstance(loader.spielLaden(getGameNameByIndex(spielindex)));
+
+			spielfeld = GameGrid.getInstance();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		return spielfeld;
 	}
 	

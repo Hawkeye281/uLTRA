@@ -85,10 +85,8 @@ public class CommandAddBeam implements Command {
 
 	@Override
 	public void undo() {
-		GameGrid _gameGrid = null;
-		
 		try {
-			_gameGrid = GameGrid.getInstance();
+			GameGrid.getInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;

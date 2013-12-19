@@ -6,44 +6,64 @@ import java.awt.event.MouseListener;
 
 import panels.GridPanel;
 
-import frames.MainFrame;
-
 import Controller.GridController;
 
 /**
+ * Klasse zur Positionsbestimmung im GridPanel.
  * 
  * @author Stephan Humme
  *
  */
 public abstract class AbstractMousePositionListener implements MouseListener
 {
+	/** Startpunkt des Klicks (Position im Raster, keine Pixelangabe) */
 	protected Point _startPoint;
+	
+	/** Endpunkt des Klicks (Position im Raster, keine Pixelangabe) */
 	protected Point _endPoint;
+	
 	protected Point _cell;
-	protected GridController gridCont = new GridController();
-	protected MainFrame mainFrame = new MainFrame();
+
+	/** Spielfeldzellenhöhe */
+	private double _cellHeight = (float)GridPanel.getGridSize().height / (float)GridController.getGameGrid().getHeight();
 	
-	private double _cellHeight = (float)GridPanel.getGridSize().height / (float)gridCont.getGameGrid().getHeight();
-	private double _cellWidth = (float)GridPanel.getGridSize().width / (float)gridCont.getGameGrid().getWidth();
+	/** Spielfeldzellenbreite */
+	private double _cellWidth = (float)GridPanel.getGridSize().width / (float)GridController.getGameGrid().getWidth();
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseClicked(MouseEvent pEvent)
 	{
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseEntered(MouseEvent pEvent)
 	{
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseExited(MouseEvent pEvent)
 	{
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mousePressed(MouseEvent pEvent)
 	{
@@ -75,6 +95,10 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseReleased(MouseEvent pEvent)
 	{

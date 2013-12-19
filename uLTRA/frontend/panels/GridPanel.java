@@ -2,6 +2,7 @@ package panels;
 
 import gamegrid.Beam;
 import gamegrid.CellContent;
+import gamegrid.GameGrid;
 import gamegrid.LightSource;
 
 import java.awt.Color;
@@ -13,7 +14,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 
 import Controller.GridController;
 
@@ -33,14 +33,13 @@ public class GridPanel extends JPanel
 	private int _endFieldY = 0;
 	
 	private GridLayout _layout;
-	private GridController _gridCont;
+	private GameGrid _gridCont;
 	
 	private static Dimension _size = new Dimension(592,539);
 
-	public GridPanel(GridController gridCont)
+	public GridPanel()
 	{
-		_gridCont = gridCont;
-		_gridCont.initGameGrid();
+		_gridCont = GridController.initGameGrid();
 		_layout = new GridLayout(_gridCont.getHeight(), _gridCont.getWidth());
 		
 		this.setLayout(_layout);

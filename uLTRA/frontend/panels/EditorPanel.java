@@ -70,8 +70,8 @@ public class EditorPanel extends JPanel{
 	 * @see panels.EditorPanel#EditorPanel(MainFrame)
 	 */
 	private GridPanel createEditorGrid(int height, int width) throws Exception{
-		editorController.setGrid(height, width);
-		editorGrid = editorController.getGrid();
+		editorController.setGameGrid(height, width);
+		editorGrid = editorController.getGridPanel();
 		editorGrid.addMouseListener(new EditorMouseListener(this));
 		return editorGrid;
 	}
@@ -89,7 +89,7 @@ public class EditorPanel extends JPanel{
 	
 	public void reloadEditor(){
 		remove(editorGrid);
-		editorGrid = editorController.getGrid();
+		editorGrid = editorController.getGridPanel();
 		editorGrid.addMouseListener(new EditorMouseListener(this));
 		add(editorGrid);
 		refresh();

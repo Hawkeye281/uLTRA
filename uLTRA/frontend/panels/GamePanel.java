@@ -46,7 +46,6 @@ public class GamePanel extends JPanel {
 		add(new CommonToolbar(mainFrame, this), BorderLayout.PAGE_START);
 		setSize(MainFrame.getDesktopSize());
 		setLocation(0,0);
-		
 	}
 
 	public static TurnList getTurnList()
@@ -64,9 +63,8 @@ public class GamePanel extends JPanel {
 		return _gridController;
 	}
 	
-	public void initGridDesigner(GridPanel GridDesigner){
-		remove(_gridPanel);
-		_gridPanel = GridDesigner;
+	public void refreshGridPanel(){
+		_gridPanel = new GridPanel();
 		_gridPanel.addMouseListener(new MouseTurnListener());
 		add(_gridPanel, BorderLayout.CENTER);
 		add(_turnList, BorderLayout.EAST);
@@ -74,8 +72,7 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void loadGame(){
-		_gridPanel = new GridPanel(_gridController);
-		initGridDesigner(_gridPanel);
+		refreshGridPanel();
 	}
 	private void refresh(){
 		setVisible(false);
