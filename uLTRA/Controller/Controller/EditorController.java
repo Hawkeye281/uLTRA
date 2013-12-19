@@ -8,6 +8,7 @@ import gamegrid.LightSource;
 public class EditorController {
 
 	private static GameGrid editorGrid = null;
+	private GridController gridCont = new GridController();
 	
 	/**
 	 * Erstellt ein neues Grid nach Anwendervorgaben und gibt 'true' zurück
@@ -15,9 +16,10 @@ public class EditorController {
 	 * @param height = Anzahl der Felder an der x-Achse
 	 * @param width = Anzahl der Felder an der y-Achse
 	 * @author Sebastian Kiepert
+	 * @throws Exception 
 	 */
-	public void setGrid(int height, int width){
-		editorGrid = new GameGrid(height, width);
+	public void setGrid(int height, int width) throws Exception{
+		editorGrid = GameGrid.getInstance(height, width);
 	}
 	
 	/**
@@ -26,7 +28,6 @@ public class EditorController {
 	 * @author Sebastian Kiepert
 	 */
 	public GridPanel getGrid(){
-		GridController gridCont = new GridController();
 		return new GridPanel(gridCont);
 	}
 	
@@ -34,6 +35,7 @@ public class EditorController {
 	 * löscht das erstellte Grid
 	 */
 	public void removeGrid(){
+		editorGrid.deleteInstance();
 		editorGrid = null;
 	}
 	

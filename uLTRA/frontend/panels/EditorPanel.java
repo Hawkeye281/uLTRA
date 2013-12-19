@@ -52,9 +52,10 @@ public class EditorPanel extends JPanel{
 	 * @version 1.0
 	 * @param height
 	 * @param width
+	 * @throws Exception 
 	 * @see panels.EditorPanel#EditorPanel(MainFrame)
 	 */
-	public void generateField(int height, int width){
+	public void generateField(int height, int width) throws Exception{
 		if (editorController.isSet()) remove(editorGrid);
 		add(createEditorGrid(height, width));
 		refresh();
@@ -65,9 +66,10 @@ public class EditorPanel extends JPanel{
 	 * @see panels.GridPanel
 	 * @param _numbers
 	 * @return ray
+	 * @throws Exception 
 	 * @see panels.EditorPanel#EditorPanel(MainFrame)
 	 */
-	private GridPanel createEditorGrid(int height, int width){
+	private GridPanel createEditorGrid(int height, int width) throws Exception{
 		editorController.setGrid(height, width);
 		editorGrid = editorController.getGrid();
 		editorGrid.addMouseListener(new EditorMouseListener(this));

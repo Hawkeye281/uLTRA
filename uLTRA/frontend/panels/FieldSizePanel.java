@@ -82,7 +82,12 @@ public class FieldSizePanel extends JPanel{
 			if (b.getText().equals("start")){
 				int height = (int) spinHeight.getValue();
 				int width = (int) spinWidth.getValue();
-				this.editPanel.generateField(height, width);
+				try {
+					this.editPanel.generateField(height, width);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				this.fsd.dispose();
 			}
 			else {

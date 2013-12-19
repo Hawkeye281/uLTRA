@@ -29,11 +29,11 @@ public class GameGrid extends Observable implements Serializable {
 		this.width = width;
 		this.height = height;
 
-		gameGrid = new Cell[width][height];
+		gameGrid = new Cell[height][width];
 
-		for (int x = 0; x < width; x++)
-			for (int y = 0; y < height; y++)
-				gameGrid[x][y] = new Cell();
+		for (int y = 0; y < height; y++)
+			for (int x = 0; x < width; x++)
+				gameGrid[y][x] = new Cell();
 	}
 
 	/**
@@ -61,6 +61,14 @@ public class GameGrid extends Observable implements Serializable {
 			_instance = new GameGrid(height, width);
 
 		return _instance;
+	}
+	
+	public static void deleteInstance() {
+		_instance = null;
+	}
+	
+	public static void setInstance(GameGrid pGameGrid) {
+		_instance = pGameGrid;
 	}
 	
 //	public void solve(SolveAlgorithm pSolveAlgorithm) {
