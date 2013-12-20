@@ -64,6 +64,10 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void refreshGridPanel(){
+		if (getComponentCount()>1){
+			remove(2);
+			remove(1);
+		}
 		_gridPanel = new GridPanel();
 		_gridPanel.addMouseListener(new MouseTurnListener());
 		add(_gridPanel, BorderLayout.CENTER);
