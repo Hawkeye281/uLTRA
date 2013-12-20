@@ -1,15 +1,10 @@
 package manuel;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import gamegrid.GameGrid;
 
@@ -44,18 +39,18 @@ public class LoadGame {
 	}
 	
 	
-	public static JFileChooser setFileChooser(){
-		JFileChooser jfc = new JFileChooser();
-		FileFilter ff = new FileNameExtensionFilter("Lichtstrahl-Puzzle", "puzzle");
-		File dirfile = new File("Documents/Spiele");
-		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		jfc.setMultiSelectionEnabled(false);
-		jfc.setFileHidingEnabled(true);
-		jfc.setFileFilter(ff);
-		jfc.setCurrentDirectory(dirfile.getAbsoluteFile());
-		
-		return jfc;
-	}
+//	public static JFileChooser setFileChooser(){
+//		JFileChooser jfc = new JFileChooser();
+//		FileFilter ff = new FileNameExtensionFilter("Lichtstrahl-Puzzle", "puzzle");
+//		File dirfile = new File("Documents/Spiele");
+//		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//		jfc.setMultiSelectionEnabled(false);
+//		jfc.setFileHidingEnabled(true);
+//		jfc.setFileFilter(ff);
+//		jfc.setCurrentDirectory(dirfile.getAbsoluteFile());
+//		
+//		return jfc;
+//	}
 	
 //	public void listFilesForFolder(final File folder) {
 //	    for (final File fileEntry : folder.listFiles()) {

@@ -12,8 +12,6 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import manuel.LoadGame;
-
 import Controller.GridController;
 
 import panels.EditorPanel;
