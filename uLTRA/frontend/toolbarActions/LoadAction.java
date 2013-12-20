@@ -4,10 +4,15 @@
 package toolbarActions;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import manuel.LoadGame;
 
 import Controller.GridController;
 
@@ -44,10 +49,16 @@ public class LoadAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) { 
-		
-		if (gamePanel!=null) {
-			GridController.loadGame(JOptionPane.showOptionDialog(null, "Wählen Sie ein Spiel aus:", "Spiel laden", 1, 1, null,
-					GridController.getAllSavedGames(), null));
+		if (gamePanel != null) {
+			JFileChooser jfc = new JFileChooser();
+			FileFilter ff = new FileNameExtensionFilter("Lichtstrahl-Puzzle", "puzzle");
+			File dirfile = new File("Documents/Spiele");
+			jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			jfc.setMultiSelectionEnabled(false);
+			jfc.setFileHidingEnabled(true);
+			jfc.setFileFilter(ff);
+			jfc.setCurrentDirectory(dirfile.getAbsoluteFile());
+			GridController.loadGame(jfc.showOpenDialog(jfc));
 		}
 		else {
 //			MenuController.loadGame(editorPanel);

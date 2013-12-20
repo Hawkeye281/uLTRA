@@ -26,7 +26,7 @@ public class SaveGame {
 		OutputStream fos = null;
 		
 		try {
-			fos = new FileOutputStream("../uLTRA/Documents/Spiele/" + spielname);
+			fos = new FileOutputStream(spielname + ".puzzle");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
 			oos.writeObject(spielfeld);

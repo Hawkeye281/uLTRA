@@ -3,11 +3,18 @@
  */
 package toolbarActions;
 
+
+
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 import Controller.GridController;
 
@@ -34,7 +41,54 @@ public class SaveAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		GridController.saveGame(GridController.getGameGrid(), JOptionPane.showInputDialog
-				(null, "Geben Sie hier den Spielnamen ein:", "Spielname", 1));
+		int w = 0;
+		JFileChooser jfc = new JFileChooser();
+		FileFilter ff = new FileNameExtensionFilter("Lichtstrahl-Puzzle", "puzzle");
+		File dirfile = new File("Documents/Spiele");
+		File tempfile = null;
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		jfc.setMultiSelectionEnabled(false);
+		jfc.setFileHidingEnabled(true);
+		jfc.setFileFilter(ff);
+		jfc.setCurrentDirectory(dirfile.getAbsoluteFile());
+		do {
+			w = 0;
+			if (jfc.showSaveDialog(jfc) == JFileChooser.APPROVE_OPTION) {
+				String spielname = jfc.getSelectedFile().getAbsolutePath();
+				tempfile = new File(spielname);
+				if(tempfile.exists()){
+					int auswahl = JOptionPane.showConfirmDialog(null,
+							"Wollen Sie das Puzzle überschreiben?",
+							"Puzzle existiert",
+							JOptionPane.YES_NO_CANCEL_OPTION);
+					switch (auswahl) {
+					case 0:
+						File spiel = new File(spielname);
+						spiel.delete();
+						if(spielname.endsWith(".puzzle")){
+							spielname = spielname.replace(".puzzle", "");
+						}
+						GridController.saveGame(GridController.getGameGrid(), spielname);
+						w = 0;
+						break;
+					case 1:
+						w = 1;
+						break;
+					case 2:
+						w = 0;
+						break;
+					}
+				}
+				else {
+					if(spielname.endsWith(".puzzle")){
+						spielname = spielname.replace(".puzzle", "");
+					}
+					GridController.saveGame(GridController.getGameGrid(), spielname);
+				}
+			}
+		} while (w == 1);
+		
+		
+//		GridController.saveGame(GridController.getGameGrid(), spielname);
 	}
 }

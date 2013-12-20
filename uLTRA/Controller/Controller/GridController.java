@@ -90,8 +90,8 @@ public class GridController {
 	public static String getGameNameByIndex(int spielindex){
 		String[] spiele = getAllSavedGames();
 		
-		System.out.println("INDEX: " + spielindex);
-		System.out.println("SPIEL: " + spiele[spielindex]);
+//		System.out.println("INDEX: " + spielindex);
+//		System.out.println("SPIEL: " + spiele[spielindex]);
 		
 		return spiele[spielindex];
 	}
