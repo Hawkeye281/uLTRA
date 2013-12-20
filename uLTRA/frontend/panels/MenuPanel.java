@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import Controller.MenuController;
 
 import frames.MainFrame;
+import gamegrid.GameGrid;
 
 /**
  * @author Sebastian Kiepert
@@ -71,6 +72,7 @@ public class MenuPanel extends JPanel {
 				// TODO Load-Methode im Hauptmenü implementieren
 			}
 			else if (clicked.getName().equals("editor")){
+				GameGrid.deleteInstance();
 				menuController.editor(mainFrame);
 			}
 			else if(clicked.getName().equals("exit")){

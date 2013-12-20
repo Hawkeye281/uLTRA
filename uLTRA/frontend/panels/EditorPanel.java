@@ -44,6 +44,7 @@ public class EditorPanel extends JPanel{
 		add(new CommonToolbar(mainFrame, this), BorderLayout.PAGE_START);
 		setSize(MainFrame.getDesktopSize());
 		setLocation(0, 0);
+		if (editorController.isSet()) editorController.removeGrid();
 	}
 	
 	/**
@@ -56,7 +57,8 @@ public class EditorPanel extends JPanel{
 	 * @see panels.EditorPanel#EditorPanel(MainFrame)
 	 */
 	public void generateField(int height, int width) throws Exception{
-		if (editorController.isSet()) remove(editorGrid);
+		if (editorController.isSet()) editorController.removeGrid();
+		if (getComponentCount()>1) remove(editorGrid);
 		add(createEditorGrid(height, width));
 		refresh();
 	}
@@ -82,6 +84,7 @@ public class EditorPanel extends JPanel{
 	 */
 	public void resetGrid(){
 		if (editorController.isSet()){
+			editorController.removeGrid();
 			remove(editorGrid);
 			refresh();
 		}
