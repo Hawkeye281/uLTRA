@@ -64,4 +64,9 @@ public class Cell implements Serializable{
 	public void setRightCell(Cell newRightCell) {
 		rightCell = newRightCell;
 	}
+	
+	public boolean isEmpty()
+	{
+		return content == null;
+	}
 }
