@@ -33,7 +33,7 @@ public class GameGrid extends Observable implements Serializable {
 
 		for (int y = 0; y < height; y++)
 			for (int x = 0; x < width; x++)
-				gameGrid[y][x] = new Cell();
+				gameGrid[y][x] = new Cell(x,y);
 	}
 
 	/**
