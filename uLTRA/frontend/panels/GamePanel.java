@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private static TurnList _turnList = new TurnList();
+	private static TurnList _turnList;
 	
 	private static GridPanel _gridPanel; 
 	private static GridController _gridController = new GridController();
@@ -68,6 +68,7 @@ public class GamePanel extends JPanel {
 			remove(2);
 			remove(1);
 		}
+		_turnList = new TurnList();
 		_gridPanel = new GridPanel();
 		_gridPanel.addMouseListener(new MouseTurnListener());
 		add(_gridPanel, BorderLayout.CENTER);

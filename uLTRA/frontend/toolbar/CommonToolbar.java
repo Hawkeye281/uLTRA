@@ -39,6 +39,8 @@ public class CommonToolbar extends JToolBar{
 		add(new LoadAction(gamePanel));
 		add(new SaveAction());
 		commonTools();
+		add(seperator());
+		add(new StepBackAction(gamePanel));
 	}
 	
 	public CommonToolbar(final MainFrame mainFrame, final EditorPanel editPanel){
