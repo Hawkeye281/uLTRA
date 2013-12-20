@@ -35,18 +35,15 @@ public class Cell implements Serializable{
 		return content;
 	}
 	
-	public Point getCoordinates()
-	{
+	public Point getCoordinates() {
 		return coordinates;
 	}
 	
-	public int getX()
-	{
+	public int getX() {
 		return (int)coordinates.getX();
 	}
 	
-	public int getY()
-	{
+	public int getY() {
 		return (int)coordinates.getY();
 	}
 	
@@ -54,8 +51,7 @@ public class Cell implements Serializable{
 		content = newContent;
 	}
 	
-	public boolean hasTopCell()
-	{
+	public boolean hasTopCell()	{
 		return topCell != null;
 	}
 	
@@ -67,8 +63,7 @@ public class Cell implements Serializable{
 		topCell = newTopCell;
 	}
 	
-	public boolean hasBottomCell()
-	{
+	public boolean hasBottomCell() {
 		return bottomCell != null;
 	}
 	
@@ -80,8 +75,7 @@ public class Cell implements Serializable{
 		bottomCell = newBottomCell;
 	}
 	
-	public boolean hasLeftCell()
-	{
+	public boolean hasLeftCell() {
 		return leftCell != null;
 	}
 	
@@ -93,8 +87,7 @@ public class Cell implements Serializable{
 		leftCell = newLeftCell;
 	}
 	
-	public boolean hasRightCell()
-	{
+	public boolean hasRightCell() {
 		return rightCell != null;
 	}
 	
@@ -106,20 +99,15 @@ public class Cell implements Serializable{
 		rightCell = newRightCell;
 	}
 	
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return content instanceof EmptyContent;
 	}
 	
-	public boolean isLightSource()
-	{
+	public boolean isLightSource() {
 		return content instanceof LightSource; 
 	}
 	
-	public boolean isBeam()
-	{
+	public boolean isBeam() {
 		return content instanceof Beam;
-	}
-	
-	
+	}	
 }
