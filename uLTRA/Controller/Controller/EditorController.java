@@ -10,7 +10,7 @@ public class EditorController {
 	private static GameGrid editorGrid = null;
 	
 	/**
-	 * Erstellt ein neues Grid nach Anwendervorgaben und gibt 'true' zurück
+	 * Erstellt ein neues Grid nach Anwendervorgaben
 	 * 
 	 * @param height = Anzahl der Felder an der x-Achse
 	 * @param width = Anzahl der Felder an der y-Achse
@@ -49,16 +49,16 @@ public class EditorController {
 	}
 	
 	/**
-	 * erstellt in der aktivierten Zelle eine Lichtquelle nach
-	 * Anwendervorgaben.
+	 * erstellt in der aktivierten Zelle eine Lichtquelle 
+	 * mit Initialwert 0
 	 *  
 	 * @param x = Position der Zelle an der x-Achse;
 	 * @param y = Position der Zelle an der y-Achse;
 	 * @param value = Wert (Stärke) der Lichtquelle;
 	 * @author Sebastian Kiepert
 	 */
-	public void setLightSource(int x, int y, int value){
-		editorGrid.getCell(x, y).setContent(new LightSource(value));
+	public void setLightSource(int x, int y){
+		editorGrid.getCell(x, y).setContent(new LightSource(0));
 	}
 	
 	/**
@@ -87,6 +87,13 @@ public class EditorController {
 		}
 	}
 	
+	public void setLightValue(int x, int y, int newCapacity){
+		if (contentIsLightSource(x,y)){
+			LightSource light = (LightSource) editorGrid.getCell(x,y).getContent();
+			light.setCapacity(newCapacity);
+		}
+	}
+	
 	/**
 	 * 
 	 * @param x = Position der Lichtquelle an der x-Achse
@@ -95,6 +102,10 @@ public class EditorController {
 	 */
 	public void removeLightSource(int x, int y){
 		editorGrid.getCell(x, y).setContent(null);
+	}
+	
+	public static GameGrid getEditGrid(){
+		return editorGrid;
 	}
 	
 	/**

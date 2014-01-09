@@ -35,12 +35,15 @@ public class GridPanel extends JPanel
 	private GridLayout _layout;
 	private GameGrid _gridCont;
 	
-	private static Dimension _size = new Dimension(592,539);
+	private static Dimension _size = new Dimension(500,500);
 
 	public GridPanel()
 	{
 		_gridCont = GridController.initGameGrid();
 		_layout = new GridLayout(_gridCont.getHeight(), _gridCont.getWidth());
+		_size = (_gridCont.getHeight()>_gridCont.getWidth())?
+				new Dimension(500/_gridCont.getHeight()*_gridCont.getWidth(),500) :
+					new Dimension(500/_gridCont.getWidth()*_gridCont.getHeight(),500);
 		
 		this.setLayout(_layout);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));

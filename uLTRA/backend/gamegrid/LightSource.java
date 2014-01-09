@@ -16,8 +16,8 @@ public class LightSource implements CellContent, Serializable{
 	private int remainingCapacity = 0;	
 	
 	public LightSource(int initialCapacity) {
-		if (initialCapacity < 1)
-			throw new IllegalArgumentException("Initialkapazität muss 1 oder höher sein.");
+		if (initialCapacity < 0)
+			throw new IllegalArgumentException("Initialkapazität muss 0 oder höher sein.");
 		
 		capacity = initialCapacity;
 		remainingCapacity = capacity;

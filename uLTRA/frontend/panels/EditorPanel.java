@@ -58,13 +58,15 @@ public class EditorPanel extends JPanel{
 	 */
 	public void generateField(int height, int width) throws Exception{
 		if (editorController.isSet()) editorController.removeGrid();
-		if (getComponentCount()>1) remove(editorGrid);
-		add(createEditorGrid(height, width));
+		if (getComponentCount()>1) remove(getComponentCount()-1);
+		JPanel helpPanel = new JPanel();
+		helpPanel.add(createEditorGrid(height, width));
+		add(helpPanel, BorderLayout.CENTER);
 		refresh();
 	}
 	
 	/**
-	 * generiert die Spielfeldgrundlage, das GridDesigner
+	 * generiert die Spielfeldgrundlage
 	 * @see panels.GridPanel
 	 * @param _numbers
 	 * @return ray
@@ -91,10 +93,12 @@ public class EditorPanel extends JPanel{
 	}
 	
 	public void reloadEditor(){
-		remove(editorGrid);
+		remove(getComponentCount()-1);
+		JPanel helpPanel = new JPanel();
 		editorGrid = editorController.getGridPanel();
 		editorGrid.addMouseListener(new EditorMouseListener(this));
-		add(editorGrid);
+		helpPanel.add(editorGrid);
+		add(helpPanel, BorderLayout.CENTER);
 		refresh();
 	}
 	

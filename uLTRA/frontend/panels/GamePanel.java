@@ -64,14 +64,17 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void refreshGridPanel(){
+		JPanel helpPanel = new JPanel();
+		System.out.println(getComponentCount());
 		if (getComponentCount()>1){
-			remove(2);
-			remove(1);
+			remove(getComponentCount()-1);
+			remove(getComponentCount()-1);
 		}
 		_turnList = new TurnList();
 		_gridPanel = new GridPanel();
 		_gridPanel.addMouseListener(new MouseTurnListener());
-		add(_gridPanel, BorderLayout.CENTER);
+		helpPanel.add(_gridPanel);
+		add(helpPanel, BorderLayout.CENTER);
 		add(_turnList, BorderLayout.EAST);
 		refresh();
 	}
