@@ -56,7 +56,9 @@ public class LoadAction extends AbstractAction {
 			jfc.setFileHidingEnabled(true);
 			jfc.setFileFilter(ff);
 			jfc.setCurrentDirectory(dirfile.getAbsoluteFile());
-			GridController.loadGame(jfc.showOpenDialog(jfc));
+			if(jfc.showOpenDialog(jfc) == 0){
+				GridController.loadGame(jfc.getSelectedFile().getName());
+			}
 		}
 		else {
 //			MenuController.loadGame(editorPanel);

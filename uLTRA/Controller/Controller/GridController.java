@@ -59,10 +59,10 @@ public class GridController {
 		speicher.spielSpeichern(spielfeld, spielname);
 	}
 	
-	public static GameGrid loadGame(int spielindex){
+	public static GameGrid loadGame(String spielname){
 		try
 		{
-			GameGrid.setInstance(loader.spielLaden(getGameNameByIndex(spielindex)));
+			GameGrid.setInstance(loader.spielLaden(spielname));
 
 			spielfeld = GameGrid.getInstance();
 		}
@@ -87,14 +87,14 @@ public class GridController {
 		return spiele;
 	}
 	
-	public static String getGameNameByIndex(int spielindex){
-		String[] spiele = getAllSavedGames();
-		
-//		System.out.println("INDEX: " + spielindex);
-//		System.out.println("SPIEL: " + spiele[spielindex]);
-		
-		return spiele[spielindex];
-	}
+//	public static String getGameNameByIndex(int spielindex){
+//		String[] spiele = getAllSavedGames();
+//		
+////		System.out.println("INDEX: " + spielindex);
+////		System.out.println("SPIEL: " + spiele[spielindex]);
+//		
+//		return spiele[spielindex];
+//	}
 	
 	
 	public int getHeight(){
