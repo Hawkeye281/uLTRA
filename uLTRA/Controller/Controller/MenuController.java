@@ -5,6 +5,8 @@ import panels.GamePanel;
 import frames.MainFrame;
 
 public class MenuController {
+	static MainFrame mainFrame = new MainFrame();
+	
 	
 	public void newGame(MainFrame mainFrame){
 		mainFrame.removeFromDesktop(0);
@@ -17,6 +19,9 @@ public class MenuController {
 	}
 	
 	public static void loadGame(GamePanel _gamePanel){
+		mainFrame.removeFromDesktop(0);
+		_gamePanel = new GamePanel(mainFrame);
+		mainFrame.addToDesktop(_gamePanel);
 		_gamePanel.loadGame();
 	}
 	

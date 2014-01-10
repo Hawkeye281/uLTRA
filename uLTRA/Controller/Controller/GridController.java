@@ -83,7 +83,6 @@ public class GridController {
 				spiele[iterator] = dateien.getName();
 			iterator++;
 		}
-		
 		return spiele;
 	}
 	

@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -57,7 +58,7 @@ public class GridPanel extends JPanel
 		this.removeAll();
 		JLabel tempLabel;
 		CellContent cc = null;
-		String direction = "";
+		ImageIcon direction = null;
 		
 		for(int y = 0; y < _gridCont.getHeight(); y++)
 		{
@@ -74,16 +75,16 @@ public class GridPanel extends JPanel
 					switch(((Beam)cc).getDirection())
 					{
 						case BEAM_UP:
-							direction = "^";
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_up.png");
 							break;
 						case BEAM_RIGHT:
-							direction = ">";
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_right.png");
 							break;
 						case BEAM_DOWN:
-							direction = "v";
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_down.png");
 							break;
 						case BEAM_LEFT:
-							direction = "<";
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_left.png");
 							break;
 					}
 

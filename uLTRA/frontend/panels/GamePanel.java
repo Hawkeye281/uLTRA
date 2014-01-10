@@ -4,6 +4,7 @@
 package panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JPanel;
 
@@ -65,7 +66,6 @@ public class GamePanel extends JPanel {
 	
 	public void refreshGridPanel(){
 		JPanel helpPanel = new JPanel();
-		System.out.println(getComponentCount());
 		if (getComponentCount()>1){
 			remove(getComponentCount()-1);
 			remove(getComponentCount()-1);
@@ -73,6 +73,7 @@ public class GamePanel extends JPanel {
 		_turnList = new TurnList();
 		_gridPanel = new GridPanel();
 		_gridPanel.addMouseListener(new MouseTurnListener());
+		_gridPanel.setBackground(Color.WHITE);
 		helpPanel.add(_gridPanel);
 		add(helpPanel, BorderLayout.CENTER);
 		add(_turnList, BorderLayout.EAST);

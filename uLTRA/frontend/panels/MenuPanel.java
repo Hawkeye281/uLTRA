@@ -3,14 +3,21 @@
  */
 package panels;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
+import toolbarActions.LoadAction;
+
+import Controller.GridController;
 import Controller.MenuController;
 
 import frames.MainFrame;
@@ -38,19 +45,23 @@ public class MenuPanel extends JPanel {
 		setSize(200, 300);
 		setLocation(300,150);
 		setBorder(BorderFactory.createTitledBorder("Hauptmenü"));
-		add(setButton("Neues Spiel", "start", true));
-		add(setButton("Spiel laden", "load", false));
-		add(setButton("Editor starten", "editor", true));
-		add(setButton("Optionen", "options", false));
-		add(setButton("Spiel beenden", "exit", true));
+		add(setButton("Neues Spiel", "start", true, new ImageIcon("../uLTRA/Documents/images/icons/new.png")));
+		add(setButton("Spiel laden", "load", true, new ImageIcon("../uLTRA/Documents/images/icons/load.png")));
+		add(setButton("Editor starten", "editor", true, new ImageIcon("../uLTRA/Documents/images/icons/editor.png")));
+		add(setButton("Optionen", "options", false, new ImageIcon("../uLTRA/Documents/images/icons/options.png")));
+		add(setButton("Spiel beenden", "exit", true, new ImageIcon("../uLTRA/Documents/images/icons/exit.png")));
 		setVisible(true);
 	}
 	
-	private JButton setButton(String title, String name, boolean enable){
+	private JButton setButton(String title, String name, boolean enable, Icon icon){
 		JButton button = new JButton(title);
 		button.setName(name);
 		button.addActionListener(new ActionHandler());
 		button.setEnabled(enable);
+		button.setIcon(icon);
+		button.setBackground(Color.WHITE);
+		button.setIconTextGap(30);
+		button.setHorizontalAlignment(SwingConstants.LEFT);
 		return button;
 	}
 	
@@ -69,7 +80,9 @@ public class MenuPanel extends JPanel {
 				menuController.newGame(mainFrame);
 			}
 			else if (clicked.getName().equals("load")){
-				// TODO Load-Methode im Hauptmenü implementieren
+				GamePanel gamePanel = new GamePanel(mainFrame);
+				new LoadAction(gamePanel).actionPerformed(e);
+				MenuController.loadGame(gamePanel);
 			}
 			else if (clicked.getName().equals("editor")){
 				GameGrid.deleteInstance();

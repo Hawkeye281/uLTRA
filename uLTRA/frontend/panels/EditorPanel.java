@@ -4,6 +4,7 @@
 package panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JPanel;
 
@@ -61,6 +62,7 @@ public class EditorPanel extends JPanel{
 		if (getComponentCount()>1) remove(getComponentCount()-1);
 		JPanel helpPanel = new JPanel();
 		helpPanel.add(createEditorGrid(height, width));
+		helpPanel.setBackground(Color.WHITE);
 		add(helpPanel, BorderLayout.CENTER);
 		refresh();
 	}
@@ -77,6 +79,7 @@ public class EditorPanel extends JPanel{
 		editorController.setGameGrid(height, width);
 		editorGrid = editorController.getGridPanel();
 		editorGrid.addMouseListener(new EditorMouseListener(this));
+		editorGrid.setBackground(Color.WHITE);
 		return editorGrid;
 	}
 	
@@ -97,6 +100,7 @@ public class EditorPanel extends JPanel{
 		JPanel helpPanel = new JPanel();
 		editorGrid = editorController.getGridPanel();
 		editorGrid.addMouseListener(new EditorMouseListener(this));
+		editorGrid.setBackground(Color.WHITE);
 		helpPanel.add(editorGrid);
 		add(helpPanel, BorderLayout.CENTER);
 		refresh();
@@ -105,6 +109,7 @@ public class EditorPanel extends JPanel{
 	private void refresh(){
 		setVisible(false);
 		setVisible(true);
+		setBackground(Color.WHITE);
 	}
 	
 	public static EditorController getController(){
