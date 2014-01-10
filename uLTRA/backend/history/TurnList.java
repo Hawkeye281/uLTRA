@@ -16,11 +16,15 @@ public class TurnList {
 	}
 	
 	public void removeLastTurn() {
-//		history.get(history.lastIndexOf(history));
+		history.remove(history.size() - 1);
 	}
 	
 	public void replay() {
 		for (Command _command : history)
 			_command.execute();
+	}
+	
+	public void reset() {
+		history.clear();
 	}
 }
