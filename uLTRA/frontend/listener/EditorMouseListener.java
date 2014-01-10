@@ -3,11 +3,7 @@
  */
 package listener;
 
-import gamegrid.Beam;
 import gamegrid.BeamDirections;
-import gamegrid.Cell;
-import gamegrid.GameGrid;
-import gamegrid.LightSource;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -25,7 +21,7 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 	private static Point loc;
 	private static EditorPanel editorPanel;
 	private static EditorController editGridCont = EditorPanel.getController();
-	private static GameGrid editGrid = EditorController.getEditGrid();
+//	private static GameGrid editGrid = EditorController.getEditGrid();
 	
 	public EditorMouseListener(EditorPanel editorPanel){
 		EditorMouseListener.editorPanel = editorPanel;
@@ -44,6 +40,10 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 		else if (pEvent.isMetaDown()){
 			if (editGridCont.isLightSource(super._startPoint.x, super._startPoint.y)){
 				editGridCont.removeLightSource(super._startPoint.x, super._startPoint.y);
+				editorPanel.reloadEditor();
+			}
+			else if (editGridCont.isBeam(super._startPoint.x, super._startPoint.y)){
+				removeBeam(super._startPoint.x, super._startPoint.y);
 				editorPanel.reloadEditor();
 			}
 		}
@@ -134,11 +134,67 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 		}
 	}
 	
-	public static Point getMouseLocation(){
-		return loc;
+	private String[] checkBeamDirection(int x, int y){
+		BeamDirections beam = editGridCont.getBeam(x, y).getDirection();
+		String[] result = {null, null};
+		if (editGridCont.isBeam(x-1, y)){
+			if (editGridCont.getBeam(x-1, y).getDirection() == beam){
+				result[0] = "x";
+				result[1] = "-1";
+			}
+		}
+		else if (editGridCont.isBeam(x+1, y)){
+			if (editGridCont.getBeam(x+1, y).getDirection() == beam){
+				result[0] = "x";
+				result[1] = "1";
+			}
+		}
+		else if (editGridCont.isBeam(x, y-1)){
+			if (editGridCont.getBeam(x, y-1).getDirection() == beam){
+				result[0] = "y";
+				result[1] = "-1";
+			}
+		}
+		else if (editGridCont.isBeam(x, y+1)){
+			if (editGridCont.getBeam(x, y+1).getDirection() == beam){
+				result[0] = "y";
+				result[1] = "1";
+			}
+		}
+		return result;
 	}
 	
-	public static EditorPanel getEditorPanel(){
-		return editorPanel;
+	private void removeBeam(int x, int y){
+		String[] check = checkBeamDirection(x, y);
+		int x_start = x, y_start = y;
+		if (check[0]!=null){
+			do {
+				if (check[0].equals("x")){
+					x += Integer.valueOf(check[1]);
+				}
+				else if (check[0].equals("y")){
+					y += Integer.valueOf(check[1]);
+				}
+			}while(!editGridCont.isLightSource(x, y));
+			editGridCont.setLightValue(x, y, editGridCont.getLightValue(x, y)-1);
+			editGridCont.removeBeam(x_start, y_start);
+		}
+		else {
+			BeamDirections direction = editGridCont.getBeam(x_start, y_start).getDirection();
+			System.out.println(direction);
+			if (direction == BeamDirections.BEAM_DOWN){
+				editGridCont.setLightValue(x, y-1, editGridCont.getLightValue(x, y-1)-1);
+			}
+			else if (direction == BeamDirections.BEAM_UP){
+				editGridCont.setLightValue(x, y+1, editGridCont.getLightValue(x, y+1)-1);
+			}
+			else if (direction == BeamDirections.BEAM_LEFT){
+				editGridCont.setLightValue(x+1, y, editGridCont.getLightValue(x+1, y)-1);
+			}
+			else if (direction == BeamDirections.BEAM_RIGHT){
+				editGridCont.setLightValue(x-1, y, editGridCont.getLightValue(x-1, y)-1);
+			}
+			editGridCont.removeBeam(x_start, y_start);
+		}
 	}
 }

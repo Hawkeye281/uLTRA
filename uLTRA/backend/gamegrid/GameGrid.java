@@ -141,7 +141,7 @@ public class GameGrid extends Observable implements Serializable {
 	 * @return boolean
 	 * 
 	 */
-	private boolean isInGrid(int x, int y) {
+	public boolean isInGrid(int x, int y) {
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return false;
 		return true;

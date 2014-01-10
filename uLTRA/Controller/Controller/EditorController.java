@@ -105,8 +105,19 @@ public class EditorController {
 			editorGrid.getCell(x, y).setContent(new Beam(direction));
 	}
 	
+	public Beam getBeam(int x, int y){
+		 return (editorGrid.isInGrid(x, y))? (Beam) editorGrid.getCell(x, y).getContent() : null;
+	}
+	
 	public boolean isBeam(int x, int y){
-		return (editorGrid.getCell(x, y).getContent() instanceof Beam)? true : false;
+		boolean beam = false;
+		if (editorGrid.isInGrid(x, y))
+			beam = (editorGrid.getCell(x, y).getContent() instanceof Beam)? true : false;
+		return beam;
+	}
+	
+	public void removeBeam(int x, int y){
+		editorGrid.getCell(x, y).setContent(null);
 	}
 	
 	/**
