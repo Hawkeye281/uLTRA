@@ -61,9 +61,34 @@ public class GameController {
 		int remCap = light.getRemainingCapacity();
 		int tempEnd = startY;
 		
+//		CellContent cellCont = null;
+		
 		switch(d)
 		{
 		case BEAM_DOWN:
+/*
+			tempEnd = startY + 1; 
+			
+			System.out.println("startX: " + startX + "| start.x: " + start.x);
+			System.out.println("tempEnd: " + tempEnd + " < " + endY);
+			System.out.print(startY);
+			
+			while(tempEnd < endY)
+			{
+				cellCont = gridCtrl.getCell(startX, tempEnd).getContent();
+				
+				if(!(cellCont instanceof LightSource) && !(cellCont instanceof Beam))
+				{
+					if(remCap > 0)
+					{
+						tempEnd++;
+						remCap--;
+						System.out.println(" -> " + tempEnd);
+					}
+				}
+			}
+			System.out.println();
+*/			
 			tempEnd = startY;
 			while(
 			tempEnd+1 < endY && // Strahl nicht länger als vom Spieler geklickt
@@ -75,7 +100,8 @@ public class GameController {
 				tempEnd++;
 				remCap--;
 			}
-			endY = tempEnd;
+//			endY = tempEnd;
+
 			break;
 		case BEAM_UP:
 			tempEnd = startY;
@@ -89,7 +115,7 @@ public class GameController {
 				tempEnd--; // nächste Zelle als Ende des Strahls auswählen
 				remCap--; // verbleibende Kapazität anpassen
 			}
-			endY = tempEnd;
+//			endY = tempEnd;
 			break;
 		case BEAM_LEFT:
 			tempEnd = startX;
@@ -103,7 +129,7 @@ public class GameController {
 				tempEnd--;
 				remCap--;
 			}
-			endX = tempEnd;
+//			endX = tempEnd;
 			break;
 		case BEAM_RIGHT:
 			tempEnd = startX;
@@ -117,13 +143,16 @@ public class GameController {
 				tempEnd++;
 				remCap--;
 			}
-			endX = tempEnd;
+//			endX = tempEnd;
 			break;
 		}
 		light.setRemainingCapacity(remCap);
 		
+		System.out.println("Start [" + start.x + ":" + start.y + "] wird zu [" + startX + ":" + startY + "]");
+		System.out.println("Ende  [" + end.x + ":" + end.y + "] wird zu [" + endX + ":" + endY + "]");
+		
 		Turn t = new Turn(new Point(startX, startY), new Point(endX, endY));
-		System.out.println(t);
+//		System.out.println(t);
 		GamePanel.getTurnList().addTurn(t);
 		
 	}

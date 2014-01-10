@@ -105,10 +105,21 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		int endX = pEvent.getX();
 		int endY = pEvent.getY();
 		boolean inField = true;
+		boolean _horizontal = false;
+		boolean _vertical = false;
 		
 		if(endX >= 0 && endX < GridPanel.getGridSize().width)
 		{
 			endX /= _cellWidth;
+			
+			if(_startPoint.x == endX)
+			{
+				_horizontal = true;
+			}
+			else
+			{
+				_horizontal = false;
+			}
 		}
 		else
 		{
@@ -118,6 +129,16 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		if(endY >= 0 && endY < GridPanel.getGridSize().height)
 		{
 			endY /= _cellHeight;
+			
+			if(_startPoint.y == endY)
+			{
+				_vertical = true;
+			}
+			else
+			{
+
+				_vertical = false;
+			}
 		}
 		else
 		{
@@ -126,7 +147,19 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		
 		if(inField)
 		{
-			_endPoint = new Point(endX, endY);
+			System.out.println(endX + ":" + endY);
+			System.out.println(_horizontal + " != " + _vertical);
+			
+			if(_horizontal != _vertical)
+			{
+				_endPoint = new Point(endX, endY);
+			}
+			else
+			{
+				System.out.println("Falscher Zug");
+				_endPoint = new Point(_startPoint.x, _startPoint.y);
+			}
 		}
+		System.out.println("---");
 	}
 }
