@@ -87,7 +87,7 @@ public class EditorPanel extends JPanel{
 	public void resetGrid(){
 		if (editorController.isSet()){
 			editorController.removeGrid();
-			remove(editorGrid);
+			remove(getComponentCount()-1);
 			refresh();
 		}
 	}

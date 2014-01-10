@@ -2,6 +2,8 @@ package Controller;
 
 import panels.GridPanel;
 
+import gamegrid.Beam;
+import gamegrid.BeamDirections;
 import gamegrid.GameGrid;
 import gamegrid.LightSource;
 
@@ -61,13 +63,17 @@ public class EditorController {
 		editorGrid.getCell(x, y).setContent(new LightSource(0));
 	}
 	
+	public LightSource getLightSource(int x, int y){
+		return (LightSource) editorGrid.getCell(x, y).getContent();
+	}
+	
 	/**
 	 * Gibt true zurück, wenn die Zelle bereits eine Lichtquelle enthält, sonst false
 	 * @param x = Koordinate an der x-Achse
 	 * @param y = Koordinate an der y-Achse
 	 * @return
 	 */
-	public boolean contentIsLightSource(int x, int y){
+	public boolean isLightSource(int x, int y){
 		return (editorGrid.getCell(x,y).getContent() instanceof LightSource) ? true : false;
 	}
 	
@@ -78,7 +84,7 @@ public class EditorController {
 	 * @return
 	 */
 	public int getLightValue(int x, int y){
-		if (contentIsLightSource(x, y)){
+		if (isLightSource(x, y)){
 			LightSource light = (LightSource) editorGrid.getCell(x, y).getContent();
 			return light.getCapacity();
 		}
@@ -88,10 +94,19 @@ public class EditorController {
 	}
 	
 	public void setLightValue(int x, int y, int newCapacity){
-		if (contentIsLightSource(x,y)){
+		if (isLightSource(x,y)){
 			LightSource light = (LightSource) editorGrid.getCell(x,y).getContent();
 			light.setCapacity(newCapacity);
 		}
+	}
+	
+	public void setBeam(int x, int y, BeamDirections direction){
+		if (!isLightSource(x, y))
+			editorGrid.getCell(x, y).setContent(new Beam(direction));
+	}
+	
+	public boolean isBeam(int x, int y){
+		return (editorGrid.getCell(x, y).getContent() instanceof Beam)? true : false;
 	}
 	
 	/**
