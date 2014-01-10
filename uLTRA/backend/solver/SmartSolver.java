@@ -7,7 +7,6 @@ public class SmartSolver implements SolveAlgorithm {
 	@Override
 	public void solve(GameGrid g) {
 		
-
+		
 	}
-
 }

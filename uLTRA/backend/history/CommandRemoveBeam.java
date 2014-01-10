@@ -5,9 +5,10 @@
 
 package history;
 
+import java.io.Serializable;
 import gamegrid.*;
 
-public class CommandRemoveBeam implements Command {
+public class CommandRemoveBeam implements Command, Serializable {
 
 	private Turn _turn;
 	

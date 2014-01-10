@@ -5,11 +5,13 @@
 
 package history;
 
+import java.io.Serializable;
 import gamegrid.*;
 
-public class CommandAddBeam implements Command {
+public class CommandAddBeam implements Command, Serializable {
 
 	private Turn _turn;
+	private BeamDirections _direction;
 	
 	public CommandAddBeam(Turn pTurn) {
 		_turn = pTurn;
@@ -29,42 +31,41 @@ public class CommandAddBeam implements Command {
 		int startX = _turn.getStart().x;
 		int startY = _turn.getStart().y;
 		int endX = _turn.getEnd().x;
-		int endY = _turn.getEnd().y;
-		BeamDirections direction = null;		
+		int endY = _turn.getEnd().y;	
 		
 		if(startX == endX) {
 			if(startY < endY) {
-				direction = BeamDirections.BEAM_DOWN;
+				_direction = BeamDirections.BEAM_DOWN;
 				
 				for (int i = startY; i <= endY; i++) {
 					Cell cell = _gameGrid.getCell(startX, i);
-					cell.setContent(new Beam(direction));
-				}					
+					cell.setContent(new Beam(_direction));
+				}
 			}
 			else {
-				direction = BeamDirections.BEAM_UP;
+				_direction = BeamDirections.BEAM_UP;
 				
 				for (int i = startY; i >= endY; i--) {
 					Cell cell = _gameGrid.getCell(startX, i);
-					cell.setContent(new Beam(direction));
+					cell.setContent(new Beam(_direction));
 				}
 			}
 		}
 		else {
 			if(startX < endX) {
-				direction = BeamDirections.BEAM_RIGHT;
+				_direction = BeamDirections.BEAM_RIGHT;
 				
 				for (int j = startX; j <= endX; j++) {
 					Cell cell = _gameGrid.getCell(j, startY);
-					cell.setContent(new Beam(direction));
+					cell.setContent(new Beam(_direction));
 				}
 			}
 			else {
-				direction = BeamDirections.BEAM_LEFT;
+				_direction = BeamDirections.BEAM_LEFT;
 				
 				for (int j = startX; j >= endX; j--) {
 					Cell cell = _gameGrid.getCell(j, startY);
-					cell.setContent(new Beam(direction));
+					cell.setContent(new Beam(_direction));
 				}
 			}
 		}
@@ -115,5 +116,13 @@ public class CommandAddBeam implements Command {
 				}
 			}
 		}
+	}
+	
+	public BeamDirections getDirection() {
+		return _direction;
+	}
+	
+	public Turn getTurn() {
+		return _turn;
 	}
 }

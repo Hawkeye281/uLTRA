@@ -8,6 +8,7 @@ package gamegrid;
 import java.awt.Point;
 import java.io.Serializable;
 import java.util.Observable;
+import history.TurnList;
 
 public class GameGrid extends Observable implements Serializable {
 
@@ -15,6 +16,7 @@ public class GameGrid extends Observable implements Serializable {
 	private static final long serialVersionUID = -2537055812502261249L;
 	private Cell[][] gameGrid;
 	private int width, height = 0;
+	private TurnList _turnList = null;
 	
 	/**
 	 * 
@@ -71,10 +73,6 @@ public class GameGrid extends Observable implements Serializable {
 		_instance = pGameGrid;
 	}
 	
-//	public void solve(SolveAlgorithm pSolveAlgorithm) {
-//		
-//	}
-	
 	/**
 	 * 
 	 * @return int
@@ -113,8 +111,7 @@ public class GameGrid extends Observable implements Serializable {
 	 * @return Cell
 	 * 
 	 */
-	public Cell getCell(Point pPoint)
-	{
+	public Cell getCell(Point pPoint) {
 		return getCell(pPoint.x, pPoint.y);
 	}
 	
@@ -145,5 +142,13 @@ public class GameGrid extends Observable implements Serializable {
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return false;
 		return true;
+	}
+	
+	public TurnList getTurnList() {
+		return _turnList;
+	}
+	
+	public void setTurnList(TurnList pTurnList) {
+		_turnList = pTurnList;
 	}
 }

@@ -1,13 +1,19 @@
+/**
+ * @author Carsten Strauch
+ * @copyright 2013 TASACDWS
+ */
+
 package history;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class TurnList {
-
+public class TurnList implements Serializable {
+	
 	private ArrayList<Command> history = new ArrayList<Command>();
 	
-	public TurnList() {
-
+	public TurnList(TurnList pTurnlist) {
+		history = pTurnlist.history;
 	}
 	
 	public void exec(Command pCommand) {
@@ -26,5 +32,9 @@ public class TurnList {
 	
 	public void reset() {
 		history.clear();
+	}
+	
+	public ArrayList<Command> getHistory() {
+		return history;
 	}
 }
