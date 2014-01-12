@@ -7,6 +7,7 @@ import gamegrid.BeamDirections;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import Controller.EditorController;
 
@@ -18,10 +19,8 @@ import panels.EditorPanel;
  */
 public class EditorMouseListener extends AbstractMousePositionListener {
 
-	private static Point loc;
 	private static EditorPanel editorPanel;
 	private static EditorController editGridCont = EditorPanel.getController();
-//	private static GameGrid editGrid = EditorController.getEditGrid();
 	
 	public EditorMouseListener(EditorPanel editorPanel){
 		EditorMouseListener.editorPanel = editorPanel;
@@ -29,21 +28,26 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 	
 	@Override
 	public void mouseClicked(MouseEvent pEvent){
-		
+		Point clickLoc = new Point(super._startPoint.x, super._startPoint.y);
 		if (pEvent.getClickCount()==2 && !pEvent.isMetaDown()){
-			loc = new Point(pEvent.getXOnScreen(), pEvent.getYOnScreen());
 			System.out.println(super._startPoint);
-			if (!editGridCont.isLightSource(super._startPoint.x, super._startPoint.y))
-				editGridCont.setLightSource(super._startPoint.x, super._startPoint.y);
+			if (!editGridCont.isLightSource(clickLoc.x, clickLoc.y))
+				editGridCont.setLightSource(clickLoc.x, clickLoc.y);
 			editorPanel.reloadEditor();
 		}
 		else if (pEvent.isMetaDown()){
-			if (editGridCont.isLightSource(super._startPoint.x, super._startPoint.y)){
-				editGridCont.removeLightSource(super._startPoint.x, super._startPoint.y);
-				editorPanel.reloadEditor();
+			if (editGridCont.isLightSource(clickLoc.x, clickLoc.y)){
+				if (editGridCont.getLightValue(clickLoc.x, clickLoc.y) == 0){
+					editGridCont.removeLightSource(clickLoc.x, clickLoc.y);
+					editorPanel.reloadEditor();
+				}
+				else {
+					removeLightSourceAndBeams(clickLoc.x, clickLoc.y);
+					editorPanel.reloadEditor();
+				}
 			}
-			else if (editGridCont.isBeam(super._startPoint.x, super._startPoint.y)){
-				removeBeam(super._startPoint.x, super._startPoint.y);
+			else if (editGridCont.isBeam(clickLoc.x, clickLoc.y)){
+				removeBeam(clickLoc.x, clickLoc.y, checkBeamDirection(clickLoc.x, clickLoc.y));
 				editorPanel.reloadEditor();
 			}
 		}
@@ -128,73 +132,100 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 				}
 			}
 			System.out.println(lightValue);
-			editorPanel.reloadEditor();
-			
+			editorPanel.reloadEditor();			
 		}
 		}
+	}
+	
+	private void removeBeam(int x, int y, String[] check){
+		int x_start = x, y_start = y;		
+		if (check[0]!=null){
+			Point lightSource = searchLightSource(x_start, y_start, check);
+			editGridCont.setLightValue(lightSource.x, lightSource.y, editGridCont.getLightValue(lightSource.x, lightSource.y)-1);
+			editGridCont.removeBeam(x_start, y_start);
+		}
+	}
+	
+	private void removeLightSourceAndBeams(int x, int y){
+		ArrayList<String[]> checkList = new ArrayList<String[]>();
+		if (editGridCont.isInGrid(x-1, y) && editGridCont.isBeam(x-1, y)){
+			String[] check = checkBeamDirection(x-1, y);
+			if (check[0].equals("x") && check[1].equals("1"))
+				checkList.add(check);
+		}
+		if (editGridCont.isInGrid(x+1, y) && editGridCont.isBeam(x+1, y)){
+			String[] check = checkBeamDirection(x+1, y);
+			if (check[0].equals("x") && check[1].equals("-1"))
+				checkList.add(check);
+		}
+		if (editGridCont.isInGrid(x, y-1) && editGridCont.isBeam(x, y-1)){
+			String[] check = checkBeamDirection(x, y-1);
+			if (check[0].equals("y") && check[1].equals("1"))
+				checkList.add(check);
+		}
+		if (editGridCont.isInGrid(x, y+1) && editGridCont.isBeam(x, y+1)){
+			String[] check = checkBeamDirection(x, y+1);
+			if (check[0].equals("y") && check[1].equals("-1"))
+				checkList.add(check);
+		}
+//		int i=0;
+//		System.out.println(checkList.size());
+		for (String[] check : checkList){
+//			i++;
+//			System.out.println("Liste " + i + ": " + check[0] + " : " + check[1]);
+			if (check[0].equals("x")){
+				int x_start = x + (Integer.valueOf(check[1])*-1);
+				BeamDirections beam = editGridCont.getBeam(x_start, y).getDirection();
+				do{
+					if (editGridCont.getBeam(x_start, y).getDirection()==beam)
+						editGridCont.removeBeam(x_start, y);
+					x_start += (Integer.valueOf(check[1])*-1);
+				}while(editGridCont.isInGrid(x_start, y) && editGridCont.isBeam(x_start, y));
+			}
+			else if (check[0].equals("y")){
+				int y_start = y + (Integer.valueOf(check[1])*-1);
+				BeamDirections beam = editGridCont.getBeam(x, y_start).getDirection();
+				do{
+					if (editGridCont.getBeam(x, y_start).getDirection() == beam)
+						editGridCont.removeBeam(x, y_start);
+					y_start += (Integer.valueOf(check[1])*-1);
+				}while(editGridCont.isInGrid(x, y_start) && editGridCont.isBeam(x, y_start));
+			}
+		}
+		editGridCont.removeLightSource(x, y);
+	}
+	
+	private Point searchLightSource(int x, int y, String[] check){
+		do {
+			if (check[0].equals("x")){
+				x += Integer.valueOf(check[1]);
+			}
+			else if (check[0].equals("y")){
+				y += Integer.valueOf(check[1]);
+			}
+		}while(!editGridCont.isLightSource(x, y));
+		return new Point(x,y);
 	}
 	
 	private String[] checkBeamDirection(int x, int y){
 		BeamDirections beam = editGridCont.getBeam(x, y).getDirection();
 		String[] result = {null, null};
-		if (editGridCont.isBeam(x-1, y)){
-			if (editGridCont.getBeam(x-1, y).getDirection() == beam){
-				result[0] = "x";
-				result[1] = "-1";
-			}
+		if (beam == BeamDirections.BEAM_LEFT){
+			result[0] = "x";
+			result[1] = "1";
 		}
-		else if (editGridCont.isBeam(x+1, y)){
-			if (editGridCont.getBeam(x+1, y).getDirection() == beam){
-				result[0] = "x";
-				result[1] = "1";
-			}
+		else if (beam == BeamDirections.BEAM_RIGHT){
+			result[0] = "x";
+			result[1] = "-1";
 		}
-		else if (editGridCont.isBeam(x, y-1)){
-			if (editGridCont.getBeam(x, y-1).getDirection() == beam){
-				result[0] = "y";
-				result[1] = "-1";
-			}
+		else if (beam == BeamDirections.BEAM_UP){
+			result[0] = "y";
+			result[1] = "1";
 		}
-		else if (editGridCont.isBeam(x, y+1)){
-			if (editGridCont.getBeam(x, y+1).getDirection() == beam){
-				result[0] = "y";
-				result[1] = "1";
-			}
+		else if (beam == BeamDirections.BEAM_DOWN){
+			result[0] = "y";
+			result[1] = "-1";
 		}
 		return result;
-	}
-	
-	private void removeBeam(int x, int y){
-		String[] check = checkBeamDirection(x, y);
-		int x_start = x, y_start = y;
-		if (check[0]!=null){
-			do {
-				if (check[0].equals("x")){
-					x += Integer.valueOf(check[1]);
-				}
-				else if (check[0].equals("y")){
-					y += Integer.valueOf(check[1]);
-				}
-			}while(!editGridCont.isLightSource(x, y));
-			editGridCont.setLightValue(x, y, editGridCont.getLightValue(x, y)-1);
-			editGridCont.removeBeam(x_start, y_start);
-		}
-		else {
-			BeamDirections direction = editGridCont.getBeam(x_start, y_start).getDirection();
-			System.out.println(direction);
-			if (direction == BeamDirections.BEAM_DOWN){
-				editGridCont.setLightValue(x, y-1, editGridCont.getLightValue(x, y-1)-1);
-			}
-			else if (direction == BeamDirections.BEAM_UP){
-				editGridCont.setLightValue(x, y+1, editGridCont.getLightValue(x, y+1)-1);
-			}
-			else if (direction == BeamDirections.BEAM_LEFT){
-				editGridCont.setLightValue(x+1, y, editGridCont.getLightValue(x+1, y)-1);
-			}
-			else if (direction == BeamDirections.BEAM_RIGHT){
-				editGridCont.setLightValue(x-1, y, editGridCont.getLightValue(x-1, y)-1);
-			}
-			editGridCont.removeBeam(x_start, y_start);
-		}
 	}
 }
