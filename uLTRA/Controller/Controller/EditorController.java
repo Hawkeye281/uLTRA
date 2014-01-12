@@ -111,13 +111,17 @@ public class EditorController {
 	
 	public boolean isBeam(int x, int y){
 		boolean beam = false;
-		if (editorGrid.isInGrid(x, y))
+		if (isInGrid(x, y))
 			beam = (editorGrid.getCell(x, y).getContent() instanceof Beam)? true : false;
 		return beam;
 	}
 	
 	public void removeBeam(int x, int y){
 		editorGrid.getCell(x, y).setContent(null);
+	}
+	
+	public boolean isInGrid(int x, int y){
+		return (editorGrid.isInGrid(x, y))? true : false;
 	}
 	
 	/**
