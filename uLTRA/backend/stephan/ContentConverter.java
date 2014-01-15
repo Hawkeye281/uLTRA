@@ -9,7 +9,7 @@ public class ContentConverter
 {
 	public static void main(String[] args)
 	{
-		String spielname = "111";
+		String spielname = "789";
 		
 		System.out.println("Dump beams from savegame \"" + spielname + "\".puzzle");
 		
@@ -28,7 +28,7 @@ public class ContentConverter
 			}
 		}
 		
-		GridController.saveGame(grid, "empty_" + spielname);
+		GridController.saveGame(grid, "Documents/Spiele/empty_" + spielname);
 		System.out.println("Clean savegame saved as \"empty_" + spielname + ".puzzle\"");
 	}
 }

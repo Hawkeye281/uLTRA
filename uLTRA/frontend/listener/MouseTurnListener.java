@@ -7,10 +7,10 @@ import gamegrid.GameGrid;
 import gamegrid.LightSource;
 import gamegrid.Turn;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 import panels.GamePanel;
-
 import Controller.GridController;
 
 /**
@@ -21,7 +21,7 @@ import Controller.GridController;
 public class MouseTurnListener extends AbstractMousePositionListener
 {
 	private GameGrid gg = GridController.getGameGrid();
-	
+
 	@Override
 	public void mouseReleased(MouseEvent pEvent)
 	{	
@@ -91,21 +91,51 @@ public class MouseTurnListener extends AbstractMousePositionListener
 				{
 					LightSource quelle = ((LightSource) gg.getCell(getStartPoint()).getContent());
 					
-					for(int temp_y = y_start; temp_y <= y_end; temp_y++)
+					if(quelle.getCapacity() > 0)
 					{
-						for(int temp_x = x_start; temp_x <= x_end; temp_x++)
+						Cell c = null;
+						Point endPoint = getEndPoint();
+						
+						int temp_x = getStartPoint().x;
+						int temp_y = getStartPoint().y;
+						
+						while(temp_x != getEndPoint().x || temp_y != getEndPoint().y)
 						{
-							if(quelle.getCapacity() > 0)
+							endPoint = new Point(temp_x, temp_y);
+							
+							switch(_direction)
 							{
-								Cell c = gg.getCell(temp_x, temp_y);							
-								c.setContent(new Beam(_direction));
-								quelle.setCapacity(quelle.getCapacity() - 1);
+								case BEAM_UP:
+									c = gg.getCell(temp_x, --temp_y);
+									break;
+								case BEAM_RIGHT:
+									c = gg.getCell(++temp_x, temp_y);
+									break;
+								case BEAM_DOWN:
+									c = gg.getCell(temp_x, ++temp_y);
+									break;
+								case BEAM_LEFT:
+									c = gg.getCell(--temp_x, temp_y);
+									break;
+							}
+	
+							if(c != null)
+							{
+								if(quelle.getCapacity() > 0)
+								{
+									c.setContent(new Beam(_direction));
+									quelle.setCapacity(quelle.getCapacity() - 1);
+								}
+								else
+								{
+									break;
+								}
 							}
 						}
+						
+						GamePanel.getTurnList().addTurn(new Turn(getStartPoint(), endPoint));
+						GamePanel.getGridPanel().resetLayout();
 					}
-					
-					GamePanel.getGridPanel().resetLayout();
-					GamePanel.getTurnList().addTurn(new Turn(getStartPoint(), getEndPoint()));
 				}
 			}
 		}
