@@ -147,19 +147,24 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		
 		if(inField)
 		{
-			System.out.println(endX + ":" + endY);
-			System.out.println(_horizontal + " != " + _vertical);
-			
 			if(_horizontal != _vertical)
 			{
 				_endPoint = new Point(endX, endY);
 			}
 			else
 			{
-				System.out.println("Falscher Zug");
 				_endPoint = new Point(_startPoint.x, _startPoint.y);
 			}
 		}
-		System.out.println("---");
+	}
+	
+	protected Point getStartPoint()
+	{
+		return _startPoint;
+	}
+	
+	protected Point getEndPoint()
+	{
+		return _endPoint;
 	}
 }

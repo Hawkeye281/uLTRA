@@ -33,53 +33,51 @@ public class MouseTurnListener extends AbstractMousePositionListener
 		int y_start = 0, y_end = 0;
 		BeamDirections _direction = null;
 
-		if(_startPoint != null && _endPoint != null)
+		if(getStartPoint() != null && getEndPoint() != null)
 		{
-			if(gg.getCell(super._startPoint).getContent() instanceof LightSource)
+			if(gg.getCell(getStartPoint()).getContent() instanceof LightSource)
 			{
-				if(super._startPoint.y < super._endPoint.y)
+				if(getStartPoint().y < getEndPoint().y)
 				{
-					y_start = super._startPoint.y + 1;
-					y_end = super._endPoint.y;
+					y_start = getStartPoint().y + 1;
+					y_end = getEndPoint().y;
 					_direction = BeamDirections.BEAM_DOWN;
 				}
-				else if(super._startPoint.y == super._endPoint.y)
+				else if(getStartPoint().y == getEndPoint().y)
 				{
-					y_start = super._startPoint.y;
-					y_end = super._endPoint.y;
+					y_start = getStartPoint().y;
+					y_end = getEndPoint().y;
 				}
 				else
 				{
-					y_start = super._endPoint.y;
-					y_end = super._startPoint.y - 1;
+					y_start = getEndPoint().y;
+					y_end = getStartPoint().y - 1;
 					_direction = BeamDirections.BEAM_UP;
 				}
 				
 				for(int temp_y = y_start; temp_y <= y_end; temp_y++)
 				{
-					if(super._startPoint.x < super._endPoint.x)
+					if(getStartPoint().x < getEndPoint().x)
 					{
-						x_start = super._startPoint.x + 1;
-						x_end = super._endPoint.x;
+						x_start = getStartPoint().x + 1;
+						x_end = getEndPoint().x;
 						_direction = BeamDirections.BEAM_RIGHT;
 					}
-					else if(super._startPoint.x == super._endPoint.x)
+					else if(getStartPoint().x == getEndPoint().x)
 					{
-						x_start = super._startPoint.x;
-						x_end = super._endPoint.x;
+						x_start = getStartPoint().x;
+						x_end = getEndPoint().x;
 					}
 					else
 					{
-						x_start = super._endPoint.x;
-						x_end = super._startPoint.x - 1;
+						x_start = getEndPoint().x;
+						x_end = getStartPoint().x - 1;
 						_direction = BeamDirections.BEAM_LEFT;
 					}
 					
 					for(int temp_x = x_start; temp_x <= x_end; temp_x++)
 					{
 						Cell c = gg.getCell(temp_x, temp_y);
-						
-						System.out.println("empty: " + (!c.isEmpty() ? "Nicht leer" : "Ist leer"));
 						
 						if(!c.isEmpty())
 						{
@@ -89,20 +87,25 @@ public class MouseTurnListener extends AbstractMousePositionListener
 					}
 				}
 	
-				if(!super._startPoint.equals(super._endPoint) && valid)
+				if(!getStartPoint().equals(getEndPoint()) && valid)
 				{
+					LightSource quelle = ((LightSource) gg.getCell(getStartPoint()).getContent());
+					
 					for(int temp_y = y_start; temp_y <= y_end; temp_y++)
 					{
 						for(int temp_x = x_start; temp_x <= x_end; temp_x++)
 						{
-							Cell c = gg.getCell(temp_x, temp_y);
-							
-							c.setContent(new Beam(_direction));
+							if(quelle.getCapacity() > 0)
+							{
+								Cell c = gg.getCell(temp_x, temp_y);							
+								c.setContent(new Beam(_direction));
+								quelle.setCapacity(quelle.getCapacity() - 1);
+							}
 						}
 					}
 					
 					GamePanel.getGridPanel().resetLayout();
-					GamePanel.getTurnList().addTurn(new Turn(super._startPoint, super._endPoint));
+					GamePanel.getTurnList().addTurn(new Turn(getStartPoint(), getEndPoint()));
 				}
 			}
 		}

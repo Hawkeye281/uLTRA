@@ -24,8 +24,6 @@ public class ContentConverter
 				if(c.getContent() == null || c.isBeam())
 				{
 					c.setContent(new EmptyContent());
-					
-					System.out.println("[" + x + ":" + y + "] : " + c.isEmpty());
 				}
 			}
 		}
