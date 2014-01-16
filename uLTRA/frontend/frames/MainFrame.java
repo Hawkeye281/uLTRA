@@ -27,6 +27,7 @@ public class MainFrame extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static MainFrame _mainFrame;
 	private static JDesktopPane desktop;
 	private static Point location;
 	private Image img;
@@ -38,10 +39,11 @@ public class MainFrame extends JFrame{
 	 * @see frames.MainFrame#init()
 	 */
 	public MainFrame(){
-		setSize(800,600);
-		setResizable(false);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		MainFrame._mainFrame = this;
+		this.setSize(800,600);
+		this.setResizable(false);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		location = this.getLocation();
 	}
 	
@@ -58,7 +60,7 @@ public class MainFrame extends JFrame{
 	 */
 	public void init(){		
 		desktop = setDesktopBackground();
-		desktop.add(new MenuPanel(this));
+		desktop.add(new MenuPanel());
 		desktop.setVisible(true);
 		this.add(desktop);
 		this.setVisible(true);
@@ -86,6 +88,10 @@ public class MainFrame extends JFrame{
 	        }
 		};
 		return desk;
+	}
+	
+	public static MainFrame getMainFrame(){
+		return MainFrame._mainFrame;
 	}
 	
 	public void addToDesktop(Component comp){
