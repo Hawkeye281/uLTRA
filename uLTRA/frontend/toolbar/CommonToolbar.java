@@ -69,6 +69,15 @@ public class CommonToolbar extends JToolBar{
 		button.setBackground(Color.WHITE);
 		add(seperator());
 		add(seperator());
+		button = new JButton();
+		this.add(button);
+		button.addActionListener(new SolveAction());
+		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/solve.png"));
+		button.setText("Spiel lösen");
+		button.setToolTipText("Löst das aktuelle Spiel");
+		button.setBackground(Color.WHITE);
+		add(seperator());
+		add(seperator());
 	}
 	
 	private void setEditorTools(){
