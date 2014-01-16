@@ -3,6 +3,7 @@ package listener;
 import gamegrid.Beam;
 import gamegrid.BeamDirections;
 import gamegrid.Cell;
+import gamegrid.EmptyContent;
 import gamegrid.GameGrid;
 import gamegrid.LightSource;
 import gamegrid.Turn;
@@ -24,10 +25,12 @@ public class MouseTurnListener extends AbstractMousePositionListener
 
 	@Override
 	public void mouseReleased(MouseEvent pEvent)
-	{	
+	{
 		super.mouseReleased(pEvent);
+//		System.out.println("Pushed (" + (pEvent.getButton() == MouseEvent.BUTTON1? "Linksklick" : "Rechtsklick") + ") [" + getStartPoint().toString() + ":" + getEndPoint().toString() + "]");
 		
-		boolean valid = true; 
+		boolean valid = true;
+		boolean validTurn = true;
 		
 		int x_start = 0, x_end = 0;
 		int y_start = 0, y_end = 0;
@@ -81,8 +84,11 @@ public class MouseTurnListener extends AbstractMousePositionListener
 						
 						if(!c.isEmpty())
 						{
-							valid = false;
-							break;
+							if(pEvent.getButton() != MouseEvent.BUTTON3)
+							{
+								valid = false;
+								break;
+							}
 						}
 					}
 				}
@@ -91,35 +97,41 @@ public class MouseTurnListener extends AbstractMousePositionListener
 				{
 					LightSource quelle = ((LightSource) gg.getCell(getStartPoint()).getContent());
 					
-					if(quelle.getCapacity() > 0)
+					if(quelle.getCapacity() == 0)
 					{
-						Cell c = null;
-						Point endPoint = getEndPoint();
+						validTurn = false;
+					}
+					
+					Cell c = null;
+					Point endPoint = getEndPoint();
+					
+					int temp_x = getStartPoint().x;
+					int temp_y = getStartPoint().y;
+					
+					
+					while(temp_x != getEndPoint().x || temp_y != getEndPoint().y)
+					{
+						endPoint = new Point(temp_x, temp_y);
 						
-						int temp_x = getStartPoint().x;
-						int temp_y = getStartPoint().y;
-						
-						while(temp_x != getEndPoint().x || temp_y != getEndPoint().y)
+						switch(_direction)
 						{
-							endPoint = new Point(temp_x, temp_y);
-							
-							switch(_direction)
-							{
-								case BEAM_UP:
-									c = gg.getCell(temp_x, --temp_y);
-									break;
-								case BEAM_RIGHT:
-									c = gg.getCell(++temp_x, temp_y);
-									break;
-								case BEAM_DOWN:
-									c = gg.getCell(temp_x, ++temp_y);
-									break;
-								case BEAM_LEFT:
-									c = gg.getCell(--temp_x, temp_y);
-									break;
-							}
-	
-							if(c != null)
+							case BEAM_UP:
+								c = gg.getCell(temp_x, --temp_y);
+								break;
+							case BEAM_RIGHT:
+								c = gg.getCell(++temp_x, temp_y);
+								break;
+							case BEAM_DOWN:
+								c = gg.getCell(temp_x, ++temp_y);
+								break;
+							case BEAM_LEFT:
+								c = gg.getCell(--temp_x, temp_y);
+								break;
+						}
+
+						if(c != null)
+						{
+							if(pEvent.getButton() == MouseEvent.BUTTON1)
 							{
 								if(quelle.getCapacity() > 0)
 								{
@@ -131,11 +143,23 @@ public class MouseTurnListener extends AbstractMousePositionListener
 									break;
 								}
 							}
+							else if(pEvent.getButton() == MouseEvent.BUTTON3)
+							{
+								if(c.isBeam())
+								{
+									c.setContent(new EmptyContent());
+									quelle.setCapacity(quelle.getCapacity() + 1);
+								}
+							}
 						}
-						
-						GamePanel.getTurnList().addTurn(new Turn(getStartPoint(), endPoint));
-						GamePanel.getGridPanel().resetLayout();
 					}
+					
+					if(validTurn)
+					{
+						GamePanel.getGamePanel().getTurnList().addTurn(new Turn(getStartPoint(), endPoint));
+					}
+					
+					GamePanel.getGamePanel().getGridPanel().resetLayout();
 				}
 			}
 		}

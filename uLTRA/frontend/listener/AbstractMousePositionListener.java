@@ -17,10 +17,10 @@ import Controller.GridController;
 public abstract class AbstractMousePositionListener implements MouseListener
 {
 	/** Startpunkt des Klicks (Position im Raster, keine Pixelangabe) */
-	protected Point _startPoint;
+	private Point _startPoint;
 	
 	/** Endpunkt des Klicks (Position im Raster, keine Pixelangabe) */
-	protected Point _endPoint;
+	private Point _endPoint;
 	
 	protected Point _cell;
 
@@ -29,8 +29,6 @@ public abstract class AbstractMousePositionListener implements MouseListener
 	
 	/** Spielfeldzellenbreite */
 	private double _cellWidth = (float)GridPanel.getGridSize().width / (float)GridController.getGameGrid().getWidth();
-	
-	
 	
 	/*
 	 * (non-Javadoc)
@@ -69,7 +67,6 @@ public abstract class AbstractMousePositionListener implements MouseListener
 	@Override
 	public void mousePressed(MouseEvent pEvent)
 	{
-		
 		int startX = pEvent.getX();
 		int startY = pEvent.getY();
 		boolean inField = true;
@@ -96,7 +93,6 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		{
 			_startPoint = new Point(startX, startY);
 		}
-		System.out.println(inField + " : " + startX +", " + startY);
 	}
 
 	/*
@@ -151,7 +147,6 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		
 		if(inField)
 		{
-			System.out.println(_horizontal + " != " + _vertical);
 			if(_horizontal != _vertical)
 			{
 				_endPoint = new Point(endX, endY);
