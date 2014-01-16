@@ -23,14 +23,19 @@ public class MouseTurnListener extends AbstractMousePositionListener
 {
 	private GameGrid gg = GridController.getGameGrid();
 
+	/*
+	 * (non-Javadoc)
+	 * @see listener.AbstractMousePositionListener#mouseReleased(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseReleased(MouseEvent pEvent)
 	{
 		super.mouseReleased(pEvent);
 //		System.out.println("Pushed (" + (pEvent.getButton() == MouseEvent.BUTTON1? "Linksklick" : "Rechtsklick") + ") [" + getStartPoint().toString() + ":" + getEndPoint().toString() + "]");
 		
-		boolean valid = true;
-		boolean validTurn = true;
+		boolean valid = true;	// Ist der Zug okay?
+		boolean validTurn = true; // Soll in die TurnList geschrieben werden?
+		boolean keepLooking = false; // Ist das eine Rückgängigaktion (Dient zum "überbrücken" der Schleife, dass die Beams der kompletten Richtung gelöscht werden, selbst wenn man die Reihe per Rechtsklick nicht komplett gezogen hat) 
 		
 		int x_start = 0, x_end = 0;
 		int y_start = 0, y_end = 0;
@@ -40,6 +45,8 @@ public class MouseTurnListener extends AbstractMousePositionListener
 		{
 			if(gg.getCell(getStartPoint()).getContent() instanceof LightSource)
 			{
+				// Ermittlung der Strahlausrichtung (Y-Achse)
+				
 				if(getStartPoint().y < getEndPoint().y)
 				{
 					y_start = getStartPoint().y + 1;
@@ -60,6 +67,8 @@ public class MouseTurnListener extends AbstractMousePositionListener
 				
 				for(int temp_y = y_start; temp_y <= y_end; temp_y++)
 				{
+					// Ermittlung der Strahlenausrichtung (X-Achse)
+					
 					if(getStartPoint().x < getEndPoint().x)
 					{
 						x_start = getStartPoint().x + 1;
@@ -77,7 +86,8 @@ public class MouseTurnListener extends AbstractMousePositionListener
 						x_end = getStartPoint().x - 1;
 						_direction = BeamDirections.BEAM_LEFT;
 					}
-					
+										
+					//Ist ein Feld schon belegt? Wenn ja, brich ab.
 					for(int temp_x = x_start; temp_x <= x_end; temp_x++)
 					{
 						Cell c = gg.getCell(temp_x, temp_y);
@@ -97,60 +107,101 @@ public class MouseTurnListener extends AbstractMousePositionListener
 				{
 					LightSource quelle = ((LightSource) gg.getCell(getStartPoint()).getContent());
 					
+					// Die Lichtquelle hat keinen Saft mehr
 					if(quelle.getCapacity() == 0)
 					{
 						validTurn = false;
 					}
-					
+
 					Cell c = null;
 					Point endPoint = getEndPoint();
-					
+
 					int temp_x = getStartPoint().x;
 					int temp_y = getStartPoint().y;
-					
-					
-					while(temp_x != getEndPoint().x || temp_y != getEndPoint().y)
+
+					// Solange nicht der Endpunkt des Zuges oder im Löschfall nicht das Ende des Strahls erreicht worden ist 
+					while((temp_x != getEndPoint().x) != (temp_y != getEndPoint().y) != keepLooking)
 					{
+						c = null;
 						endPoint = new Point(temp_x, temp_y);
 						
 						switch(_direction)
-						{
+						{							
 							case BEAM_UP:
-								c = gg.getCell(temp_x, --temp_y);
+								if(temp_y > 0)
+									c = gg.getCell(temp_x, --temp_y);
 								break;
 							case BEAM_RIGHT:
-								c = gg.getCell(++temp_x, temp_y);
+								if((temp_x + 1) < gg.getWidth())
+									c = gg.getCell(++temp_x, temp_y);
 								break;
 							case BEAM_DOWN:
-								c = gg.getCell(temp_x, ++temp_y);
+								if((temp_y + 1) < gg.getHeight())
+									c = gg.getCell(temp_x, ++temp_y);
 								break;
 							case BEAM_LEFT:
-								c = gg.getCell(--temp_x, temp_y);
+								if(temp_x > 0)
+									c = gg.getCell(--temp_x, temp_y);
 								break;
 						}
 
 						if(c != null)
 						{
+							// Strahl zeichnen
 							if(pEvent.getButton() == MouseEvent.BUTTON1)
 							{
 								if(quelle.getCapacity() > 0)
 								{
-									c.setContent(new Beam(_direction));
-									quelle.setCapacity(quelle.getCapacity() - 1);
+									if(c.isEmpty())
+									{
+										c.setContent(new Beam(_direction));
+										quelle.setCapacity(quelle.getCapacity() - 1);
+									}
+									else
+									{
+										keepLooking = false;
+										break;
+									}
 								}
 								else
 								{
+									keepLooking = false;
 									break;
 								}
 							}
+							//Strahl löschen
 							else if(pEvent.getButton() == MouseEvent.BUTTON3)
 							{
 								if(c.isBeam())
 								{
-									c.setContent(new EmptyContent());
-									quelle.setCapacity(quelle.getCapacity() + 1);
+									if(((Beam)c.getContent()).getDirection() == _direction)
+									{
+										c.setContent(new EmptyContent());
+										quelle.setCapacity(quelle.getCapacity() + 1);
+										
+										if((temp_x == getEndPoint().x) && (temp_y == getEndPoint().y))
+										{
+											keepLooking = true;
+										}
+										else
+										{
+											keepLooking = false;
+										}
+									}
+									else
+									{
+										keepLooking = true;
+									}
+								}
+								else
+								{
+									keepLooking = true;
 								}
 							}
+						}
+						else
+						{
+							break;
 						}
 					}
 					
