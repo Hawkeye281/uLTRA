@@ -1,15 +1,18 @@
 package Controller;
 
+import panels.GamePanel;
 import panels.GridPanel;
 
 import gamegrid.Beam;
 import gamegrid.BeamDirections;
+import gamegrid.Cell;
 import gamegrid.GameGrid;
 import gamegrid.LightSource;
 
 public class EditorController {
 
 	private static GameGrid editorGrid = null;
+	private GamePanel gamePanel;
 	
 	/**
 	 * Erstellt ein neues Grid nach Anwendervorgaben
@@ -22,6 +25,14 @@ public class EditorController {
 	public void setGameGrid(int height, int width) throws Exception{
 		GameGrid.deleteInstance();
 		editorGrid = GameGrid.getInstance(height, width);
+	}
+	
+	public void setEditGrid(int height, int width) throws Exception{
+		this.gamePanel = GamePanel.getGamePanel();
+		GameGrid.deleteInstance();
+		editorGrid = GameGrid.getInstance(height, width);
+		this.gamePanel.setGroundPanel();
+		this.gamePanel.refresh();
 	}
 	
 	/**
@@ -41,13 +52,31 @@ public class EditorController {
 		editorGrid = null;
 	}
 	
+	public void resetGrid(){
+		if (gridIsSet())
+			removeGrid();
+	}
+	
+	public void recreateEditGrid(){
+		this.gamePanel.setGroundPanel();
+		this.gamePanel.refresh();
+	}
+	
+	public Cell getCell(int x, int y){
+		return editorGrid.getCell(x, y);
+	}
+	
 	/**
 	 * prüft, ob ein editorGrid vorhanden ist 
 	 * @return true = Grid ist vorhanden; false = kein Grid vorhanden
 	 * @author Sebastian Kiepert
 	 */
-	public boolean isSet(){
+	public boolean gridIsSet(){
 		return (editorGrid!=null)? true : false;
+	}
+	
+	public boolean isInGrid(int x, int y){
+		return (editorGrid.isInGrid(x, y))? true : false;
 	}
 	
 	/**
@@ -100,6 +129,16 @@ public class EditorController {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param x = Position der Lichtquelle an der x-Achse
+	 * @param y = Position der Lichquelle an der y-Achse
+	 * @author Sebastian Kiepert
+	 */
+	public void removeLightSource(int x, int y){
+		editorGrid.getCell(x, y).removeContent();
+	}
+	
 	public void setBeam(int x, int y, BeamDirections direction){
 		if (!isLightSource(x, y))
 			editorGrid.getCell(x, y).setContent(new Beam(direction));
@@ -117,21 +156,7 @@ public class EditorController {
 	}
 	
 	public void removeBeam(int x, int y){
-		editorGrid.getCell(x, y).setContent(null);
-	}
-	
-	public boolean isInGrid(int x, int y){
-		return (editorGrid.isInGrid(x, y))? true : false;
-	}
-	
-	/**
-	 * 
-	 * @param x = Position der Lichtquelle an der x-Achse
-	 * @param y = Position der Lichquelle an der y-Achse
-	 * @author Sebastian Kiepert
-	 */
-	public void removeLightSource(int x, int y){
-		editorGrid.getCell(x, y).setContent(null);
+		editorGrid.getCell(x, y).removeContent();
 	}
 	
 	public static GameGrid getEditGrid(){

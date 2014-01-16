@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import panels.EditorPanel;
+import panels.GamePanel;
 
 import dialogs.FieldSizeDialog;
 
@@ -24,10 +24,10 @@ public class GenerateAction extends AbstractAction {
 
 
 	private static final long serialVersionUID = 1L;
-	private EditorPanel editPanel;
+	private GamePanel gamePanel;
 	
-	public GenerateAction(EditorPanel editPanel){
-		this.editPanel = editPanel;
+	public GenerateAction(){
+		this.gamePanel = GamePanel.getGamePanel();
 		putValue(Action.NAME, "Feld erstellen");
 		putValue(Action.SHORT_DESCRIPTION, "Spielfeld erstellen");
 	}
@@ -38,7 +38,7 @@ public class GenerateAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		@SuppressWarnings("unused")
-		FieldSizeDialog fsd = new FieldSizeDialog(editPanel);
+		FieldSizeDialog fsd = new FieldSizeDialog();
 	}
 
 }

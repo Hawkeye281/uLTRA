@@ -1,21 +1,13 @@
 package toolbar;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
-import com.sun.corba.se.spi.orbutil.fsm.Action;
-import com.sun.corba.se.spi.orbutil.fsm.FSM;
-import com.sun.corba.se.spi.orbutil.fsm.Input;
-
-import panels.EditorPanel;
 import panels.GamePanel;
 import toolbarActions.*;
 
@@ -25,6 +17,7 @@ public class CommonToolbar extends JToolBar{
 
 	private static final long serialVersionUID = 1L;
 	private MainFrame mainFrame;
+	private GamePanel gamePanel = GamePanel.getGamePanel();
 	
 	/**
 	 * Von Spielbrett und Editor gemeinsam verwendete Toolbar, die entsprechend ihres Erzeugers die entsprechenden
@@ -33,7 +26,7 @@ public class CommonToolbar extends JToolBar{
 	 * @param final MainFrame mainFrame
 	 * @param final EditorPanel editorPanel
 	 * @param final String whoYouAre
-	 * @author Sebatian Kiepert
+	 * @author Sebastian Kiepert
 	 * @version 1.2
 	 * @see toolbarActions.SaveAction
 	 * @see toolbarActions.LoadAction
@@ -43,11 +36,26 @@ public class CommonToolbar extends JToolBar{
 	 * @see toolbarActions.CloseAction
 	 * 
 	 */
-	public CommonToolbar(final MainFrame mainFrame, final GamePanel gamePanel){
-		this.mainFrame = mainFrame;
+	public CommonToolbar(){
+		this.mainFrame = gamePanel.getMainFrame();
+		switch (this.gamePanel.getPanelMode()){
+		case GAME:{
+			this.setGameTools();
+			break;
+		}
+		case EDIT:{
+			this.setEditorTools();
+			break;
+		}
+		}
+		commonTools();
+		this.setFloatable(false);
+	}
+	
+	private void setGameTools(){
 		JButton button = new JButton();
 		this.add(button);
-		button.addActionListener(new LoadAction(gamePanel));
+		button.addActionListener(new LoadAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/load.png"));
 		button.setText("Spiel laden");
 		button.setToolTipText("Lädt ein gespeichertes Spiel");
@@ -61,15 +69,12 @@ public class CommonToolbar extends JToolBar{
 		button.setBackground(Color.WHITE);
 		add(seperator());
 		add(seperator());
-		commonTools();
-		setFloatable(false);
 	}
 	
-	public CommonToolbar(final MainFrame mainFrame, final EditorPanel editPanel){
-		this.mainFrame = mainFrame;
+	private void setEditorTools(){
 		JButton button = new JButton();
 		this.add(button);
-		button.addActionListener(new GenerateAction((EditorPanel)editPanel));
+		button.addActionListener(new GenerateAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/new.png"));
 		button.setText("Feld erstellen");
 		button.setToolTipText("Erstellt ein leeres Spielfeld");
@@ -77,10 +82,17 @@ public class CommonToolbar extends JToolBar{
 		
 		button = new JButton();
 		this.add(button);
-		button.addActionListener(new ResetAction((EditorPanel)editPanel));
+		button.addActionListener(new ResetAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/reset.png"));
 		button.setText("Zurücksetzen");
 		button.setToolTipText("Setzt alle Änderungen zurück");
+		button.setBackground(Color.WHITE);
+		
+		button = new JButton();
+		this.add(button);
+		button.addActionListener(new CheckRulesAction());
+		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/check.png"));
+		button.setText("Regeln prüfen");
 		button.setBackground(Color.WHITE);
 		
 		add(seperator());
@@ -96,7 +108,7 @@ public class CommonToolbar extends JToolBar{
 		
 		button = new JButton();
 		this.add(button);
-		button.addActionListener(new LoadAction(editPanel));
+		button.addActionListener(new LoadAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/load.png"));
 		button.setText("Feld laden");
 		button.setToolTipText("Lädt ein gespeichertes Feld");
@@ -104,17 +116,14 @@ public class CommonToolbar extends JToolBar{
 		
 		add(seperator());
 		add(seperator());
-		
-		setFloatable(false);
-		commonTools();
 	}
 	
 	private void commonTools(){
 		JButton button = new JButton();
 		this.add(button);
-		button.addActionListener(new MainMenuAction(mainFrame));
+		button.addActionListener(new MainMenuAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/home.png"));
-		button.setText("Zum Hauptmenü");
+//		button.setText("Zum Hauptmenü");
 		button.setToolTipText("Bringt Sie zurück zum Hauptmenü");
 		button.setBackground(Color.WHITE);
 		add(seperator());
@@ -123,7 +132,7 @@ public class CommonToolbar extends JToolBar{
 		this.add(button);
 		button.addActionListener(new CloseAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/exit.png"));
-		button.setText("Beenden");
+//		button.setText("Beenden");
 		button.setToolTipText("Beendet das Programm");
 		button.setBackground(Color.WHITE);
 	}

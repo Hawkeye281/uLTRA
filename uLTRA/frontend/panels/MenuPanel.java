@@ -15,12 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import toolbarActions.LoadAction;
-
-import Controller.GridController;
 import Controller.MenuController;
 
-import frames.MainFrame;
 import gamegrid.GameGrid;
 
 /**
@@ -30,7 +26,6 @@ import gamegrid.GameGrid;
 public class MenuPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private MainFrame mainFrame;
 	
 	/**
 	 * Hauptmenü der Anwendung, das im MenuPanel geladen
@@ -39,14 +34,12 @@ public class MenuPanel extends JPanel {
 	 * @param MainFrame mainFrame
 	 * @see panels.MenuPanel.ActionHandler#actionPerformed(ActionEvent)
 	 */
-	public MenuPanel(MainFrame mainFrame){
+	public MenuPanel(){
 		super(new GridLayout(5,1));
-		this.mainFrame = mainFrame;
 		setSize(200, 300);
 		setLocation(300,150);
 		setBorder(BorderFactory.createTitledBorder("Hauptmenü"));
 		add(setButton("Neues Spiel", "start", true, new ImageIcon("../uLTRA/Documents/images/icons/new.png")));
-		add(setButton("Spiel laden", "load", true, new ImageIcon("../uLTRA/Documents/images/icons/load.png")));
 		add(setButton("Editor starten", "editor", true, new ImageIcon("../uLTRA/Documents/images/icons/editor.png")));
 		add(setButton("Optionen", "options", false, new ImageIcon("../uLTRA/Documents/images/icons/options.png")));
 		add(setButton("Spiel beenden", "exit", true, new ImageIcon("../uLTRA/Documents/images/icons/exit.png")));
@@ -77,16 +70,11 @@ public class MenuPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			JButton clicked = (JButton) e.getSource();
 			if (clicked.getName().equals("start")){
-				menuController.newGame(mainFrame);
-			}
-			else if (clicked.getName().equals("load")){
-				GamePanel gamePanel = new GamePanel(mainFrame);
-				new LoadAction(gamePanel).actionPerformed(e);
-				MenuController.loadGame(gamePanel);
+				menuController.newGame();
 			}
 			else if (clicked.getName().equals("editor")){
 				GameGrid.deleteInstance();
-				menuController.editor(mainFrame);
+				menuController.editor();
 			}
 			else if(clicked.getName().equals("exit")){
 				menuController.exit();

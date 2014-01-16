@@ -8,14 +8,12 @@ import java.io.File;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Controller.GridController;
 
-import panels.EditorPanel;
 import panels.GamePanel;
 
 /**
@@ -28,17 +26,10 @@ import panels.GamePanel;
 public class LoadAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
-	private GamePanel gamePanel = null;
-	private EditorPanel editorPanel = null;
+	private GamePanel gamePan = null;
 	
-	public LoadAction(GamePanel gamePanel){
-		this.gamePanel = gamePanel;
-		putValue(Action.NAME, "Laden");
-		putValue(Action.SHORT_DESCRIPTION, "Spiel laden");
-	}
-	
-	public LoadAction(EditorPanel editorPanel){
-		this.editorPanel = editorPanel;
+	public LoadAction(){
+		this.gamePan = GamePanel.getGamePanel();
 		putValue(Action.NAME, "Laden");
 		putValue(Action.SHORT_DESCRIPTION, "Spiel laden");
 	}
@@ -48,7 +39,7 @@ public class LoadAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) { 
-		if (gamePanel != null) {
+		if (gamePan != null) {
 			JFileChooser jfc = new JFileChooser();
 			FileFilter ff = new FileNameExtensionFilter("Lichtstrahl-Puzzle", "puzzle");
 			File dirfile = new File("Documents/Spiele");
@@ -60,12 +51,9 @@ public class LoadAction extends AbstractAction {
 			if(jfc.showOpenDialog(jfc) == 0){
 				GridController.loadGame(jfc.getSelectedFile().getName());
 			}
+			this.gamePan.resetPanel();
+			this.gamePan.setGroundPanel();
 		}
-		else {
-//			MenuController.loadGame(editorPanel);
-		}
-
-		gamePanel.loadGame();
 	}
 
 }

@@ -30,6 +30,8 @@ public abstract class AbstractMousePositionListener implements MouseListener
 	/** Spielfeldzellenbreite */
 	private double _cellWidth = (float)GridPanel.getGridSize().width / (float)GridController.getGameGrid().getWidth();
 	
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
@@ -67,6 +69,7 @@ public abstract class AbstractMousePositionListener implements MouseListener
 	@Override
 	public void mousePressed(MouseEvent pEvent)
 	{
+		
 		int startX = pEvent.getX();
 		int startY = pEvent.getY();
 		boolean inField = true;
@@ -93,6 +96,7 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		{
 			_startPoint = new Point(startX, startY);
 		}
+		System.out.println(inField + " : " + startX +", " + startY);
 	}
 
 	/*
@@ -147,6 +151,7 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		
 		if(inField)
 		{
+			System.out.println(_horizontal + " != " + _vertical);
 			if(_horizontal != _vertical)
 			{
 				_endPoint = new Point(endX, endY);

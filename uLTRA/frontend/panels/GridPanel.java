@@ -44,7 +44,7 @@ public class GridPanel extends JPanel
 		_layout = new GridLayout(_gridCont.getHeight(), _gridCont.getWidth());
 		_size = (_gridCont.getHeight()>_gridCont.getWidth())?
 				new Dimension(500/_gridCont.getHeight()*_gridCont.getWidth(),500) :
-					new Dimension(500/_gridCont.getWidth()*_gridCont.getHeight(),500);
+					new Dimension(500,500/_gridCont.getWidth()*_gridCont.getHeight());
 		
 		this.setLayout(_layout);
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));

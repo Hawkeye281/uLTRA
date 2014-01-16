@@ -7,7 +7,6 @@ import javax.swing.JDialog;
 
 import frames.MainFrame;
 
-import panels.EditorPanel;
 import panels.FieldSizePanel;
 
 
@@ -17,6 +16,7 @@ public class FieldSizeDialog extends JDialog{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static FieldSizeDialog _fsd;
 	
 	/**
 	 * Der Diolog, in dem die Spielfeldgröße eingestellt wird
@@ -26,13 +26,18 @@ public class FieldSizeDialog extends JDialog{
 	 * @param editPanel
 	 * @see panels.FieldSizePanel
 	 */
-	public FieldSizeDialog(EditorPanel editPanel){
+	public FieldSizeDialog(){
+		FieldSizeDialog._fsd = this;
 		setUndecorated(true);
 		setLocation((int)MainFrame.getFrameLocation().getX()+125, (int)MainFrame.getFrameLocation().getY()+50);
 		setSize(200,120);
 		setModal(true);
-		add(new FieldSizePanel(this, editPanel));
+		add(new FieldSizePanel());
 		setVisible(true);
+	}
+	
+	public static FieldSizeDialog getFSD(){
+		return FieldSizeDialog._fsd;
 	}
 	
 }

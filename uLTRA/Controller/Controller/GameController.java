@@ -52,7 +52,7 @@ public class GameController {
 		// - Höhe und Breite des Spielfelds
 		// - verbleibende Kapazität der Lichtquelle
 		
-		GridController gridCtrl = GamePanel.getGridController();
+		GridController gridCtrl = GamePanel.getGamePanel().getGridController();
 		int maxX, maxY;
 		maxX = gridCtrl.getWidth();
 		maxY = gridCtrl.getHeight();
@@ -153,7 +153,7 @@ public class GameController {
 		
 		Turn t = new Turn(new Point(startX, startY), new Point(endX, endY));
 //		System.out.println(t);
-		GamePanel.getTurnList().addTurn(t);
+		GamePanel.getGamePanel().getTurnList().addTurn(t);
 		
 	}
 	

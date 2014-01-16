@@ -13,10 +13,10 @@ public class StepBackAction extends AbstractAction {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GamePanel gamePanel;
+	private GamePanel gamePan;
 	
-	public StepBackAction(GamePanel gamePanel){
-		this.gamePanel = gamePanel;
+	public StepBackAction(){
+		this.gamePan = GamePanel.getGamePanel();
 		putValue(Action.NAME, "Schritt zurück");
 		putValue(Action.SHORT_DESCRIPTION, "letzte Aktion löschen");
 	}
