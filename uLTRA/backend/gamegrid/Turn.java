@@ -16,12 +16,17 @@ public class Turn implements Serializable
 	private static final long serialVersionUID = -5757315100515012398L;
 	private Point _start;
 	private Point _end;
+	private String text = "";
 	
 	public Turn(Point pStart, Point pEnd)
 	{
 		_start = pStart;
 		_end = pEnd;
 		
+	}
+	
+	public Turn(String failureString){
+		text = failureString;
 	}
 	
 	public Point getStart()
@@ -37,6 +42,6 @@ public class Turn implements Serializable
 	@Override
 	public String toString()
 	{
-		return "[" + _start.x + ":" + _start.y + "] -> [" + _end.x + ":" + _end.y + "]";
+		return (text.equals(""))? "[" + _start.x + ":" + _start.y + "] -> [" + _end.x + ":" + _end.y + "]" : text;
 	}
 }

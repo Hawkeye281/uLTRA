@@ -110,4 +110,8 @@ public class Cell implements Serializable{
 	public boolean isBeam() {
 		return content instanceof Beam;
 	}	
+	
+	public void removeContent(){
+		content = new EmptyContent();
+	}
 }
