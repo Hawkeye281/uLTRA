@@ -3,6 +3,7 @@
  */
 package listener;
 
+import gamegrid.Beam;
 import gamegrid.BeamDirections;
 
 import java.awt.Point;
@@ -135,11 +136,13 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 	}
 	
 	private void removeBeam(int x, int y, String[] check){
-		int x_start = x, y_start = y;		
-		if (check[0]!=null){
-			Point lightSource = searchLightSource(x_start, y_start, check);
-			editGridCont.setLightValue(lightSource.x, lightSource.y, editGridCont.getLightValue(lightSource.x, lightSource.y)-1);
-			editGridCont.removeBeam(x_start, y_start);
+		if (checkPosition(x,y)){
+			int x_start = x, y_start = y;		
+			if (check[0]!=null){
+				Point lightSource = searchLightSource(x_start, y_start, check);
+				editGridCont.setLightValue(lightSource.x, lightSource.y, editGridCont.getLightValue(lightSource.x, lightSource.y)-1);
+				editGridCont.removeBeam(x_start, y_start);
+			}
 		}
 	}
 	
@@ -220,5 +223,26 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 			result[1] = "-1";
 		}
 		return result;
+	}
+	
+	private boolean checkPosition(int x, int y){
+		BeamDirections beam = editGridCont.getBeam(x, y).getDirection(), nextBeam=null;
+		if (beam == BeamDirections.BEAM_LEFT){
+			Beam test = editGridCont.getBeam(x-1, y);
+			nextBeam = (test!=null)? test.getDirection() : null;
+		}
+		else if (beam == BeamDirections.BEAM_RIGHT){
+			Beam test = editGridCont.getBeam(x+1, y);
+			nextBeam = (test!=null)? test.getDirection() : null;
+		}
+		else if (beam == BeamDirections.BEAM_UP){
+			Beam test = editGridCont.getBeam(x, y-1);
+			nextBeam = (test!=null)? test.getDirection() : null;
+		}
+		else if (beam == BeamDirections.BEAM_DOWN){
+			Beam test = editGridCont.getBeam(x, y+1);
+			nextBeam = (test!=null)? test.getDirection() : null;
+		}
+		return (beam==nextBeam)? false : true;
 	}
 }
