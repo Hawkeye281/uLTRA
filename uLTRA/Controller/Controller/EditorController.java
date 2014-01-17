@@ -13,7 +13,7 @@ import gamegrid.LightSource;
 public class EditorController {
 
 	private static GameGrid editorGrid;
-	private GamePanel gamePanel;
+	private static GamePanel gamePanel;
 	static LoadGame loader = new LoadGame();
 	
 	/**
@@ -82,10 +82,10 @@ public class EditorController {
 	}
 	
 	public static GameGrid loadGame(String spielname){
+		EditorController.gamePanel = GamePanel.getGamePanel();
 		try
 		{
 			GameGrid.setInstance(loader.spielLaden(spielname));
-			System.out.println("Hier isser: " + GameGrid.getInstance() != null? "existiert" : "existiert NICHT!");
 			EditorController.editorGrid = GameGrid.getInstance();
 		}
 		catch (Exception e)

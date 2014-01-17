@@ -20,7 +20,6 @@ import panels.GamePanel;
 public class EditorMouseListener extends AbstractMousePositionListener {
 
 	private GamePanel gamePanelNew;
-//	private static EditorPanel editorPanel;
 	private EditorController editGridCont;
 	
 	public EditorMouseListener(){
@@ -32,10 +31,8 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 	public void mouseClicked(MouseEvent pEvent){
 		super.mouseClicked(pEvent);
 		
-//		System.out.println(super._startPoint + " : " + super._endPoint);
 		Point clickLoc = getStartPoint();
 		if (pEvent.getClickCount()==2 && !pEvent.isMetaDown()){
-//			System.out.println(getStartPoint());
 			if (!editGridCont.isLightSource(clickLoc.x, clickLoc.y))
 				editGridCont.setLightSource(clickLoc.x, clickLoc.y);
 			this.editGridCont.recreateEditGrid();
@@ -80,13 +77,11 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 				if (getStartPoint().x == getEndPoint().x){
 					int column = getStartPoint().x;
 					if (getStartPoint().y < getEndPoint().y){
-						System.out.println("down");
 						y_start = getStartPoint().y;
 						y_end = getEndPoint().y;
 						_direction = BeamDirections.BEAM_DOWN;
 					}
 					else {
-						System.out.println("up");
 						y_start = getEndPoint().y;
 						y_end = getStartPoint().y;
 						_direction = BeamDirections.BEAM_UP;
@@ -110,13 +105,11 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 				else if (getStartPoint().y == getEndPoint().y){
 					int row = getStartPoint().y;
 					if (getStartPoint().x < getEndPoint().x){
-						System.out.println("right");
 						x_start = getStartPoint().x;
 						x_end = getEndPoint().x;
 						_direction = BeamDirections.BEAM_RIGHT;
 					}
 					else {
-						System.out.println("left");
 						x_start = getEndPoint().x;
 						x_end = getStartPoint().x;
 						_direction = BeamDirections.BEAM_LEFT;
@@ -136,7 +129,6 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 						editGridCont.setLightValue(getStartPoint().x, getStartPoint().y, lightValue);
 					}
 				}
-//				System.out.println(lightValue);	
 				this.editGridCont.recreateEditGrid();
 			}
 		}
@@ -173,11 +165,7 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 			if (check[0].equals("DOWN"))
 				checkList.add(check);
 		}
-//		int i=0;
-//		System.out.println(checkList.size());
 		for (String[] check : checkList){
-//			i++;
-//			System.out.println("Liste " + i + ": " + check[0] + " : " + check[1]);
 			if (check[0].equals("LEFT") || check[0].equals("RIGHT")){
 				int x_start = x + (Integer.valueOf(check[1])*-1);
 				BeamDirections beam = editGridCont.getBeam(x_start, y).getDirection();
