@@ -26,14 +26,14 @@ public class CheckEditRules {
 					if (cell.isLightSource()){
 						LightSource lightSource = (LightSource) cell.getContent();
 						if (lightSource.getCapacity() == 0){
-							gamePanel.getTurnList().addTurn(new Turn("[" + x + ";" + y + "]: Lichtquelle ohne Wert"));
+							gamePanel.getTurnList().addTurn(new Turn("[" + (x+1) + " links; " + (y+1) + " runter]: Lichtquelle = 0"));
 							failures++;
 						}
 						
 					}
 				}
 				else{
-					gamePanel.getTurnList().addTurn(new Turn("[" + x + ";" + y + "]: Leere Zelle"));
+					gamePanel.getTurnList().addTurn(new Turn("[" + (x+1) + " links; " + (y+1) + " runter]: Leere Zelle"));
 					failures++;
 				}
 			}
