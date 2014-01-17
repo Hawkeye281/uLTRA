@@ -41,8 +41,9 @@ public class MenuPanel extends JPanel {
 		setBorder(BorderFactory.createTitledBorder("Hauptmenü"));
 		add(setButton("Neues Spiel", "start", true, new ImageIcon("../uLTRA/Documents/images/icons/new.png")));
 		add(setButton("Editor starten", "editor", true, new ImageIcon("../uLTRA/Documents/images/icons/editor.png")));
-		add(setButton("Optionen", "options", false, new ImageIcon("../uLTRA/Documents/images/icons/options.png")));
+		add(setButton("Hilfe", "help", true, new ImageIcon("../uLTRA/Documents/images/icons/help.png")));
 		add(setButton("Spiel beenden", "exit", true, new ImageIcon("../uLTRA/Documents/images/icons/exit.png")));
+		add(setButton("Über", "about", true, new ImageIcon("../uLTRA/Documents/images/icons/about.png")));
 		setVisible(true);
 	}
 	
