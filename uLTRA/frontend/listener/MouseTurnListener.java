@@ -209,10 +209,10 @@ public class MouseTurnListener extends AbstractMousePositionListener
 					{
 						GamePanel.getGamePanel().getTurnList().addTurn(new Turn(getStartPoint(), endPoint));
 					}
-					
-					GamePanel.getGamePanel().getGridPanel().resetLayout();
 				}
 			}
+			GamePanel.getGamePanel().getGridPanel().resetLayout();
+			GamePanel.getGamePanel().refresh();
 		}
 	}
 }
