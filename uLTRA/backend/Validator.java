@@ -39,33 +39,33 @@ public class Validator implements Serializable{
 		_instance = pValidator;
 	}
 	
-	public boolean isValid(CommandAddBeam pCommand) {
-		Turn turn = pCommand.getTurn();
-		BeamDirections direction = pCommand.getDirection();
-		ArrayList<Command> history = _reference.getHistory();
-		
-		for (Command _command : history) {
-			if (!(_command instanceof CommandAddBeam))
-				continue;
-
-			CommandAddBeam _currentCommand = (CommandAddBeam) _command;
-			
-			if (direction != _currentCommand.getDirection())
-				continue;
-			
-			Turn _currentTurn = _currentCommand.getTurn();
-			
-			if (direction == BeamDirections.BEAM_DOWN ||
-				direction == BeamDirections.BEAM_UP)
-			{
-				if (turn.getStart().x != _currentTurn.getStart().x)
-					continue;
-			}
-			else
-			{
-				if (turn.getStart().y != _currentTurn.getStart().y)
-					continue;
-			}
-		}
-	}
+//	public boolean xisValid(CommandAddBeam pCommand) {
+//		Turn turn = pCommand.getTurn();
+//		BeamDirections direction = pCommand.getDirection();
+//		ArrayList<Command> history = _reference.getHistory();
+//		
+//		for (Command _command : history) {
+//			if (!(_command instanceof CommandAddBeam))
+//				continue;
+//
+//			CommandAddBeam _currentCommand = (CommandAddBeam) _command;
+//			
+//			if (direction != _currentCommand.getDirection())
+//				continue;
+//			
+//			Turn _currentTurn = _currentCommand.getTurn();
+//			
+//			if (direction == BeamDirections.BEAM_DOWN ||
+//				direction == BeamDirections.BEAM_UP)
+//			{
+//				if (turn.getStart().x != _currentTurn.getStart().x)
+//					continue;
+//			}
+//			else
+//			{
+//				if (turn.getStart().y != _currentTurn.getStart().y)
+//					continue;
+//			}
+//		}
+//	}
 }

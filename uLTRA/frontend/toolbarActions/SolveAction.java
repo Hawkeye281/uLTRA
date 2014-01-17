@@ -17,6 +17,7 @@ public class SolveAction extends AbstractAction {
 		} catch (Exception e) {
 			// No game has been loaded yet
 			//TODO replace by appropriate behavior
+			System.out.println(e +" : " + e.getMessage());
 			System.out.println("No game loaded yet. Load game and repeat.");
 		}
 

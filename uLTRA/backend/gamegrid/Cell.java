@@ -18,6 +18,7 @@ public class Cell implements Serializable{
 	private Cell topCell, bottomCell, leftCell, rightCell = null;
 	private CellContent content;
 	private Point coordinates;
+	private boolean hasTop, hasBottom, hasRight, hasLeft;
 	
 	public Cell(int x, int y) {
 		content = new EmptyContent();
@@ -29,6 +30,25 @@ public class Cell implements Serializable{
 			throw new IllegalArgumentException("Content may not be null.");
 		content = initialContent;
 		coordinates = new Point(x,y);
+		
+		// set neighbor cells
+		GameGrid gg;
+		try {
+			gg = GameGrid.getInstance();
+			if(x > 0)
+				leftCell = gg.getCell(x-1,y);
+			if(y > 0)
+				topCell = gg.getCell(x,y-1);
+			if(x < gg.getWidth())
+				rightCell = gg.getCell(x+1,y);
+			if(y < gg.getHeight())
+				bottomCell = gg.getCell(x,y+1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+			
 	}
 	
 	public CellContent getContent() {
@@ -113,5 +133,10 @@ public class Cell implements Serializable{
 	
 	public void removeContent(){
 		content = new EmptyContent();
+	}
+	
+	public String toString()
+	{
+		return "["+coordinates.getX()+","+coordinates.getY()+"]: " + content.getClass();
 	}
 }
