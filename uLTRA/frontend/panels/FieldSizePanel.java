@@ -61,7 +61,7 @@ public class FieldSizePanel extends JPanel{
 	}
 	
 	private JSpinner setSpinner(int value){
-		return new JSpinner(new SpinnerNumberModel(value,3,26,1));
+		return new JSpinner(new SpinnerNumberModel(value,3,20,1));
 	}
 	
 	class ActionHandler implements ActionListener{
