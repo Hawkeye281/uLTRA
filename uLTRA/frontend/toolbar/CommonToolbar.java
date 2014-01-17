@@ -16,6 +16,7 @@ import frames.MainFrame;
 public class CommonToolbar extends JToolBar{
 
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
 	private MainFrame mainFrame;
 	private GamePanel gamePanel = GamePanel.getGamePanel();
 	

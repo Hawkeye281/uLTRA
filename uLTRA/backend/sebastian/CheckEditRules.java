@@ -18,9 +18,7 @@ public class CheckEditRules {
 	public static void check(EditorController editCont, GamePanel gamePanel){
 		int failures = 0;
 		for (int x=0; x < EditorController.getGridWidth();x++){
-			System.out.println(x);
 			for (int y=0; y < EditorController.getGridHeight(); y++){
-				System.out.println(y);
 				Cell cell = editCont.getCell(x, y);
 				if (!cell.isEmpty()){
 					if (cell.isLightSource()){

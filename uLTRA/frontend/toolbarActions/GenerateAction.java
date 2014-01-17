@@ -24,6 +24,7 @@ public class GenerateAction extends AbstractAction {
 
 
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
 	private GamePanel gamePanel;
 	
 	public GenerateAction(){

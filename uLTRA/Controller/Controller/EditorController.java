@@ -30,11 +30,11 @@ public class EditorController {
 	}
 	
 	public void setEditGrid(int height, int width) throws Exception{
-		this.gamePanel = GamePanel.getGamePanel();
+		EditorController.gamePanel = GamePanel.getGamePanel();
 		GameGrid.deleteInstance();
 		editorGrid = GameGrid.getInstance(height, width);
-		this.gamePanel.setGroundPanel();
-		this.gamePanel.refresh();
+		EditorController.gamePanel.setGroundPanel();
+		EditorController.gamePanel.refresh();
 	}
 	
 	/**
@@ -60,8 +60,8 @@ public class EditorController {
 	}
 	
 	public void recreateEditGrid(){
-		this.gamePanel.setGroundPanel();
-		this.gamePanel.refresh();
+		EditorController.gamePanel.setGroundPanel();
+		EditorController.gamePanel.refresh();
 	}
 	
 	public Cell getCell(int x, int y){

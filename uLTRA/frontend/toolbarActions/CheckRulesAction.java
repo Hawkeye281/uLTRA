@@ -3,10 +3,6 @@
  */
 package toolbarActions;
 
-import gamegrid.Cell;
-import gamegrid.LightSource;
-import gamegrid.Turn;
-
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
