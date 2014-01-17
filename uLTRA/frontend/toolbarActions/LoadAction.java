@@ -57,9 +57,9 @@ public class LoadAction extends AbstractAction {
 				if (gamePan.getPanelMode()==Mode.EDIT){
 					EditorController.loadGame(jfc.getSelectedFile().getName());
 				}
+				this.gamePan.resetPanel();
+				this.gamePan.setGroundPanel();
 			}
-			this.gamePan.resetPanel();
-			this.gamePan.setGroundPanel();
 		}
 	}
 
