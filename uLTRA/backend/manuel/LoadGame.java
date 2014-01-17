@@ -21,7 +21,7 @@ public class LoadGame {
 		GameGrid spiel = null;
 		
 		try {
-			fis = new FileInputStream("../uLTRA/Documents/Spiele/" + spielname);
+			fis = new FileInputStream(spielname);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
 			spiel = (GameGrid)ois.readObject();
@@ -37,34 +37,4 @@ public class LoadGame {
 		
 		return spiel;
 	}
-	
-	
-//	public static JFileChooser setFileChooser(){
-//		JFileChooser jfc = new JFileChooser();
-//		FileFilter ff = new FileNameExtensionFilter("Lichtstrahl-Puzzle", "puzzle");
-//		File dirfile = new File("Documents/Spiele");
-//		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//		jfc.setMultiSelectionEnabled(false);
-//		jfc.setFileHidingEnabled(true);
-//		jfc.setFileFilter(ff);
-//		jfc.setCurrentDirectory(dirfile.getAbsoluteFile());
-//		
-//		return jfc;
-//	}
-	
-//	public void listFilesForFolder(final File folder) {
-//	    for (final File fileEntry : folder.listFiles()) {
-//	        if (fileEntry.isDirectory()) {
-//	            listFilesForFolder(fileEntry);
-//	        } else {
-//	            System.out.println(fileEntry.getName());
-//	        }
-//	    }
-//	}
-//
-//	final File folder = new File("/home/you/Desktop");
-//	listFilesForFolder(folder);
-
-
-
 }

@@ -16,6 +16,10 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
+
+
+import panels.GamePanel;
+import sebastian.Mode;
 import Controller.GridController;
 
 /**
@@ -41,10 +45,11 @@ public class SaveAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		String subfolder = GamePanel.getGamePanel().getPanelMode() != Mode.EDIT? "SaveGames" : "Editor";
 		int w = 0;
 		JFileChooser jfc = new JFileChooser();
 		FileFilter ff = new FileNameExtensionFilter("Lichtstrahl-Puzzle", "puzzle");
-		File dirfile = new File("Documents/Spiele");
+		File dirfile = new File("Documents/Spiele/" + subfolder);
 		File tempfile = null;
 		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		jfc.setMultiSelectionEnabled(false);
@@ -87,8 +92,5 @@ public class SaveAction extends AbstractAction {
 				}
 			}
 		} while (w == 1);
-		
-		
-//		GridController.saveGame(GridController.getGameGrid(), spielname);
 	}
 }

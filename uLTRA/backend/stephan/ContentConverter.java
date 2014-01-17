@@ -7,14 +7,12 @@ import gamegrid.GameGrid;
 
 public class ContentConverter
 {
-	public static void main(String[] args)
+	public static GameGrid clearGame(String pSpielname)
 	{
-		String spielname = "789";
-		
-		System.out.println("Dump beams from savegame \"" + spielname + "\".puzzle");
+//		System.out.println("Dump beams from savegame: \"" + pSpielname + "\"");
 		
 		Cell c = null;
-		GameGrid grid = GridController.loadGame(spielname + ".puzzle");
+		GameGrid grid = GridController.loadGame(pSpielname);
 		
 		for(int y = 0; y < grid.getHeight(); y++)
 		{
@@ -27,8 +25,8 @@ public class ContentConverter
 				}
 			}
 		}
-		
-		GridController.saveGame(grid, "Documents/Spiele/empty_" + spielname);
-		System.out.println("Clean savegame saved as \"empty_" + spielname + ".puzzle\"");
+
+//		System.out.println("Removed all beams from savegame: \"" + pSpielname + "\"");
+		return grid;
 	}
 }

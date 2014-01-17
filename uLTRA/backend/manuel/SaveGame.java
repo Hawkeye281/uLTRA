@@ -22,10 +22,11 @@ public class SaveGame {
 	 * siehe: http://openbook.galileocomputing.de/javainsel9/javainsel_17_010.htm#mjfbe8cb1105d7dfaf6adbc23f31c81b93
 	 */
 	
-	public void spielSpeichern(GameGrid spielfeld, String spielname){
+	public void spielSpeichern(GameGrid spielfeld, String spielname)
+	{
 		OutputStream fos = null;
-		
-		try {
+		try
+		{
 			fos = new FileOutputStream(spielname + ".puzzle");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
@@ -33,9 +34,13 @@ public class SaveGame {
 						
 			oos.close();
 			fos.close();
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e)
+		{
 			e.printStackTrace();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
