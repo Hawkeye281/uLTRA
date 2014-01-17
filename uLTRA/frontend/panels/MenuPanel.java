@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import Controller.MenuController;
 
 import gamegrid.GameGrid;
+import help.HelpWindow;
 
 /**
  * @author Sebastian Kiepert
@@ -43,7 +44,7 @@ public class MenuPanel extends JPanel {
 		add(setButton("Editor starten", "editor", true, new ImageIcon("../uLTRA/Documents/images/icons/editor.png")));
 		add(setButton("Hilfe", "help", true, new ImageIcon("../uLTRA/Documents/images/icons/help.png")));
 		add(setButton("Spiel beenden", "exit", true, new ImageIcon("../uLTRA/Documents/images/icons/exit.png")));
-		add(setButton("Über", "about", true, new ImageIcon("../uLTRA/Documents/images/icons/about.png")));
+		add(setButton("Über...", "about", true, new ImageIcon("../uLTRA/Documents/images/icons/about.png")));
 		setVisible(true);
 	}
 	
@@ -79,6 +80,10 @@ public class MenuPanel extends JPanel {
 			}
 			else if(clicked.getName().equals("exit")){
 				menuController.exit();
+			}
+			else if(clicked.getName().equals("help")){
+				// TODO
+				HelpWindow.getInstance();
 			}
 			
 		}
