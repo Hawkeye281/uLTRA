@@ -51,13 +51,11 @@ public class LoadAction extends AbstractAction {
 			jfc.setFileFilter(ff);
 			jfc.setCurrentDirectory(dirfile.getAbsoluteFile());
 			if(jfc.showOpenDialog(jfc) == 0){
-				GridController.loadGame(jfc.getSelectedFile().getName());
+				if (gamePan.getPanelMode()==Mode.GAME){
+					GridController.loadGame(jfc.getSelectedFile().getName());
+				}
 				if (gamePan.getPanelMode()==Mode.EDIT){
-					try {
-						gamePan.getEditorController().loadGame();
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
+					EditorController.loadGame(jfc.getSelectedFile().getName());
 				}
 			}
 			this.gamePan.resetPanel();

@@ -81,13 +81,19 @@ public class EditorController {
 		return (editorGrid.isInGrid(x, y))? true : false;
 	}
 	
-	public void loadGame() throws Exception{
-		this.gamePanel = GamePanel.getGamePanel();
-		if (editorGrid != null){
-			editorGrid.deleteInstance();
+	public static GameGrid loadGame(String spielname){
+		try
+		{
+			GameGrid.setInstance(loader.spielLaden(spielname));
+			System.out.println("Hier isser: " + GameGrid.getInstance() != null? "existiert" : "existiert NICHT!");
+			EditorController.editorGrid = GameGrid.getInstance();
 		}
-		editorGrid = GridController.getGameGrid();
-		recreateEditGrid();
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return EditorController.editorGrid;
 	}
 	
 	/**

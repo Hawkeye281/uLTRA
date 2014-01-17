@@ -159,10 +159,10 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void resetPanel(){
-		if (this.editorController != null){
-			if (this.editorController.gridIsSet())
-				this.editorController.removeGrid();
-		}
+//		if (this.editorController != null){
+//			if (this.editorController.gridIsSet())
+//				this.editorController.removeGrid();
+//		}
 		if (componentsExist()){
 			this.remove(this.groundPanel);
 			this.remove(this.turnList);
