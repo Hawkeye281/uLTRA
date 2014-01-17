@@ -72,8 +72,9 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 		if (pEvent.getClickCount()==2 || pEvent.isMetaDown() || getStartPoint()==getEndPoint()){
 			mouseClicked(pEvent);
 		}
-		else {
+		else if (getStartPoint()!=null && getEndPoint()!=null) {
 			if (getStartPoint() != getEndPoint()){
+				System.out.println(getStartPoint() + ", " + getEndPoint());
 				//Wir befinden uns in der gleichen Spalte
 				if (getStartPoint().x == getEndPoint().x){
 					int column = getStartPoint().x;
