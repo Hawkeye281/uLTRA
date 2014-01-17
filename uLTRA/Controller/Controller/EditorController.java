@@ -1,5 +1,6 @@
 package Controller;
 
+import manuel.LoadGame;
 import panels.GamePanel;
 import panels.GridPanel;
 
@@ -11,8 +12,9 @@ import gamegrid.LightSource;
 
 public class EditorController {
 
-	private static GameGrid editorGrid = null;
+	private static GameGrid editorGrid;
 	private GamePanel gamePanel;
+	static LoadGame loader = new LoadGame();
 	
 	/**
 	 * Erstellt ein neues Grid nach Anwendervorgaben
@@ -77,6 +79,15 @@ public class EditorController {
 	
 	public boolean isInGrid(int x, int y){
 		return (editorGrid.isInGrid(x, y))? true : false;
+	}
+	
+	public void loadGame() throws Exception{
+		this.gamePanel = GamePanel.getGamePanel();
+		if (editorGrid != null){
+			editorGrid.deleteInstance();
+		}
+		editorGrid = GridController.getGameGrid();
+		recreateEditGrid();
 	}
 	
 	/**

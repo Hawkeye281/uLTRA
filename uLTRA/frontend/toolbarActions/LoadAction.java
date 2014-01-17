@@ -12,9 +12,11 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Controller.EditorController;
 import Controller.GridController;
 
 import panels.GamePanel;
+import sebastian.Mode;
 
 /**
  * 
@@ -50,6 +52,13 @@ public class LoadAction extends AbstractAction {
 			jfc.setCurrentDirectory(dirfile.getAbsoluteFile());
 			if(jfc.showOpenDialog(jfc) == 0){
 				GridController.loadGame(jfc.getSelectedFile().getName());
+				if (gamePan.getPanelMode()==Mode.EDIT){
+					try {
+						gamePan.getEditorController().loadGame();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 			this.gamePan.resetPanel();
 			this.gamePan.setGroundPanel();

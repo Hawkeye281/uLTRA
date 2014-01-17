@@ -43,7 +43,8 @@ public class CheckRulesAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		CheckEditRules.check(editCont, gamePanel);
+		if (editCont.gridIsSet())
+			CheckEditRules.check(editCont, gamePanel);
 		gamePanel.setChecked();
 	}
 
