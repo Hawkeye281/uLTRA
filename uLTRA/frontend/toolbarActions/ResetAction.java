@@ -31,8 +31,7 @@ public class ResetAction extends AbstractAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-//		editPanel.resetGrid();
-		this.gamePanel.resetPanel();
+		this.gamePanel.resetGrid();
 	}
 
 }

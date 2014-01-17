@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import listener.EditorMouseListener;
 import listener.MouseTurnListener;
 
-import sebastian.CheckEditRules;
 import sebastian.Mode;
 import sebastian.PanelMode;
 import toolbar.CommonToolbar;
@@ -159,10 +158,6 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void resetPanel(){
-//		if (this.editorController != null){
-//			if (this.editorController.gridIsSet())
-//				this.editorController.removeGrid();
-//		}
 		if (componentsExist()){
 			this.remove(this.groundPanel);
 			this.remove(this.turnList);
@@ -170,5 +165,13 @@ public class GamePanel extends JPanel {
 		this.checked = false;
 		this.refresh();
 	}
+	
+	public void resetGrid(){
+		if (this.editorController != null)
+			if (this.editorController.gridIsSet())
+				this.editorController.removeGrid();
+		resetPanel();
+	}
+	
 
 }
