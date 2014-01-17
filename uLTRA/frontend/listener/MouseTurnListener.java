@@ -114,6 +114,7 @@ public class MouseTurnListener extends AbstractMousePositionListener
 					}
 
 					Cell c = null;
+					boolean beamEnd = false;
 					Point endPoint = getEndPoint();
 
 					int temp_x = getStartPoint().x;
@@ -154,7 +155,16 @@ public class MouseTurnListener extends AbstractMousePositionListener
 								{
 									if(c.isEmpty())
 									{
-										c.setContent(new Beam(_direction));
+										if((temp_x == getEndPoint().x) && (temp_y == getEndPoint().y) || quelle.getCapacity() == 1)
+										{
+											beamEnd = true;
+										}
+										else
+										{
+											beamEnd = false;
+										}
+										
+										c.setContent(new Beam(_direction, beamEnd));
 										quelle.setCapacity(quelle.getCapacity() - 1);
 									}
 									else

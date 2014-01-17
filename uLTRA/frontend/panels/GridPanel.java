@@ -72,21 +72,29 @@ public class GridPanel extends JPanel
 				}
 				else if(cc instanceof Beam)
 				{
-					switch(((Beam)cc).getDirection())
+					if(!((Beam) cc).isBeamEnd())
 					{
-						case BEAM_UP:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_up.png");
-							break;
-						case BEAM_RIGHT:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_right.png");
-							break;
-						case BEAM_DOWN:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_down.png");
-							break;
-						case BEAM_LEFT:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_left.png");
-							break;
+						switch(((Beam)cc).getDirection())
+						{
+							case BEAM_UP:
+								direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_up.png");
+								break;
+							case BEAM_RIGHT:
+								direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_right.png");
+								break;
+							case BEAM_DOWN:
+								direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_down.png");
+								break;
+							case BEAM_LEFT:
+								direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_left.png");
+								break;
+						}
 					}
+					else
+					{
+						direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_end.png");
+					}
+					
 
 					tempLabel = new JLabel(direction);
 				}
