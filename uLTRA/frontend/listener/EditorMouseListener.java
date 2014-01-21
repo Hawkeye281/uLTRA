@@ -277,7 +277,7 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 			result = cell.isEmpty();
 			result = (!result)? isAlreadySameBeam(pos, direction) : result;
 		}
-		System.out.println("print: "+result);
+//		System.out.println("print: "+result);
 		return result;
 	}
 	
@@ -286,7 +286,7 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 		if (editGridCont.isBeam(pos.x, pos.y)){
 			result = (editGridCont.getBeam(pos.x, pos.y).getDirection() == direction)? true : false;
 		}
-		System.out.println("beamcheck: "+result);
+//		System.out.println("beamcheck: "+result);
 		return result;
 	}
 	

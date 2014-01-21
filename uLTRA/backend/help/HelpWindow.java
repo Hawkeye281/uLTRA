@@ -6,6 +6,7 @@ package help;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -115,6 +116,7 @@ public class HelpWindow extends JFrame {
 
 				if (s.contains("<img")) {
 					final String parsedString = parseIMGTag(s);
+//					System.out.println("parsedString: " + parsedString);
 					sb.append(parsedString);
 				} else
 					sb.append(s);
@@ -136,9 +138,10 @@ public class HelpWindow extends JFrame {
 		final int srcIndex = s.indexOf("src=") + 5;
 		final int endIndex = s.indexOf("\"", srcIndex);
 		final String imagePath = s.substring(srcIndex, endIndex);
+		File test = new File(imagePath);
 		URL url = null;
 		try {
-			url = new URL(imagePath);
+			url = test.toURI().toURL();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
