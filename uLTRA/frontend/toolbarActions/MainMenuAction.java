@@ -37,7 +37,7 @@ public class MainMenuAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		this.gamePanel.resetPanel();
+		this.gamePanel.resetGrid();
 		mainFrame.removeFromDesktop(0);
 		mainFrame.addToDesktop(new MenuPanel());
 		mainFrame.refreshDesktop();
