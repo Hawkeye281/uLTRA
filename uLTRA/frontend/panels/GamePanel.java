@@ -8,11 +8,13 @@ import java.awt.Color;
 
 import components.TurnList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import listener.EditorMouseListener;
 import listener.MouseTurnListener;
 
+import sebastian.CheckEditRules;
 import sebastian.Mode;
 import sebastian.PanelMode;
 import toolbar.CommonToolbar;
@@ -112,13 +114,33 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void setGroundPanel(){
-		if (this.getComponentCount()>1) this.remove(this.groundPanel);
+		if (componentsExist()) {
+			this.remove(this.groundPanel);
+			this.remove(this.turnList);
+		}
 		this.groundPanel = new JPanel();
+		this.groundPanel.setBorder(BorderFactory.createTitledBorder("Feld enthält: " 
+									+ CheckEditRules.lightSourceCount() + " Lichtquelle(n)"
+									+ " mit einer Gesamtstärke von " + CheckEditRules.lightCapacityCount() + ", "
+									+ CheckEditRules.beamCount() + " Lichtstrahl(en), "
+									+ CheckEditRules.emptyCellCount() + " leere Felder"));
 		this.setTurnList();
 		this.groundPanel.setBackground(Color.WHITE);
 		this.groundPanel.add(setGridPanel());
 		this.add(this.groundPanel, BorderLayout.CENTER);
 		this.add(this.turnList, BorderLayout.EAST);
+		if (this.checked)
+			CheckEditRules.check(this);
+			
+	}
+	
+	public void checkRules(){
+		if (componentsExist()){
+			this.remove(this.turnList);
+		}
+		this.setTurnList();
+		this.add(this.turnList, BorderLayout.EAST);
+		CheckEditRules.check(this);
 	}
 	
 	public JPanel getGroundPanel(){
