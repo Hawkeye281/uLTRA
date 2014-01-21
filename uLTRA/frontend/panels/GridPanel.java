@@ -59,12 +59,14 @@ public class GridPanel extends JPanel
 		JLabel tempLabel;
 		CellContent cc = null;
 		ImageIcon direction = null;
+		String img_end = "";
 		
 		for(int y = 0; y < _gridCont.getHeight(); y++)
 		{
 			for(int x = 0; x < _gridCont.getWidth(); x++)
 			{
 				cc = _gridCont.getCell(x, y).getContent();
+				img_end = "";
 				
 				if(cc instanceof LightSource)
 				{
@@ -72,27 +74,25 @@ public class GridPanel extends JPanel
 				}
 				else if(cc instanceof Beam)
 				{
-					if(!((Beam) cc).isBeamEnd())
+					if(((Beam) cc).isBeamEnd())
 					{
-						switch(((Beam)cc).getDirection())
-						{
-							case BEAM_UP:
-								direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_up.png");
-								break;
-							case BEAM_RIGHT:
-								direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_right.png");
-								break;
-							case BEAM_DOWN:
-								direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_down.png");
-								break;
-							case BEAM_LEFT:
-								direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_left.png");
-								break;
-						}
+						img_end = "_end";
 					}
-					else
+					
+					switch(((Beam)cc).getDirection())
 					{
-						direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_end.png");
+						case BEAM_UP:
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_up" + img_end + ".png");
+							break;
+						case BEAM_RIGHT:
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_right" + img_end + ".png");
+							break;
+						case BEAM_DOWN:
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_down" + img_end + ".png");
+							break;
+						case BEAM_LEFT:
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_left" + img_end + ".png");
+							break;
 					}
 					
 

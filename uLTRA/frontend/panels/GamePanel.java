@@ -118,12 +118,18 @@ public class GamePanel extends JPanel {
 			this.remove(this.groundPanel);
 			this.remove(this.turnList);
 		}
+		
 		this.groundPanel = new JPanel();
-		this.groundPanel.setBorder(BorderFactory.createTitledBorder("Feld enthält: " 
-									+ CheckEditRules.lightSourceCount() + " Lichtquelle(n)"
-									+ " mit einer Gesamtstärke von " + CheckEditRules.lightCapacityCount() + ", "
-									+ CheckEditRules.beamCount() + " Lichtstrahl(en), "
-									+ CheckEditRules.emptyCellCount() + " leere Felder"));
+		
+		if(mode == Mode.EDIT)
+		{
+			this.groundPanel.setBorder(BorderFactory.createTitledBorder("Feld enthält: " 
+										+ CheckEditRules.lightSourceCount() + " Lichtquelle(n)"
+										+ " mit einer Gesamtstärke von " + CheckEditRules.lightCapacityCount() + ", "
+										+ CheckEditRules.beamCount() + " Lichtstrahl(en), "
+										+ CheckEditRules.emptyCellCount() + " leere Felder"));
+		}
+		
 		this.setTurnList();
 		this.groundPanel.setBackground(Color.WHITE);
 		this.groundPanel.add(setGridPanel());

@@ -80,15 +80,15 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 				Point endPoint = getEndPoint();
 				LightSource lightSource = editGridCont.getLightSource(getStartPoint().x, getStartPoint().y);
 				lightValue = lightSource.getCapacity(); 
-				System.out.println(moves = getMoveCount());
+//				System.out.println(moves = getMoveCount());
 				if (inRow(startPoint, endPoint)){
 					if(isLeftMove(startPoint, endPoint)){
-						System.out.println("left");
+//						System.out.println("left");
 						_direction = BeamDirections.BEAM_LEFT;
 						move -= 1;
 					}
 					else if (isRightMove(startPoint, endPoint)){
-						System.out.println("right");
+//						System.out.println("right");
 						_direction = BeamDirections.BEAM_RIGHT;
 						move = 1;
 					}
