@@ -64,7 +64,7 @@ public class EditorController {
 		EditorController.gamePanel.refresh();
 	}
 	
-	public Cell getCell(int x, int y){
+	public static Cell getCell(int x, int y){
 		return editorGrid.getCell(x, y);
 	}
 	
