@@ -10,7 +10,6 @@ import javax.swing.AbstractAction;
 import Controller.EditorController;
 
 import panels.GamePanel;
-import sebastian.CheckEditRules;
 
 /**
  * @author v095376
@@ -39,9 +38,10 @@ public class CheckRulesAction extends AbstractAction {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (editCont.gridIsSet())
-			CheckEditRules.check(editCont, gamePanel);
-		gamePanel.setChecked();
+		if (editCont.gridIsSet()){
+			gamePanel.checkRules();
+			gamePanel.setChecked();
+		}
 	}
 
 }
