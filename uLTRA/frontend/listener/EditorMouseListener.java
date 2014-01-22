@@ -81,6 +81,7 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 				LightSource lightSource = editGridCont.getLightSource(getStartPoint().x, getStartPoint().y);
 				lightValue = lightSource.getCapacity(); 
 //				System.out.println(moves = getMoveCount());
+				moves = getMoveCount();
 				if (inRow(startPoint, endPoint)){
 					if(isLeftMove(startPoint, endPoint)){
 //						System.out.println("left");
