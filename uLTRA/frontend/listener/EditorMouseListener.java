@@ -80,16 +80,13 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 				Point endPoint = getEndPoint();
 				LightSource lightSource = editGridCont.getLightSource(getStartPoint().x, getStartPoint().y);
 				lightValue = lightSource.getCapacity(); 
-//				System.out.println(moves = getMoveCount());
 				moves = getMoveCount();
 				if (inRow(startPoint, endPoint)){
 					if(isLeftMove(startPoint, endPoint)){
-//						System.out.println("left");
 						_direction = BeamDirections.BEAM_LEFT;
 						move -= 1;
 					}
 					else if (isRightMove(startPoint, endPoint)){
-//						System.out.println("right");
 						_direction = BeamDirections.BEAM_RIGHT;
 						move = 1;
 					}
@@ -278,7 +275,6 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 			result = cell.isEmpty();
 			result = (!result)? isAlreadySameBeam(pos, direction) : result;
 		}
-//		System.out.println("print: "+result);
 		return result;
 	}
 	
@@ -287,7 +283,6 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 		if (editGridCont.isBeam(pos.x, pos.y)){
 			result = (editGridCont.getBeam(pos.x, pos.y).getDirection() == direction)? true : false;
 		}
-//		System.out.println("beamcheck: "+result);
 		return result;
 	}
 	

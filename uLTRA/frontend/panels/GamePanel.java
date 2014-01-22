@@ -91,6 +91,9 @@ public class GamePanel extends JPanel {
 	
 	public void setTurnList(){
 		this.turnList = new TurnList();
+		this.turnList.setBorder(
+				(this.mode == Mode.EDIT)? BorderFactory.createTitledBorder("Fehlerliste") : 
+					BorderFactory.createTitledBorder("Zugliste"));
 	}
 	
 	public TurnList getTurnList(){
