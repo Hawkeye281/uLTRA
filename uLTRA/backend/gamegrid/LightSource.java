@@ -42,4 +42,11 @@ public class LightSource implements CellContent, Serializable{
 			throw new IllegalArgumentException("Kapazität darf nicht unter 0 sinken.");
 		remainingCapacity = newRemainingCapacity;
 	}
+	
+	public LightSource clone() {
+		LightSource newLightSource = new LightSource(this.capacity);
+		newLightSource.setRemainingCapacity(this.remainingCapacity);
+		
+		return newLightSource;
+	}
 }

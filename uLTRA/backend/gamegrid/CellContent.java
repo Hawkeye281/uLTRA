@@ -6,5 +6,5 @@
 package gamegrid;
 
 public interface CellContent {
-
+	public CellContent clone();
 }

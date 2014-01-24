@@ -7,6 +7,7 @@ package gamegrid;
 
 import java.awt.Point;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Observable;
 import history.TurnList;
 
@@ -26,10 +27,14 @@ public class GameGrid extends Observable implements Serializable {
 	 * 
 	 */
 	public GameGrid(GameGrid pReference) {
-		gameGrid = pReference.gameGrid;
+		gameGrid = new Cell[pReference.height][pReference.width];
+		
+		for (int x = 0; x < pReference.gameGrid.length; x++)
+			for (int y = 0; y < pReference.gameGrid[x].length; y++)
+				gameGrid[x][y] = new Cell(pReference.gameGrid[x][y]);
+		
 		width = pReference.width;
 		height = pReference.height;
-		_turnList = pReference._turnList;
 	}
 	
 	/**

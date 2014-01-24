@@ -34,4 +34,8 @@ public class Beam implements CellContent, Serializable {
 	{
 		return beamEnd;
 	}
+	
+	public Beam clone() {
+		return new Beam(this.direction, this.beamEnd);
+	}
 }

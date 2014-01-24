@@ -20,6 +20,19 @@ public class Cell implements Serializable{
 	private Point coordinates;
 	private boolean hasTop, hasBottom, hasRight, hasLeft;
 	
+	public Cell(Cell pCell) {
+		topCell = (null == pCell.topCell ? null : new Cell(pCell.topCell));
+		bottomCell = (null == pCell.bottomCell ? null : new Cell(pCell.bottomCell));
+		leftCell = (null == pCell.leftCell ? null : new Cell(pCell.leftCell));
+		rightCell = (null == pCell.rightCell ? null : new Cell(pCell.rightCell));
+		content = pCell.content.clone();
+		coordinates = new Point(coordinates);
+		hasTop = pCell.hasTop;
+		hasBottom = pCell.hasBottom;
+		hasRight = pCell.hasRight;
+		hasLeft = pCell.hasLeft;
+	}
+	
 	public Cell(int x, int y) {
 		content = new EmptyContent();
 		coordinates = new Point(x,y);
