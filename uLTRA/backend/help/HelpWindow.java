@@ -71,7 +71,7 @@ public class HelpWindow extends JFrame {
 
 		initHelp();
 
-		setMinimumSize(new Dimension(700, 500));
+		setMinimumSize(new Dimension(1024, 768));
 		setLocationRelativeTo(null);
 	}
 

@@ -58,14 +58,14 @@ public class CommonToolbar extends JToolBar{
 		this.add(button);
 		button.addActionListener(new LoadAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/load.png"));
-		button.setText("Spiel laden");
+		button.setText("laden");
 		button.setToolTipText("Lädt ein gespeichertes Spiel");
 		button.setBackground(Color.WHITE);
 		button = new JButton();
 		this.add(button);
 		button.addActionListener(new SaveAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/save.png"));
-		button.setText("Spiel speichern");
+		button.setText("speichern");
 		button.setToolTipText("Speichert das aktuelle Spiel");
 		button.setBackground(Color.WHITE);
 		add(seperator());
@@ -112,7 +112,7 @@ public class CommonToolbar extends JToolBar{
 		this.add(button);
 		button.addActionListener(new SaveAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/save.png"));
-		button.setText("Feld speichern");
+		button.setText("speichern");
 		button.setToolTipText("Speichert das aktuelle Feld");
 		button.setBackground(Color.WHITE);
 		
@@ -120,7 +120,7 @@ public class CommonToolbar extends JToolBar{
 		this.add(button);
 		button.addActionListener(new LoadAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/load.png"));
-		button.setText("Feld laden");
+		button.setText("laden");
 		button.setToolTipText("Lädt ein gespeichertes Feld");
 		button.setBackground(Color.WHITE);
 		
