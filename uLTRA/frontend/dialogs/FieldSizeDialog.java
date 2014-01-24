@@ -27,9 +27,12 @@ public class FieldSizeDialog extends JDialog{
 	 * @see panels.FieldSizePanel
 	 */
 	public FieldSizeDialog(){
+		MainFrame mf = MainFrame.getMainFrame();
 		FieldSizeDialog._fsd = this;
 		setUndecorated(true);
-		setLocation((int)MainFrame.getFrameLocation().getX()+125, (int)MainFrame.getFrameLocation().getY()+50);
+		setLocationRelativeTo(null);
+		System.out.println(mf.getBounds());
+		setLocation((mf.getBounds().x+3), (mf.getBounds().y+80));
 		setSize(200,120);
 		setModal(true);
 		add(new FieldSizePanel());
