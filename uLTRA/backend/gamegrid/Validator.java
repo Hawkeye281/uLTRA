@@ -5,6 +5,7 @@
 
 package gamegrid;
 
+import java.awt.Point;
 import java.io.Serializable;
 import java.util.ArrayList;
 import history.*;
@@ -12,10 +13,10 @@ import history.*;
 public class Validator implements Serializable{
 	
 	private static Validator _instance = null;
-	private TurnList _reference;
+	private GameGrid _reference = null;
 	
-	private Validator(TurnList pReference) {
-		_reference = new TurnList(pReference);
+	private Validator(GameGrid pReference) {
+		_reference = new GameGrid(pReference);
 	}
 	
 	public static Validator getInstance() throws NullPointerException {
@@ -25,7 +26,7 @@ public class Validator implements Serializable{
 		return _instance;		
 	}
 	
-	public static Validator getInstance(TurnList pReference) {
+	public static Validator getInstance(GameGrid pReference) {
 		if (null == _instance)
 			_instance = new Validator(pReference);
 		
@@ -40,58 +41,48 @@ public class Validator implements Serializable{
 		_instance = pValidator;
 	}
 	
-	public boolean isValid(CommandAddBeam pCommand) {
-		Turn turn = pCommand.getTurn();
-		BeamDirections direction = pCommand.getDirection();
-		ArrayList<Command> history = _reference.getHistory();
+	public boolean isValid(Turn pTurn) {
+		Point start = pTurn.getStart();
+		Point end = pTurn.getEnd();
+		BeamDirections direction = null;
 		
-		for (Command _command : history) {
-			if (!(_command instanceof CommandAddBeam))
-				continue;
-
-			CommandAddBeam _currentCommand = (CommandAddBeam) _command;
+		if (start.x == end.x) {
+			if (start.y < end.y)
+				direction = BeamDirections.BEAM_UP;
+			else if (start.y > end.y)
+				direction = BeamDirections.BEAM_DOWN;
 			
-			if (direction != _currentCommand.getDirection())
-				continue;
+			int lowerY = Math.min(start.y, end.y);
+			int greaterY = Math.max(start.y, end.y);
 			
-			Turn _currentTurn = _currentCommand.getTurn();
-			
-			if (direction == BeamDirections.BEAM_DOWN ||
-				direction == BeamDirections.BEAM_UP)
-			{
-				if (turn.getStart().x != _currentTurn.getStart().x)
-					continue;
+			for (int currentY = lowerY; currentY <= greaterY; currentY++) {
+				Cell currentCell = _reference.getCell(start.x, currentY);
+				Beam currentContent = (Beam) currentCell.getContent();
 				
-				if (direction == BeamDirections.BEAM_DOWN &&
-					turn.getStart().y > _currentTurn.getStart().y &&
-					turn.getEnd().y < _currentTurn.getEnd().y)
-					continue;
-				
-				if (direction == BeamDirections.BEAM_UP &&
-					turn.getStart().y < _currentTurn.getStart().y &&
-					turn.getEnd().y > _currentTurn.getEnd().y)
-					continue;
-				
-				return true;					
+				if (currentContent.getDirection() != direction)
+					return false;
 			}
-			else
-			{
-				if (turn.getStart().y != _currentTurn.getStart().y)
-					continue;
+			
+			return true;
+			
+		} else if (start.y == end.y) {
+			if (start.x < end.x)
+				direction = BeamDirections.BEAM_RIGHT;
+			else if (start.x > end.x)
+				direction = BeamDirections.BEAM_LEFT;
+			
+			int lowerX = Math.min(start.x, end.x);
+			int greaterX = Math.max(start.x, end.x);
+			
+			for (int currentX = lowerX; currentX <= greaterX; currentX++) {
+				Cell currentCell = _reference.getCell(currentX, start.y);
+				Beam currentContent = (Beam) currentCell.getContent();
 				
-				if (direction == BeamDirections.BEAM_LEFT &&
-					turn.getStart().x > _currentTurn.getStart().x &&
-					turn.getEnd().x < _currentTurn.getEnd().x)
-					continue;
-				
-				if (direction == BeamDirections.BEAM_RIGHT &&
-					turn.getStart().x < _currentTurn.getStart().x &&
-					turn.getEnd().x > _currentTurn.getEnd().y)
-					continue;
-				
-				return true;
-				
+				if (currentContent.getDirection() != direction)
+					return false;
 			}
+			
+			return true;
 		}
 		
 		return false;

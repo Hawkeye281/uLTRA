@@ -20,6 +20,20 @@ public class GameGrid extends Observable implements Serializable {
 	
 	/**
 	 * 
+	 * Copy constructor!
+	 * 
+	 * @param GameGrid pReference
+	 * 
+	 */
+	public GameGrid(GameGrid pReference) {
+		gameGrid = pReference.gameGrid;
+		width = pReference.width;
+		height = pReference.height;
+		_turnList = pReference._turnList;
+	}
+	
+	/**
+	 * 
 	 * @param int height
 	 * @param int width
 	 * 
