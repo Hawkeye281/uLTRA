@@ -3,6 +3,7 @@
  */
 package toolbarActions;
 
+import gamegrid.ContentConverter;
 import gamegrid.GameGrid;
 
 import java.awt.event.ActionEvent;
@@ -18,7 +19,6 @@ import Controller.EditorController;
 import Controller.GridController;
 import panels.GamePanel;
 import sebastian.Mode;
-import stephan.ContentConverter;
 
 /**
  * 

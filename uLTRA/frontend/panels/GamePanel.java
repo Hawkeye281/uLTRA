@@ -171,7 +171,7 @@ public class GamePanel extends JPanel {
 			break;
 		}
 		}
-		this.gridPanel.setBackground(Color.WHITE);
+		this.gridPanel.setBackground(new Color(68,68,68));
 		return this.gridPanel;
 	}
 	

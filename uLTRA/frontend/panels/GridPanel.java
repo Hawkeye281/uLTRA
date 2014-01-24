@@ -47,7 +47,7 @@ public class GridPanel extends JPanel
 					new Dimension(500,500/_gridCont.getWidth()*_gridCont.getHeight());
 		
 		this.setLayout(_layout);
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		this.setPreferredSize(_size);
 		resetLayout();
 		this.setVisible(true);
@@ -71,6 +71,7 @@ public class GridPanel extends JPanel
 				if(cc instanceof LightSource)
 				{
 					tempLabel = new JLabel(Integer.toString(((LightSource)_gridCont.getCell(x, y).getContent()).getCapacity()));
+					tempLabel.setForeground(Color.WHITE);
 				}
 				else if(cc instanceof Beam)
 				{
@@ -82,19 +83,18 @@ public class GridPanel extends JPanel
 					switch(((Beam)cc).getDirection())
 					{
 						case BEAM_UP:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_up" + img_end + ".png");
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_up" + img_end + "_64.png");
 							break;
 						case BEAM_RIGHT:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_right" + img_end + ".png");
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_right" + img_end + "_64.png");
 							break;
 						case BEAM_DOWN:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_down" + img_end + ".png");
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_down" + img_end + "_64.png");
 							break;
 						case BEAM_LEFT:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_left" + img_end + ".png");
+							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_left" + img_end + "_64.png");
 							break;
 					}
-					
 
 					tempLabel = new JLabel(direction);
 				}
@@ -104,7 +104,7 @@ public class GridPanel extends JPanel
 				}
 				
 				tempLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				tempLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				tempLabel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 				
 				this.add(tempLabel);
 			}

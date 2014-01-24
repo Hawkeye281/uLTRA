@@ -158,11 +158,23 @@ public abstract class AbstractMousePositionListener implements MouseListener
 		}
 	}
 	
+	/**
+	 * Gibt den Startpunkt des Zuges zurück
+	 * 
+	 * @return Startpunkt des Zuges
+	 * @see Point
+	 */
 	protected Point getStartPoint()
 	{
 		return _startPoint;
 	}
 	
+	/**
+	 * Gibt den Endpunkt des Zuges zurück
+	 * 
+	 * @return Endpunkt des Zuges
+	 * @see Point
+	 */
 	protected Point getEndPoint()
 	{
 		return _endPoint;

@@ -1,9 +1,6 @@
-package stephan;
+package gamegrid;
 
 import Controller.GridController;
-import gamegrid.Cell;
-import gamegrid.EmptyContent;
-import gamegrid.GameGrid;
 
 public class ContentConverter
 {
