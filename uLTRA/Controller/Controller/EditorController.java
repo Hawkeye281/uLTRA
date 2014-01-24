@@ -1,5 +1,7 @@
 package Controller;
 
+import java.awt.Point;
+
 import manuel.LoadGame;
 import panels.GamePanel;
 import panels.GridPanel;
@@ -66,6 +68,10 @@ public class EditorController {
 	
 	public static Cell getCell(int x, int y){
 		return editorGrid.getCell(x, y);
+	}
+	
+	public static Cell getCell(Point pos){
+		return editorGrid.getCell(pos);
 	}
 	
 	/**
@@ -156,9 +162,9 @@ public class EditorController {
 		editorGrid.getCell(x, y).removeContent();
 	}
 	
-	public void setBeam(int x, int y, BeamDirections direction){
+	public void setBeam(int x, int y, BeamDirections direction, boolean endBeam){
 		if (!isLightSource(x, y))
-			editorGrid.getCell(x, y).setContent(new Beam(direction));
+			editorGrid.getCell(x, y).setContent(new Beam(direction, endBeam));
 	}
 	
 	public Beam getBeam(int x, int y){

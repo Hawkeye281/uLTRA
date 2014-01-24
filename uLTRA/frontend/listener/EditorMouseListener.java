@@ -73,7 +73,12 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 		
 		if (pointsAreValid(getStartPoint(), getEndPoint())){
 			if (pEvent.getClickCount()==2 || pEvent.isMetaDown() || getStartPoint()==getEndPoint()){
-				mouseClicked(pEvent);
+				if (EditorController.getCell(getStartPoint()).isEmpty() && !pEvent.isMetaDown()) {
+					mouseClicked(pEvent);
+				}
+				else if (pEvent.isMetaDown()) {
+					mouseClicked(pEvent);
+				}
 			}
 			else if(getStartPoint() != getEndPoint() && editGridCont.isLightSource(getStartPoint().x, getStartPoint().y)) {
 				Point startPoint = getStartPoint();
@@ -93,7 +98,12 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 					startPoint.x += move;
 					while(moves >= 0 && continueLightRay(startPoint, _direction)){
 						if (!editGridCont.isBeam(startPoint.x, startPoint.y)){
-							editGridCont.setBeam(startPoint.x, startPoint.y, _direction);
+							if(moves > 0){
+								editGridCont.setBeam(startPoint.x, startPoint.y, _direction, false);
+							}
+							else {
+								editGridCont.setBeam(startPoint.x, startPoint.y, _direction, true);
+							}
 							lightValue++;
 						}
 						startPoint.x += move;
@@ -112,7 +122,12 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 					startPoint.y += move;
 					while(moves >= 0 && continueLightRay(startPoint, _direction)){
 						if (!editGridCont.isBeam(startPoint.x, startPoint.y)){
-							editGridCont.setBeam(startPoint.x, startPoint.y, _direction);
+							if (moves > 0){
+								editGridCont.setBeam(startPoint.x, startPoint.y, _direction, false);
+							}
+							else{
+								editGridCont.setBeam(startPoint.x, startPoint.y, _direction, true);
+							}
 							lightValue++;
 						}
 						startPoint.y += move;
