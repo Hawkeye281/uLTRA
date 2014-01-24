@@ -3,6 +3,7 @@
  */
 package panels;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ public class FieldSizePanel extends JPanel{
 
 
 	private static final long serialVersionUID = 1L;
+	private static FieldSizePanel fsp;
 	private static GamePanel _gamePanel;
 	private static EditorController _editCont;
 	private JSpinner spinHeight;
@@ -44,6 +46,7 @@ public class FieldSizePanel extends JPanel{
 		super(new GridLayout(3,2));
 		_gamePanel = GamePanel.getGamePanel();
 		_editCont = _gamePanel.getEditorController();
+		fsp = this;
 		setBorder(BorderFactory.createTitledBorder("Spielfeld erzeugen"));
 		spinHeight = (_gamePanel.getEditorController().gridIsSet())? setSpinner(EditorController.getGridHeight()): setSpinner(3);
 //		_gamePanel.getEditorController();
@@ -60,6 +63,27 @@ public class FieldSizePanel extends JPanel{
 		add(gen);
 	}
 	
+	public JPanel validatePanel(){
+		JPanel valPanel = new JPanel();
+		valPanel.setLayout(new GridLayout(5,0));
+		valPanel.add(new JLabel("Ihre Änderungen gehen verloren."));
+		valPanel.add(new JLabel("Möchten Sie trotzdem ein neues"));
+		valPanel.add(new JLabel("Feld generieren?"));
+		JButton val = new JButton("ok");
+		val.addActionListener(new ActionHandler());
+		JButton abort = new JButton("abbrechen");
+		abort.addActionListener(new ActionHandler());
+		valPanel.add(val);
+		valPanel.add(abort);
+		this.setVisible(false);
+		valPanel.setVisible(true);
+		return valPanel;
+	}
+	
+	public static FieldSizePanel getFieldSizePanel(){
+		return fsp;
+	}
+	
 	private JSpinner setSpinner(int value){
 		return new JSpinner(new SpinnerNumberModel(value,3,20,1));
 	}
@@ -67,9 +91,11 @@ public class FieldSizePanel extends JPanel{
 	class ActionHandler implements ActionListener{
 		
 		private FieldSizeDialog fsd;
+		private FieldSizePanel fsp;
 		
 		public ActionHandler(){
 			this.fsd = FieldSizeDialog.getFSD();
+			this.fsp = FieldSizePanel.getFieldSizePanel();
 		}
 		
 		/**
@@ -81,20 +107,32 @@ public class FieldSizePanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton b = (JButton) e.getSource();
-			if (b.getText().equals("start")){
-				int height = (int) spinHeight.getValue();
-				int width = (int) spinWidth.getValue();
-				try {
-					_editCont.setEditGrid(height, width);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+			if (b.getText().equals("ok")){
+				generateField();
+			}
+			else if (b.getText().equals("start")){
+				if (_editCont.gridIsSet()){
+					this.fsd.add(fsp.validatePanel());
 				}
-				this.fsd.dispose();
+				else {
+					generateField();
+				}
 			}
 			else {
 				this.fsd.dispose();
 			}
 			
+		}
+		
+		private void generateField(){
+			int height = (int) spinHeight.getValue();
+			int width = (int) spinWidth.getValue();
+			try {
+				_editCont.setEditGrid(height, width);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			this.fsd.dispose();
 		}
 	}
 }
