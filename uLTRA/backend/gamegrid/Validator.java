@@ -8,7 +8,6 @@ package gamegrid;
 import java.io.Serializable;
 import java.util.ArrayList;
 import history.*;
-import gamegrid.*;
 
 public class Validator implements Serializable{
 	

@@ -17,6 +17,7 @@ public class Turn implements Serializable
 	private Point _start;
 	private Point _end;
 	private String text = "";
+	private boolean isValid = true;
 	
 	public Turn(Point pStart, Point pEnd)
 	{
@@ -37,6 +38,14 @@ public class Turn implements Serializable
 	public Point getEnd()
 	{
 		return _end;
+	}
+	
+	public void setIsValid (boolean pIsValid) {
+		isValid = pIsValid;
+	}
+	
+	public boolean getIsValid () {
+		return isValid;
 	}
 	
 	@Override
