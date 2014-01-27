@@ -162,9 +162,9 @@ public class EditorController {
 		editorGrid.getCell(x, y).removeContent();
 	}
 	
-	public void setBeam(int x, int y, BeamDirections direction, boolean endBeam){
+	public void setBeam(int x, int y, BeamDirections direction, boolean endBeam, LightSource lightSource){
 		if (!isLightSource(x, y))
-			editorGrid.getCell(x, y).setContent(new Beam(direction, endBeam));
+			editorGrid.getCell(x, y).setContent(new Beam(direction, endBeam, lightSource));
 	}
 	
 	public Beam getBeam(int x, int y){
