@@ -1,9 +1,12 @@
 package panels;
 
 import gamegrid.Beam;
+import gamegrid.Cell;
 import gamegrid.CellContent;
 import gamegrid.GameGrid;
+import gamegrid.ImageResources;
 import gamegrid.LightSource;
+import gamegrid.ImageResources.ImageNames;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -57,42 +60,85 @@ public class GridPanel extends JPanel
 	{
 		this.removeAll();
 		JLabel tempLabel;
+		Cell c = null;
 		CellContent cc = null;
 		ImageIcon direction = null;
-		String img_end = "";
 		
 		for(int y = 0; y < _gridCont.getHeight(); y++)
 		{
 			for(int x = 0; x < _gridCont.getWidth(); x++)
 			{
-				cc = _gridCont.getCell(x, y).getContent();
-				img_end = "";
+				c = _gridCont.getCell(x, y);
+				cc = c.getContent();
+				direction = null;
 				
 				if(cc instanceof LightSource)
 				{
-					tempLabel = new JLabel(Integer.toString(((LightSource)_gridCont.getCell(x, y).getContent()).getCapacity()));
-					tempLabel.setForeground(Color.WHITE);
+					try
+					{
+						direction = ImageResources.getImage(ImageNames.getSource(c));
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+					
+					if(direction != null)
+					{
+						tempLabel = new JLabel(direction);
+						tempLabel.setIconTextGap(-(direction.getIconWidth()/2)-4);
+					}
+					else
+					{
+						tempLabel = new JLabel();
+					}
+
+					tempLabel.setForeground(Color.WHITE);	
+					tempLabel.setText(Integer.toString(((LightSource)cc).getCapacity()));
 				}
 				else if(cc instanceof Beam)
 				{
-					if(((Beam) cc).isBeamEnd())
-					{
-						img_end = "_end";
-					}
-					
 					switch(((Beam)cc).getDirection())
 					{
 						case BEAM_UP:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_up" + img_end + "_64.png");
+							if(!((Beam)cc).isBeamEnd())
+							{
+								direction = ImageResources.getImage(ImageNames.ARROW_UP);
+							}
+							else
+							{
+								direction = ImageResources.getImage(ImageNames.ARROW_UP_END);
+							}
 							break;
 						case BEAM_RIGHT:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_right" + img_end + "_64.png");
+							if(!((Beam)cc).isBeamEnd())
+							{
+								direction = ImageResources.getImage(ImageNames.ARROW_RIGHT);
+							}
+							else
+							{
+								direction = ImageResources.getImage(ImageNames.ARROW_RIGHT_END);
+							}
 							break;
 						case BEAM_DOWN:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_down" + img_end + "_64.png");
+							if(!((Beam)cc).isBeamEnd())
+							{
+								direction = ImageResources.getImage(ImageNames.ARROW_DOWN);
+							}
+							else
+							{
+								direction = ImageResources.getImage(ImageNames.ARROW_DOWN_END);
+							}
 							break;
 						case BEAM_LEFT:
-							direction = new ImageIcon("../uLTRA/Documents/images/icons/arrow_left" + img_end + "_64.png");
+							if(!((Beam)cc).isBeamEnd())
+							{
+								direction = ImageResources.getImage(ImageNames.ARROW_LEFT);
+							}
+							else
+							{
+								direction = ImageResources.getImage(ImageNames.ARROW_LEFT_END);
+							}
 							break;
 					}
 

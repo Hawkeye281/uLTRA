@@ -7,8 +7,8 @@ package gamegrid;
 
 import java.awt.Point;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Observable;
+
 import history.TurnList;
 
 public class GameGrid extends Observable implements Serializable {
@@ -56,6 +56,8 @@ public class GameGrid extends Observable implements Serializable {
 		for (int y = 0; y < height; y++)
 			for (int x = 0; x < width; x++)
 				gameGrid[y][x] = new Cell(x,y);
+		
+		setCellNeighbours();
 	}
 
 	/**
@@ -80,7 +82,10 @@ public class GameGrid extends Observable implements Serializable {
 	 */
 	public static GameGrid getInstance(int height, int width) {
 		if (null == _instance)
+		{
 			_instance = new GameGrid(height, width);
+			ImageResources.resetInstance();
+		}
 
 		return _instance;
 	}
@@ -91,6 +96,8 @@ public class GameGrid extends Observable implements Serializable {
 	
 	public static void setInstance(GameGrid pGameGrid) {
 		_instance = pGameGrid;
+		_instance.setCellNeighbours();
+		ImageResources.resetInstance();
 	}
 	
 	/**
@@ -178,5 +185,30 @@ public class GameGrid extends Observable implements Serializable {
 	
 	public void setPlayable(boolean playable){
 		this.playable = playable;
+	}
+	
+	private void setCellNeighbours()
+	{
+		Cell tempCell;
+		
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				tempCell = gameGrid[y][x];
+				
+				if(y > 0)
+					tempCell.setTopCell(getCell(x, y-1));
+				
+				if((x + 1) < width)
+					tempCell.setRightCell(getCell(x+1, y));
+				
+				if((y + 1) < height)
+					tempCell.setBottomCell(getCell(x, y+1));
+				
+				if(x > 0)
+					tempCell.setLeftCell(getCell(x-1, y));
+			}
+		}
 	}
 }
