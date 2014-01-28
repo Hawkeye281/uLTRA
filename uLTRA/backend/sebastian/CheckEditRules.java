@@ -18,6 +18,7 @@ import gamegrid.Turn;
 public class CheckEditRules {
 	
 	private static ArrayList<String> failList = new ArrayList<String>();
+	private static boolean playable;
 	
 	public static void check(GamePanel gamePanel){
 		int failures = 0, cellFailures = 0, lightFailures = 0;
@@ -43,6 +44,7 @@ public class CheckEditRules {
 			}
 		}
 		failures = cellFailures + lightFailures;
+		playable = (failures == 0)? true : false;
 		int i=0;
 		for (String msg : failList){
 			if (i<24) gamePanel.getTurnList().addTurn(new Turn(msg));
@@ -113,6 +115,11 @@ public class CheckEditRules {
 			}
 		}
 		return count;
+	}
+	
+	public static boolean playable(){
+		CheckEditRules.check(GamePanel.getGamePanel());
+		return CheckEditRules.playable;
 	}
 
 }
