@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
+
 import panels.GamePanel;
 import toolbarActions.*;
 
@@ -133,7 +134,6 @@ public class CommonToolbar extends JToolBar{
 		this.add(button);
 		button.addActionListener(new MainMenuAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/home.png"));
-//		button.setText("Zum Hauptmenü");
 		button.setToolTipText("Bringt Sie zurück zum Hauptmenü");
 		button.setBackground(Color.WHITE);
 		add(seperator());
@@ -142,7 +142,6 @@ public class CommonToolbar extends JToolBar{
 		this.add(button);
 		button.addActionListener(new CloseAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/exit.png"));
-//		button.setText("Beenden");
 		button.setToolTipText("Beendet das Programm");
 		button.setBackground(Color.WHITE);
 	}

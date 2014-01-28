@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+import panels.FieldSizePanel;
 import panels.GamePanel;
 import panels.MenuPanel;
 
@@ -31,16 +32,29 @@ public class MainMenuAction extends AbstractAction {
 		putValue(Action.NAME, "Hauptmenü");
 		putValue(Action.SHORT_DESCRIPTION, "Zum Hauptmenü zurückkehren");
 	}
-
-	/**
-	 * schaltet auf das Hauptmenü um
-	 */
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	
+	private void performAction(){
 		this.gamePanel.resetGrid();
 		mainFrame.removeFromDesktop(0);
 		mainFrame.addToDesktop(new MenuPanel());
 		mainFrame.refreshDesktop();
 	}
 
+	/**
+	 * schaltet auf das Hauptmenü um, sofern kein aktives Spiel-/Editorfeld besteht
+	 */
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		if(gamePanel.getGridController() == null && gamePanel.getEditorController().gridIsSet()){
+			if(FieldSizePanel.openConfirmDialog() == 0)
+				performAction();
+		}
+		else if(gamePanel.getEditorController() == null && gamePanel.getGridController().gridIsSet()){
+			if(FieldSizePanel.openConfirmDialog() == 0)
+				performAction();
+		}
+		else{
+			performAction();
+		}
+	}
 }

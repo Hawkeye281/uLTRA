@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -82,11 +83,19 @@ public class MenuPanel extends JPanel {
 				menuController.exit();
 			}
 			else if(clicked.getName().equals("help")){
-				// TODO
 				HelpWindow.getInstance();
 			}
-			
+			else if(clicked.getName().equals("about")){
+				String message = "uLTRA - The Lightbeam Game \n\n" + 
+						"Entwickelt von: \n" +
+						"\t \t Buhr, Manuel\n" +
+						"\t \t Dickau, Martin\n" +
+						"\t \t Humme, Stephan\n" +
+						"\t \t Kiepert, Sebastian\n" +
+						"\t \t Strauch, Carsten\n" +
+						"\t \t Weﬂler, Oliver\n\n";
+				JOptionPane.showMessageDialog(null, message, "‹ber...", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
-		
 	}
 }

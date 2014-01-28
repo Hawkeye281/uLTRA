@@ -41,6 +41,7 @@ public class MainFrame extends JFrame{
 	public MainFrame(){
 		MainFrame._mainFrame = this;
 		this.setSize(800,600);
+		this.setTitle("uLTRA - The Lightbeam Game");
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

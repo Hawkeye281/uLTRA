@@ -60,7 +60,7 @@ public class HelpWindow extends JFrame {
 	}
 
 	private HelpWindow() {
-		super("Help Contents");
+		super("uLTRA - Hilfe");
 		// CloseAction überschreiben
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(5, 0));

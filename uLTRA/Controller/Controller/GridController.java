@@ -43,6 +43,10 @@ public class GridController {
 		return spielfeld;
 	}
 	
+	public boolean gridIsSet(){
+		return (spielfeld!=null)? true : false;
+	}
+	
 	public static GameGrid getGameGrid(){
 		return spielfeld;
 	}

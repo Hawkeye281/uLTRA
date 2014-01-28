@@ -10,16 +10,16 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import Controller.EditorController;
-
 import dialogs.FieldSizeDialog;
 
 /**
- * @author Sebastian Kiepert
+ * @author Sebastian Kiepert, Manuel Buhr
  * @see panels.FieldSizePanel#FieldSizePanel(FieldSizeDialog, EditorPanel)
  *
  */
@@ -62,21 +62,13 @@ public class FieldSizePanel extends JPanel{
 		add(gen);
 	}
 	
-	public JPanel validatePanel(){
-		JPanel valPanel = new JPanel();
-		valPanel.setLayout(new GridLayout(5,0));
-		valPanel.add(new JLabel("Ihre Änderungen gehen verloren."));
-		valPanel.add(new JLabel("Möchten Sie trotzdem ein neues"));
-		valPanel.add(new JLabel("Feld generieren?"));
-		JButton val = new JButton("ok");
-		val.addActionListener(new ActionHandler());
-		JButton abort = new JButton("abbrechen");
-		abort.addActionListener(new ActionHandler());
-		valPanel.add(val);
-		valPanel.add(abort);
-		this.setVisible(false);
-		valPanel.setVisible(true);
-		return valPanel;
+	public static int openConfirmDialog(){
+		int choice = JOptionPane.showConfirmDialog(null, "Alle ungespeicherten Änderungen werden verworfen!\n" + 
+						"Möchten Sie das wirklich?",
+						"Änderungen verwerfen?",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.WARNING_MESSAGE);
+		return choice;
 	}
 	
 	public static FieldSizePanel getFieldSizePanel(){
@@ -90,11 +82,9 @@ public class FieldSizePanel extends JPanel{
 	class ActionHandler implements ActionListener{
 		
 		private FieldSizeDialog fsd;
-		private FieldSizePanel fsp;
 		
 		public ActionHandler(){
 			this.fsd = FieldSizeDialog.getFSD();
-			this.fsp = FieldSizePanel.getFieldSizePanel();
 		}
 		
 		/**
@@ -106,21 +96,14 @@ public class FieldSizePanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JButton b = (JButton) e.getSource();
-			if (b.getText().equals("ok")){
+			if(!_editCont.gridIsSet() && b.getText().equals("start"))
 				generateField();
-			}
-			else if (b.getText().equals("start")){
-				if (_editCont.gridIsSet()){
-					this.fsd.add(fsp.validatePanel());
-				}
-				else {
+			else if(_editCont.gridIsSet() && b.getText().equals("start")){
+				if(openConfirmDialog() == 0)
 					generateField();
-				}
+				else
+					this.fsd.dispose();
 			}
-			else {
-				this.fsd.dispose();
-			}
-			
 		}
 		
 		private void generateField(){
