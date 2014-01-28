@@ -95,6 +95,9 @@ public class GridController {
 //		return spiele[spielindex];
 //	}
 	
+	public boolean getPlayable(){
+		return spielfeld.getPlayable();
+	}
 	
 	public int getHeight(){
 		return spielfeld.getHeight();
