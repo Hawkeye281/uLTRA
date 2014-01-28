@@ -23,6 +23,7 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 
 	private GamePanel gamePanelNew;
 	private EditorController editGridCont;
+	private BeamDirections direction = null;
 	
 	public EditorMouseListener(){
 		this.gamePanelNew = GamePanel.getGamePanel();
@@ -66,9 +67,9 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 		super.mouseReleased(pEvent);
 		
 		int lightValue = 0;
-		int move = 0;
-		int moves = 0;
-		BeamDirections _direction = null;
+		int x_move = 0, y_move = 0;
+		int moves = 0, moveCheck = 0;
+		Beam beforeBeam = null;
 		
 		if (pointsAreValid(getStartPoint(), getEndPoint())){
 			if (pEvent.getClickCount()==2 || pEvent.isMetaDown() || getStartPoint()==getEndPoint()){
@@ -82,69 +83,56 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 			else if(getStartPoint() != getEndPoint() && editGridCont.isLightSource(getStartPoint().x, getStartPoint().y)) {
 				Point startPoint = getStartPoint();
 				Point endPoint = getEndPoint();
-				LightSource lightSource = editGridCont.getLightSource(getStartPoint().x, getStartPoint().y);
+				LightSource lightSource = editGridCont.getLightSource(startPoint.x, startPoint.y);
 				lightValue = lightSource.getCapacity(); 
 				moves = getMoveCount();
+				moveCheck = moves;
 				if (inRow(startPoint, endPoint)){
 					if(isLeftMove(startPoint, endPoint)){
-						_direction = BeamDirections.BEAM_LEFT;
-						move -= 1;
+						this.direction = BeamDirections.BEAM_LEFT;
+						x_move -= 1;
 					}
 					else if (isRightMove(startPoint, endPoint)){
-						_direction = BeamDirections.BEAM_RIGHT;
-						move = 1;
+						this.direction = BeamDirections.BEAM_RIGHT;
+						x_move = 1;
 					}
-					startPoint.x += move;
-					while(moves >= 0 && continueLightRay(startPoint, _direction)){
-						if (!editGridCont.isBeam(startPoint.x, startPoint.y)){
-							if(moves > 0){
-								editGridCont.setBeam(startPoint.x, startPoint.y, _direction, false, lightSource);
-							}
-							else {
-								editGridCont.setBeam(startPoint.x, startPoint.y, _direction, true, lightSource);
-							}
-							lightValue++;
-						}
-						else if (editGridCont.isBeam(startPoint.x, startPoint.y)){
-							Beam beam = editGridCont.getBeam(startPoint.x, startPoint.y);
-							if (beam.isBeamEnd() && isAlreadySameBeam(new Point(startPoint.x, startPoint.y), _direction)){
-								beam.changeBeamEnd();
-							}
-						}
-						startPoint.x += move;
-						moves--;
-					};
+					startPoint.x += x_move;
 				}
 				else if (inColumn(startPoint, endPoint)){
 					if (isUpMove(startPoint, endPoint)){
-						_direction = BeamDirections.BEAM_UP;
-						move -= 1;
+						this.direction = BeamDirections.BEAM_UP;
+						y_move -= 1;
 					}
 					else if (isDownMove(startPoint, endPoint)){
-						_direction = BeamDirections.BEAM_DOWN;
-						move = 1;
+						this.direction = BeamDirections.BEAM_DOWN;
+						y_move = 1;
 					}
-					startPoint.y += move;
-					while(moves >= 0 && continueLightRay(startPoint, _direction)){
-						if (!editGridCont.isBeam(startPoint.x, startPoint.y)){
-							if (moves > 0){
-								editGridCont.setBeam(startPoint.x, startPoint.y, _direction, false, lightSource);
-							}
-							else{
-								editGridCont.setBeam(startPoint.x, startPoint.y, _direction, true, lightSource);
-							}
-							lightValue++;
-						}
-						else if (editGridCont.isBeam(startPoint.x, startPoint.y)){
-							Beam beam = editGridCont.getBeam(startPoint.x, startPoint.y);
-							if (beam.isBeamEnd() && isAlreadySameBeam(new Point(startPoint.x, startPoint.y), _direction)){
-								beam.changeBeamEnd();
-							}
-						}
-						startPoint.y += move;
-						moves--;
-					};
+					startPoint.y += y_move;
 				}
+				while(moves >= 0 && continueLightRay(startPoint, this.direction)){
+					if (!editGridCont.isBeam(startPoint.x, startPoint.y)){
+						if (moves == moveCheck){
+							editGridCont.setBeam(startPoint.x, startPoint.y, this.direction, true, lightSource);
+							beforeBeam = editGridCont.getBeam(startPoint.x, startPoint.y);
+						}
+						else if (moves > 0){
+							beforeBeam.changeBeamEnd();
+							editGridCont.setBeam(startPoint.x, startPoint.y, this.direction, true, lightSource);
+							beforeBeam = editGridCont.getBeam(startPoint.x, startPoint.y);
+						}
+						else{
+							beforeBeam.changeBeamEnd();
+							editGridCont.setBeam(startPoint.x, startPoint.y, this.direction, true, lightSource);
+						}
+						lightValue++;
+					}
+					else if (editGridCont.isBeam(startPoint.x, startPoint.y)){
+						beforeBeam = editGridCont.getBeam(startPoint.x, startPoint.y);
+					}
+					startPoint.x += x_move;
+					startPoint.y += y_move;
+					moves--;
+				};
 				lightSource.setCapacity(lightValue);
 			}
 			this.editGridCont.recreateEditGrid();
@@ -187,10 +175,10 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 		BeamDirections direction = removed.getDirection();
 		int x=0, y=0;
 		switch(direction){
-		case BEAM_UP: y=1;break;
-		case BEAM_DOWN: y-=1;break;
-		case BEAM_LEFT: x=1;break;
-		case BEAM_RIGHT: x-=1;
+			case BEAM_UP: y=1;break;
+			case BEAM_DOWN: y-=1;break;
+			case BEAM_LEFT: x=1;break;
+			case BEAM_RIGHT: x-=1;
 		}
 		Cell cell = EditorController.getCell(changed.getX()+x, changed.getY()+y);
 		Beam change = (cell.getContent() instanceof Beam)? (Beam) cell.getContent() : null;
