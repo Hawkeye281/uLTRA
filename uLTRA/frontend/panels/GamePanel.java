@@ -117,30 +117,31 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void setGroundPanel(){
-		if (componentsExist()) {
-			this.remove(this.groundPanel);
-			this.remove(this.turnList);
-		}
-		
-		this.groundPanel = new JPanel();
-		
-		if(mode == Mode.EDIT)
-		{
-			this.groundPanel.setBorder(BorderFactory.createTitledBorder("Feld enthält: " 
-										+ CheckEditRules.lightSourceCount() + " Lichtquelle(n)"
-										+ " mit einer Gesamtstärke von " + CheckEditRules.lightCapacityCount() + ", "
-										+ CheckEditRules.beamCount() + " Lichtstrahl(en), "
-										+ CheckEditRules.emptyCellCount() + " leere Felder"));
-		}
-		
-		this.setTurnList();
-		this.groundPanel.setBackground(Color.WHITE);
-		this.groundPanel.add(setGridPanel());
-		this.add(this.groundPanel, BorderLayout.CENTER);
-		this.add(this.turnList, BorderLayout.EAST);
-		if (this.checked)
-			CheckEditRules.check(this);
+		if ((mode == Mode.GAME && gridController.getPlayable()) || mode == Mode.EDIT){
+			if (componentsExist()) {
+				this.remove(this.groundPanel);
+				this.remove(this.turnList);
+			}
 			
+			this.groundPanel = new JPanel();
+			
+			if(mode == Mode.EDIT)
+			{
+				this.groundPanel.setBorder(BorderFactory.createTitledBorder("Feld enthält: " 
+											+ CheckEditRules.lightSourceCount() + " Lichtquelle(n)"
+											+ " mit einer Gesamtstärke von " + CheckEditRules.lightCapacityCount() + ", "
+											+ CheckEditRules.beamCount() + " Lichtstrahl(en), "
+											+ CheckEditRules.emptyCellCount() + " leere Felder"));
+			}
+			
+			this.setTurnList();
+			this.groundPanel.setBackground(Color.WHITE);
+			this.groundPanel.add(setGridPanel());
+			this.add(this.groundPanel, BorderLayout.CENTER);
+			this.add(this.turnList, BorderLayout.EAST);
+			if (this.checked)
+				CheckEditRules.check(this);
+		}
 	}
 	
 	public void checkRules(){
