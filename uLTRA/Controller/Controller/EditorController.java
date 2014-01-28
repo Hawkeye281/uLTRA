@@ -182,6 +182,10 @@ public class EditorController {
 		editorGrid.getCell(x, y).removeContent();
 	}
 	
+	public void setPlayable(boolean playable){
+		editorGrid.setPlayable(playable);
+	}
+	
 	public static GameGrid getEditGrid(){
 		return editorGrid;
 	}
