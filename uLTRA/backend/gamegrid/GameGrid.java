@@ -18,6 +18,7 @@ public class GameGrid extends Observable implements Serializable {
 	private Cell[][] gameGrid;
 	private int width, height = 0;
 	private TurnList _turnList = null;
+	private boolean playable = true;
 	
 	/**
 	 * 
@@ -169,5 +170,13 @@ public class GameGrid extends Observable implements Serializable {
 	
 	public void setTurnList(TurnList pTurnList) {
 		_turnList = pTurnList;
+	}
+	
+	public boolean getPlayable(){
+		return this.playable;
+	}
+	
+	public void setPlayable(boolean playable){
+		this.playable = playable;
 	}
 }
