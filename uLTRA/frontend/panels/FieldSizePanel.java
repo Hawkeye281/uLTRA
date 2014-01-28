@@ -101,9 +101,9 @@ public class FieldSizePanel extends JPanel{
 			else if(_editCont.gridIsSet() && b.getText().equals("start")){
 				if(openConfirmDialog() == 0)
 					generateField();
-				else
-					this.fsd.dispose();
 			}
+			else
+				this.fsd.dispose();
 		}
 		
 		private void generateField(){
