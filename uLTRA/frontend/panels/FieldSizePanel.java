@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -63,11 +64,13 @@ public class FieldSizePanel extends JPanel{
 	}
 	
 	public static int openConfirmDialog(){
+		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/warning.png");
 		int choice = JOptionPane.showConfirmDialog(null, "Alle ungespeicherten Änderungen werden verworfen!\n" + 
 						"Möchten Sie das wirklich?",
 						"Änderungen verwerfen?",
 						JOptionPane.YES_NO_OPTION,
-						JOptionPane.WARNING_MESSAGE);
+						JOptionPane.WARNING_MESSAGE,
+						icon);
 		return choice;
 	}
 	

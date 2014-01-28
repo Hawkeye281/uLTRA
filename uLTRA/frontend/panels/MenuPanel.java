@@ -86,6 +86,7 @@ public class MenuPanel extends JPanel {
 				HelpWindow.getInstance();
 			}
 			else if(clicked.getName().equals("about")){
+				ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/about.png");
 				String message = "uLTRA - The Lightbeam Game \n\n" + 
 						"Entwickelt von: \n" +
 						"\t \t Buhr, Manuel\n" +
@@ -94,7 +95,7 @@ public class MenuPanel extends JPanel {
 						"\t \t Kiepert, Sebastian\n" +
 						"\t \t Strauch, Carsten\n" +
 						"\t \t Weﬂler, Oliver\n\n";
-				JOptionPane.showMessageDialog(null, message, "‹ber...", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, message, "‹ber...", JOptionPane.INFORMATION_MESSAGE, icon);
 			}
 		}
 	}

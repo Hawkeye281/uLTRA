@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.Hashtable;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -61,6 +62,7 @@ public class HelpWindow extends JFrame {
 
 	private HelpWindow() {
 		super("uLTRA - Hilfe");
+		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/help.png");
 		// CloseAction überschreiben
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(5, 0));
@@ -72,6 +74,7 @@ public class HelpWindow extends JFrame {
 		initHelp();
 
 		setMinimumSize(new Dimension(1024, 768));
+		setIconImage(icon.getImage());
 		setLocationRelativeTo(null);
 	}
 

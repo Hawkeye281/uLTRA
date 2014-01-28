@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 
@@ -39,8 +40,10 @@ public class MainFrame extends JFrame{
 	 * @see frames.MainFrame#init()
 	 */
 	public MainFrame(){
+		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/lightning.png");
 		MainFrame._mainFrame = this;
 		this.setSize(800,600);
+		this.setIconImage(icon.getImage());
 		this.setTitle("uLTRA - The Lightbeam Game");
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
