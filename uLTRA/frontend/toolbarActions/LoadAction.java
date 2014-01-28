@@ -62,6 +62,8 @@ public class LoadAction extends AbstractAction {
 					{
 						GameGrid.setInstance(ContentConverter.clearGame(jfc.getSelectedFile().getAbsolutePath()));
 					}
+					if (jfc.getSelectedFile().getName().contains("initial"))
+						gamePan.getGridController().setPlayable(true);
 				}
 				if (gamePan.getPanelMode()==Mode.EDIT){
 					EditorController.loadGame(jfc.getSelectedFile().getAbsolutePath());

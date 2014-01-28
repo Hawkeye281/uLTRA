@@ -99,6 +99,10 @@ public class GridController {
 		return spielfeld.getPlayable();
 	}
 	
+	public void setPlayable(boolean playable){
+		spielfeld.setPlayable(playable);
+	}
+	
 	public int getHeight(){
 		return spielfeld.getHeight();
 	}
