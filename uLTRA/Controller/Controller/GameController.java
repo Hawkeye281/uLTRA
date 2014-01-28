@@ -69,10 +69,6 @@ public class GameController {
 /*
 			tempEnd = startY + 1; 
 			
-			System.out.println("startX: " + startX + "| start.x: " + start.x);
-			System.out.println("tempEnd: " + tempEnd + " < " + endY);
-			System.out.print(startY);
-			
 			while(tempEnd < endY)
 			{
 				cellCont = gridCtrl.getCell(startX, tempEnd).getContent();
@@ -83,11 +79,9 @@ public class GameController {
 					{
 						tempEnd++;
 						remCap--;
-						System.out.println(" -> " + tempEnd);
 					}
 				}
 			}
-			System.out.println();
 */			
 			tempEnd = startY;
 			while(
@@ -148,13 +142,8 @@ public class GameController {
 		}
 		light.setRemainingCapacity(remCap);
 		
-		System.out.println("Start [" + start.x + ":" + start.y + "] wird zu [" + startX + ":" + startY + "]");
-		System.out.println("Ende  [" + end.x + ":" + end.y + "] wird zu [" + endX + ":" + endY + "]");
-		
 		Turn t = new Turn(new Point(startX, startY), new Point(endX, endY));
-//		System.out.println(t);
 		GamePanel.getGamePanel().getTurnList().addTurn(t);
-		
 	}
 	
 	public void pushHistory(Turn turn)

@@ -16,8 +16,6 @@ import javax.swing.JList;
  */
 public class TurnList extends JList<Object>
 {
-	//TODO Kann erst richtig implementiert werden, wenn die Spielzug Objekte implementiert wurden 
-	
 	private static final long serialVersionUID = 1L;
 	private List<Turn> _turns;
 	

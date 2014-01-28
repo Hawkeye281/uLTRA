@@ -6,8 +6,6 @@ public class ContentConverter
 {
 	public static GameGrid clearGame(String pSpielname)
 	{
-//		System.out.println("Dump beams from savegame: \"" + pSpielname + "\"");
-		
 		Cell c = null;
 		GameGrid grid = GridController.loadGame(pSpielname);
 		
@@ -22,8 +20,6 @@ public class ContentConverter
 				}
 			}
 		}
-
-//		System.out.println("Removed all beams from savegame: \"" + pSpielname + "\"");
 		return grid;
 	}
 }

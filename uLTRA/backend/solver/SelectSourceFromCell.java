@@ -89,12 +89,6 @@ public class SelectSourceFromCell implements SolveAlgorithm {
 		
 		currentCell = origin;
 		
-//		System.out.println("Cell: " + origin);
-//		System.out.println("hasTopCell: " + currentCell.hasTopCell());
-//		System.out.println("hasBottomCell: " + currentCell.hasBottomCell());
-//		System.out.println("hasLeftCell: " + currentCell.hasLeftCell());
-//		System.out.println("hasRightCell: " + currentCell.hasRightCell());
-		
 		while(currentCell.hasTopCell())
 		{
 			currentCell = currentCell.getTopCell();

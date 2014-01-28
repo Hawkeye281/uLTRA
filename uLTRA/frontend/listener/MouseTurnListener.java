@@ -31,7 +31,6 @@ public class MouseTurnListener extends AbstractMousePositionListener
 	public void mouseReleased(MouseEvent pEvent)
 	{
 		super.mouseReleased(pEvent);
-//		System.out.println("Pushed (" + (pEvent.getButton() == MouseEvent.BUTTON1? "Linksklick" : "Rechtsklick") + ") [" + getStartPoint().toString() + ":" + getEndPoint().toString() + "]");
 		
 		boolean valid = true;	// Ist der Zug okay?
 		boolean validTurn = true; // Soll in die TurnList geschrieben werden?

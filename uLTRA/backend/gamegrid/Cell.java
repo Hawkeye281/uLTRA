@@ -57,7 +57,6 @@ public class Cell implements Serializable{
 			if(y < gg.getHeight())
 				bottomCell = gg.getCell(x,y+1);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

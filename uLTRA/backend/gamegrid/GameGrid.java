@@ -69,7 +69,6 @@ public class GameGrid extends Observable implements Serializable {
 	public static GameGrid getInstance() throws Exception {
 		if (null == _instance)
 			throw new NullPointerException("Gamegrid not initialised");
-//		System.out.println("return: " + _instance);
 		return _instance;		
 	}
 	

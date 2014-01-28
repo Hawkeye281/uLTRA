@@ -116,7 +116,6 @@ public class HelpWindow extends JFrame {
 
 				if (s.contains("<img")) {
 					final String parsedString = parseIMGTag(s);
-//					System.out.println("parsedString: " + parsedString);
 					sb.append(parsedString);
 				} else
 					sb.append(s);
@@ -125,7 +124,6 @@ public class HelpWindow extends JFrame {
 			in.close();
 
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -143,7 +141,6 @@ public class HelpWindow extends JFrame {
 		try {
 			url = test.toURI().toURL();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return s.substring(0, srcIndex) + url
@@ -172,16 +169,12 @@ public class HelpWindow extends JFrame {
 						nl.item(i).getLastChild().getTextContent());
 			}
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();

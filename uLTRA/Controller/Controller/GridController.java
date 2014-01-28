@@ -103,15 +103,6 @@ public class GridController {
 		return spiele;
 	}
 	
-//	public static String getGameNameByIndex(int spielindex){
-//		String[] spiele = getAllSavedGames();
-//		
-////		System.out.println("INDEX: " + spielindex);
-////		System.out.println("SPIEL: " + spiele[spielindex]);
-//		
-//		return spiele[spielindex];
-//	}
-	
 	public boolean getPlayable(){
 		return spielfeld.getPlayable();
 	}

@@ -31,7 +31,6 @@ public class FieldSizeDialog extends JDialog{
 		FieldSizeDialog._fsd = this;
 		setUndecorated(true);
 		setLocationRelativeTo(null);
-		System.out.println(mf.getBounds());
 		setLocation((mf.getBounds().x+3), (mf.getBounds().y+74));
 		setSize(200,120);
 		setModal(true);
