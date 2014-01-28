@@ -199,9 +199,13 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void resetGrid(){
-		if (this.editorController != null)
+		if (_gamePanelNew.getEditorController() != null && this.gridController == null){
 			if (this.editorController.gridIsSet())
-				this.editorController.removeGrid();
+				this.editorController.removeGrid();	
+		}
+		else if (_gamePanelNew.getGridController() != null && this.editorController == null)
+			if (this.gridController.gridIsSet())
+				this.gridController.removeGrid();
 		resetPanel();
 	}
 	

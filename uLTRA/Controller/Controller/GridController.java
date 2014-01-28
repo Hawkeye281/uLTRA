@@ -47,6 +47,19 @@ public class GridController {
 		return (spielfeld!=null)? true : false;
 	}
 	
+	/**
+	 * löscht das erstellte Grid
+	 */
+	public void removeGrid(){
+		GameGrid.deleteInstance();
+		spielfeld = null;
+	}
+	
+	public void resetGrid(){
+		if (gridIsSet())
+			removeGrid();
+	}
+	
 	public static GameGrid getGameGrid(){
 		return spielfeld;
 	}
