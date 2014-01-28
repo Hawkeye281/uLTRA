@@ -19,6 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 import panels.GamePanel;
+import sebastian.CheckEditRules;
 import sebastian.Mode;
 import Controller.GridController;
 
@@ -46,6 +47,8 @@ public class SaveAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String subfolder = GamePanel.getGamePanel().getPanelMode() != Mode.EDIT? "SaveGames" : "Editor";
+		if (GamePanel.getGamePanel().getPanelMode() == Mode.EDIT)
+			GamePanel.getGamePanel().getEditorController().setPlayable(CheckEditRules.playable());
 		int w = 0;
 		JFileChooser jfc = new JFileChooser();
 		FileFilter ff = new FileNameExtensionFilter("Lichtstrahl-Puzzle", "puzzle");
