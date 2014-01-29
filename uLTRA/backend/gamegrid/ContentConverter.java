@@ -2,8 +2,20 @@ package gamegrid;
 
 import Controller.GridController;
 
+/**
+ * Klasse zum Entfernen von {@link Beam}<code>s</code> aus einem {@link GameGrid}.
+ * 
+ * @author Stephan
+ *
+ */
 public class ContentConverter
 {
+	/**
+	 * Löscht alle {@link Beam}<code>s</code> aus einem {@link GameGrid}
+	 * 
+	 * @param pSpielname das Spielfeld mit enthaltenen <code>Beams</code>
+	 * @return das Spielfeld ohne <code>Beams</code>
+	 */
 	public static GameGrid clearGame(String pSpielname)
 	{
 		Cell c = null;

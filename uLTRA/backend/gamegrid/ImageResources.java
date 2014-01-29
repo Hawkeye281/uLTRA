@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import panels.GridPanel;
 
 /**
+ * Bildregister für alle Bilder die mit den {@link Beam}<code>s</code> oder {@link LightSource}<code>s</code> zu tun haben.
  * 
  * @author Stephan
  *
@@ -25,8 +26,14 @@ public class ImageResources
 	{
 		try
 		{
+//			System.out.println(GridPanel.getGridSize().toString());
+//			System.out.println(GridPanel.getGridSize().width + " / " + GameGrid.getInstance().getWidth());
 			_imageWidth = (GridPanel.getGridSize().width / GameGrid.getInstance().getWidth());
+//			System.out.println("_imageWidth: " + _imageWidth);
+//			System.out.println(GridPanel.getGridSize().height + " / " + GameGrid.getInstance().getHeight());
 			_imageHeight = (GridPanel.getGridSize().height / GameGrid.getInstance().getHeight());
+//			System.out.println("_imageHeight: " + _imageHeight);
+//			System.out.println("----");
 		}
 		catch (Exception e)
 		{ 
@@ -50,7 +57,7 @@ public class ImageResources
 			if(!_images.containsKey(pNames))
 			{
 				icon = new ImageIcon(pNames.getPath());
-				icon = new ImageIcon(icon.getImage().getScaledInstance(_imageHeight, _imageWidth, 5));
+				icon = new ImageIcon(icon.getImage().getScaledInstance(_imageWidth, _imageHeight, 5));
 				
 				_images.put(pNames, icon);
 			}

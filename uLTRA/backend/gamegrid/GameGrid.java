@@ -83,7 +83,6 @@ public class GameGrid extends Observable implements Serializable {
 		if (null == _instance)
 		{
 			_instance = new GameGrid(height, width);
-			ImageResources.resetInstance();
 		}
 
 		return _instance;
@@ -96,7 +95,6 @@ public class GameGrid extends Observable implements Serializable {
 	public static void setInstance(GameGrid pGameGrid) {
 		_instance = pGameGrid;
 		_instance.setCellNeighbours();
-		ImageResources.resetInstance();
 	}
 	
 	/**

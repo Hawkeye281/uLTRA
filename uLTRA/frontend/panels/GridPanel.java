@@ -11,7 +11,6 @@ import gamegrid.ImageResources.ImageNames;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Point;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -23,18 +22,12 @@ import Controller.GridController;
 
 /**
  * 
- * @author Stephan
+ * @author Sebastian
  *
  */
 public class GridPanel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
-	
-	private int _startFieldX = 0;
-	private int _startFieldY = 0;
-	
-	private int _endFieldX = 0;
-	private int _endFieldY = 0;
 	
 	private GridLayout _layout;
 	private GameGrid _gridCont;
@@ -46,16 +39,22 @@ public class GridPanel extends JPanel
 		_gridCont = GridController.initGameGrid();
 		_layout = new GridLayout(_gridCont.getHeight(), _gridCont.getWidth());
 		_size = (_gridCont.getHeight()>_gridCont.getWidth())?
-				new Dimension(500/_gridCont.getHeight()*_gridCont.getWidth(),500) :
-					new Dimension(500,500/_gridCont.getWidth()*_gridCont.getHeight());
+				new Dimension((int)(500./_gridCont.getHeight()*_gridCont.getWidth()),500) :
+					new Dimension(500,(int)(500./_gridCont.getWidth()*_gridCont.getHeight()));
 		
 		this.setLayout(_layout);
 		this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		this.setPreferredSize(_size);
 		resetLayout();
+		ImageResources.resetInstance(); // I'm REALLY sorry...
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Aktualisiert das <code>GridPanel</code> mit den passenden Bildern für die {@link Beam}s und die {@link LightSource}s
+	 * 
+	 * @author Stephan
+	 */
 	public void resetLayout()
 	{
 		this.removeAll();
@@ -63,6 +62,7 @@ public class GridPanel extends JPanel
 		Cell c = null;
 		CellContent cc = null;
 		ImageIcon direction = null;
+		int charSize = 0;	// Wird für die korrekte Einrückung des Textes bei den LightSources benötigt.
 		
 		for(int y = 0; y < _gridCont.getHeight(); y++)
 		{
@@ -85,8 +85,17 @@ public class GridPanel extends JPanel
 					
 					if(direction != null)
 					{
+						if(((LightSource)cc).getCapacity() > 9)
+						{
+							charSize = 8; 
+						}
+						else
+						{
+							charSize = 4;
+						}
+						
 						tempLabel = new JLabel(direction);
-						tempLabel.setIconTextGap(-(direction.getIconWidth()/2)-4);
+						tempLabel.setIconTextGap(-(direction.getIconWidth()/2) - charSize);	
 					}
 					else
 					{
@@ -157,16 +166,12 @@ public class GridPanel extends JPanel
 		}
 	}
 	
-	public Point getStartingPosition()
-	{
-		return new Point(_startFieldX, _startFieldY);
-	}
-	
-	public Point getEndingPosition()
-	{
-		return new Point(_endFieldX, _endFieldY);
-	}
-	
+	/**
+	 * Gibt die Größe des <code>GridPanels</code> zurück
+	 * 
+	 * @return die Größe des <code>GridPanels</code> als {@link Dimension}
+	 * @author Stephan
+	 */
 	public static Dimension getGridSize()
 	{
 		return _size;
