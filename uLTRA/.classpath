@@ -3,6 +3,11 @@
 	<classpathentry kind="src" path="backend"/>
 	<classpathentry kind="src" path="frontend"/>
 	<classpathentry kind="src" path="Controller"/>
+	<classpathentry kind="lib" path="Documents/jar/weblaf-1.25.jar" sourcepath="Documents/jar/weblaf-src-1.25.zip">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="uLTRA/Documents/jar"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
