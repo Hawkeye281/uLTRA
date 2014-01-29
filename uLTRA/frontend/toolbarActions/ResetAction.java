@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+import panels.FieldSizePanel;
 import panels.GamePanel;
 
 /**
@@ -31,7 +32,8 @@ public class ResetAction extends AbstractAction{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		this.gamePanel.resetGrid();
+		if(gamePanel.getEditorController().gridIsSet() && FieldSizePanel.openConfirmDialog() == 0 )
+			this.gamePanel.resetGrid();
 	}
 
 }
