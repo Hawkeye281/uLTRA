@@ -32,6 +32,7 @@ public class MainFrame extends JFrame{
 	private static JDesktopPane desktop;
 	private static Point location;
 	private Image img;
+	private boolean imgLoad = true;
 	
 	/**
 	 * erzeugt ein rahmenloses Fenster der Größe 800*600
@@ -79,16 +80,17 @@ public class MainFrame extends JFrame{
 		try {
 			img = ImageIO.read(imgFile);
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			imgLoad = false;
 		}
 		JDesktopPane desk = new JDesktopPane()
 		{
 	        
-			private static final long serialVersionUID = 1L;			
-			Image scaledImg = img.getScaledInstance(800, 600, Image.SCALE_SMOOTH);
+			private static final long serialVersionUID = 1L;	
+			Image scaledImg = (imgLoad)? img.getScaledInstance(800, 600, Image.SCALE_SMOOTH) : null;
 			public void paintComponent(Graphics g) {
 	            super.paintComponent(g);
-	            g.drawImage(scaledImg,0,0,this.getWidth(),this.getHeight(),this);
+	            if (scaledImg != null) g.drawImage(scaledImg,0,0,this.getWidth(),this.getHeight(),this);
 	        }
 		};
 		return desk;
