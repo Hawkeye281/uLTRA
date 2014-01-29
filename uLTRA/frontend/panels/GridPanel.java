@@ -36,14 +36,15 @@ public class GridPanel extends JPanel
 
 	public GridPanel()
 	{
+		super(null);
 		_gridCont = GridController.initGameGrid();
 		_layout = new GridLayout(_gridCont.getHeight(), _gridCont.getWidth());
 		_size = (_gridCont.getHeight()>_gridCont.getWidth())?
-				new Dimension((int)(500./_gridCont.getHeight()*_gridCont.getWidth()),500) :
-					new Dimension(500,(int)(500./_gridCont.getWidth()*_gridCont.getHeight()));
-		
+				new Dimension((int)(500/_gridCont.getHeight()*_gridCont.getWidth()),500) :
+					new Dimension(500,(int)(500/_gridCont.getWidth()*_gridCont.getHeight()));
+
 		this.setLayout(_layout);
-		this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+//		this.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		this.setPreferredSize(_size);
 		resetLayout();
 		ImageResources.resetInstance(); // I'm REALLY sorry...
