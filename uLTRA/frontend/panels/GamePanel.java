@@ -75,6 +75,7 @@ public class GamePanel extends JPanel {
 	
 	private void setEditorController(){
 		this.editorController = new EditorController();
+		editorController.resetGrid();
 	}
 	
 	public EditorController getEditorController(){
@@ -83,6 +84,7 @@ public class GamePanel extends JPanel {
 	
 	private void setGridController(){
 		this.gridController = new GridController();
+		gridController.resetGrid();
 	}
 	
 	public GridController getGridController(){
