@@ -1,6 +1,7 @@
 package Controller;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import manuel.LoadGame;
 import panels.GamePanel;
@@ -16,6 +17,7 @@ public class EditorController {
 
 	private static GameGrid editorGrid;
 	private static GamePanel gamePanel;
+	private ArrayList<Cell> cellList;
 	static LoadGame loader = new LoadGame();
 	
 	/**
@@ -72,6 +74,32 @@ public class EditorController {
 	
 	public static Cell getCell(Point pos){
 		return editorGrid.getCell(pos);
+	}
+	
+	public void setCellList(){
+		this.cellList = new ArrayList<Cell>();
+		for (int x =0; x<editorGrid.getWidth();x++){
+			for (int y=0; y<editorGrid.getHeight();y++){
+				this.cellList.add(editorGrid.getCell(x, y));
+			}
+		}
+	}
+	
+	public boolean gridIsEmpty(){
+		for (int x = 0; x < editorGrid.getWidth(); x++){
+			for (int y = 0; y < editorGrid.getHeight(); y++){
+				if (!editorGrid.getCell(x, y).isEmpty()) return false;
+			}
+		}
+		return true;
+	}
+	
+	public void setCellsFromList(){
+		for (Cell cell : this.cellList){
+			editorGrid.setCell(cell, cell.getX(), cell.getY());
+		}
+		this.cellList = null;
+		recreateEditGrid();
 	}
 	
 	/**

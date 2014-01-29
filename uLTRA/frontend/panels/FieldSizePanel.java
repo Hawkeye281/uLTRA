@@ -74,6 +74,18 @@ public class FieldSizePanel extends JPanel{
 		return choice;
 	}
 	
+	public static int openChangeConfirmDialog(){
+		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/warning.png");
+		int choice = JOptionPane.showConfirmDialog(null, "Sollen die Änderungen verworfen (\"Ja\")\n" + 
+						"oder übernommen (\"Nein\") werden? \n\n" + 
+						"Mit \"Abbrechen\" wird der Vorgang abgebrochen.",
+						"Änderungen verwerfen?",
+						JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.WARNING_MESSAGE,
+						icon);
+		return choice;
+	}
+	
 	public static FieldSizePanel getFieldSizePanel(){
 		return fsp;
 	}
@@ -102,8 +114,26 @@ public class FieldSizePanel extends JPanel{
 			if(!_editCont.gridIsSet() && b.getText().equals("start"))
 				generateField();
 			else if(_editCont.gridIsSet() && b.getText().equals("start")){
-				if(openConfirmDialog() == 0)
+				int choice = 3, change = 3;
+				if (((int) spinHeight.getValue() < EditorController.getGridHeight() ||
+					(int) spinWidth.getValue() < EditorController.getGridWidth()) ||
+					((int) spinHeight.getValue() == EditorController.getGridHeight() &&
+					(int) spinWidth.getValue() == EditorController.getGridWidth()) ||
+					_editCont.gridIsEmpty()){
+					choice = openConfirmDialog();
+				}
+				else {
+					change = openChangeConfirmDialog();
+				}
+				if(choice == 0 || change == 0){
 					generateField();
+				}
+				else if (change == 1){
+					expanField();
+				}
+				else {
+					this.fsd.dispose();
+				}
 			}
 			else
 				this.fsd.dispose();
@@ -118,6 +148,12 @@ public class FieldSizePanel extends JPanel{
 				e1.printStackTrace();
 			}
 			this.fsd.dispose();
+		}
+		
+		private void expanField(){
+			_editCont.setCellList();
+			generateField();
+			_editCont.setCellsFromList();
 		}
 	}
 }
