@@ -75,13 +75,11 @@ public class FieldSizePanel extends JPanel{
 	}
 	
 	public static int openChangeConfirmDialog(){
-		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/warning.png");
-		int choice = JOptionPane.showConfirmDialog(null, "Sollen die Änderungen verworfen (\"Ja\")\n" + 
-						"oder übernommen (\"Nein\") werden? \n\n" + 
-						"Mit \"Abbrechen\" wird der Vorgang abgebrochen.",
-						"Änderungen verwerfen?",
+		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/help.png");
+		int choice = JOptionPane.showConfirmDialog(null, "Möchten Sie die eingetragenen Lichtstraheln behalten? \n",
+						"Änderungen behalten?",
 						JOptionPane.YES_NO_CANCEL_OPTION,
-						JOptionPane.WARNING_MESSAGE,
+						JOptionPane.QUESTION_MESSAGE,
 						icon);
 		return choice;
 	}
@@ -125,10 +123,10 @@ public class FieldSizePanel extends JPanel{
 				else {
 					change = openChangeConfirmDialog();
 				}
-				if(choice == 0 || change == 0){
+				if(choice == 0 || change == 1){
 					generateField();
 				}
-				else if (change == 1){
+				else if (change == 0){
 					expanField();
 				}
 				else {
