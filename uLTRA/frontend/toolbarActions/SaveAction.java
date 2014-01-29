@@ -10,6 +10,7 @@ import java.io.File;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -66,10 +67,13 @@ public class SaveAction extends AbstractAction {
 					String spielname = jfc.getSelectedFile().getAbsolutePath();
 					tempfile = new File(spielname);
 					if(tempfile.exists()){
+						ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/warning.png");
 						int auswahl = JOptionPane.showConfirmDialog(null,
-								"Wollen Sie das Puzzle überschreiben?",
+								"Möchten Sie das vorhandene Puzzle überschreiben?",
 								"Puzzle existiert",
-								JOptionPane.YES_NO_CANCEL_OPTION);
+								JOptionPane.YES_NO_CANCEL_OPTION,
+								JOptionPane.WARNING_MESSAGE,
+								icon);
 						switch (auswahl) {
 						case 0:
 							File spiel = new File(spielname);
@@ -98,7 +102,11 @@ public class SaveAction extends AbstractAction {
 			} while (w == 1);
 		}
 		else{
-			JOptionPane.showMessageDialog(null, "Nichts zu speichern...", ":-(", JOptionPane.ERROR_MESSAGE);
+			ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/error.png");
+			JOptionPane.showMessageDialog(null, "Nichts zu speichern...",
+					":-(",
+					JOptionPane.ERROR_MESSAGE,
+					icon);
 		}
 	}
 }
