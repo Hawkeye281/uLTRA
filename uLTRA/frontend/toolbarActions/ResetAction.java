@@ -7,8 +7,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
-import panels.FieldSizePanel;
 import panels.GamePanel;
 
 /**
@@ -30,9 +31,20 @@ public class ResetAction extends AbstractAction{
 		putValue(Action.SHORT_DESCRIPTION, "Spielfeld zurücksetzen");
 	}
 	
+	public static int openResetDialog(){
+		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/warning.png");
+		int choice = JOptionPane.showConfirmDialog(null, "Das gesamte Spielfeld wird verworfen!\n" + 
+						"Möchten Sie das wirklich?",
+						"Spielfeld verwerfen?",
+						JOptionPane.YES_NO_OPTION,
+						JOptionPane.WARNING_MESSAGE,
+						icon);
+		return choice;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if(gamePanel.getEditorController().gridIsSet() && FieldSizePanel.openConfirmDialog() == 0 )
+		if(gamePanel.getEditorController().gridIsSet() && openResetDialog() == 0 )
 			this.gamePanel.resetGrid();
 	}
 

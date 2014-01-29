@@ -73,7 +73,8 @@ public class HelpWindow extends JFrame {
 
 		initHelp();
 
-		setMinimumSize(new Dimension(1024, 768));
+		setMinimumSize(new Dimension(1100, 768));
+		setResizable(false);
 		setIconImage(icon.getImage());
 		setLocationRelativeTo(null);
 	}

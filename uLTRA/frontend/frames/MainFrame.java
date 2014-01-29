@@ -43,7 +43,7 @@ public class MainFrame extends JFrame{
 	public MainFrame(){
 		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/lightning.png");
 		MainFrame._mainFrame = this;
-		this.setSize(800,600);
+		this.setSize(900,680);
 		this.setIconImage(icon.getImage());
 		this.setTitle("uLTRA - The Lightbeam Game");
 		this.setResizable(false);

@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.alee.laf.button.WebButtonUI;
+
 import Controller.MenuController;
 
 import gamegrid.GameGrid;
@@ -51,11 +53,16 @@ public class MenuPanel extends JPanel {
 	
 	private JButton setButton(String title, String name, boolean enable, Icon icon){
 		JButton button = new JButton(title);
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		button.setName(name);
 		button.addActionListener(new ActionHandler());
 		button.setEnabled(enable);
 		button.setIcon(icon);
 		button.setBackground(Color.WHITE);
+		button.setLayout(null);
 		button.setIconTextGap(30);
 		button.setHorizontalAlignment(SwingConstants.LEFT);
 		return button;

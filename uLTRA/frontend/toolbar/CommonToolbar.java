@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
+import com.alee.laf.button.WebButtonUI;
+
 
 import panels.GamePanel;
 import toolbarActions.*;
@@ -56,13 +58,22 @@ public class CommonToolbar extends JToolBar{
 	
 	private void setGameTools(){
 		JButton button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new LoadAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/load.png"));
 		button.setText("laden");
 		button.setToolTipText("Lädt ein gespeichertes Spiel");
 		button.setBackground(Color.WHITE);
+		
 		button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new SaveAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/save.png"));
@@ -71,7 +82,12 @@ public class CommonToolbar extends JToolBar{
 		button.setBackground(Color.WHITE);
 		add(seperator());
 		add(seperator());
+		
 		button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new SolveAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/solve.png"));
@@ -84,6 +100,10 @@ public class CommonToolbar extends JToolBar{
 	
 	private void setEditorTools(){
 		JButton button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new GenerateAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/new.png"));
@@ -92,6 +112,10 @@ public class CommonToolbar extends JToolBar{
 		button.setBackground(Color.WHITE);
 		
 		button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new ResetAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/reset.png"));
@@ -100,6 +124,10 @@ public class CommonToolbar extends JToolBar{
 		button.setBackground(Color.WHITE);
 		
 		button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new CheckRulesAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/check.png"));
@@ -110,6 +138,10 @@ public class CommonToolbar extends JToolBar{
 		add(seperator());
 		
 		button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new SaveAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/save.png"));
@@ -118,6 +150,10 @@ public class CommonToolbar extends JToolBar{
 		button.setBackground(Color.WHITE);
 		
 		button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new LoadAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/load.png"));
@@ -131,6 +167,10 @@ public class CommonToolbar extends JToolBar{
 	
 	private void commonTools(){
 		JButton button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new MainMenuAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/home.png"));
@@ -139,6 +179,10 @@ public class CommonToolbar extends JToolBar{
 		add(seperator());
 		add(seperator());
 		button = new JButton();
+		((WebButtonUI)button.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)button.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)button.getUI()).setRolloverShine(true);
+		((WebButtonUI)button.getUI()).setShineColor(new Color(180, 180, 180));
 		this.add(button);
 		button.addActionListener(new CloseAction());
 		button.setIcon(new ImageIcon("../uLTRA/Documents/images/icons/exit.png"));

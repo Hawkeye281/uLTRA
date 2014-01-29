@@ -3,6 +3,7 @@
  */
 package panels;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+
+import com.alee.laf.button.WebButtonUI;
 
 import Controller.EditorController;
 import dialogs.FieldSizeDialog;
@@ -52,8 +55,18 @@ public class FieldSizePanel extends JPanel{
 //		_gamePanel.getEditorController();
 		spinWidth = (_gamePanel.getEditorController().gridIsSet())? setSpinner(EditorController.getGridWidth()): setSpinner(3);
 		JButton gen = new JButton("start");
+		gen.setSize(0, 50);
+		((WebButtonUI)gen.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)gen.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)gen.getUI()).setRolloverShine(true);
+		((WebButtonUI)gen.getUI()).setShineColor(new Color(180, 180, 180));
 		gen.addActionListener(new ActionHandler());
 		JButton abort = new JButton("abbrechen");
+		abort.setSize(0, 50);
+		((WebButtonUI)abort.getUI()).setBottomBgColor(Color.WHITE);
+		((WebButtonUI)abort.getUI()).setBottomSelectedBgColor(new Color(230,230,230));
+		((WebButtonUI)abort.getUI()).setRolloverShine(true);
+		((WebButtonUI)abort.getUI()).setShineColor(new Color(180, 180, 180));
 		abort.addActionListener(new ActionHandler());
 		add(new JLabel("Feldhöhe"));
 		add(spinHeight);
