@@ -6,6 +6,7 @@
 package gamegrid;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class LightSource implements CellContent, Serializable{
 	/**
@@ -14,6 +15,7 @@ public class LightSource implements CellContent, Serializable{
 	private static final long serialVersionUID = -4174054452523873042L;
 	private int capacity = 0;
 	private int remainingCapacity = 0;	
+	private ArrayList<Beam> beamList;
 	
 	public LightSource(int initialCapacity) {
 		if (initialCapacity < 0)
@@ -21,6 +23,7 @@ public class LightSource implements CellContent, Serializable{
 		
 		capacity = initialCapacity;
 		remainingCapacity = capacity;
+		beamList = new ArrayList<Beam>();
 	}
 	
 	public int getCapacity() {
@@ -41,6 +44,19 @@ public class LightSource implements CellContent, Serializable{
 		if(newRemainingCapacity < 0)
 			throw new IllegalArgumentException("Kapazität darf nicht unter 0 sinken.");
 		remainingCapacity = newRemainingCapacity;
+	}
+	
+	public void addBeamToList(Beam beam){
+		this.beamList.add(beam);
+		setCapacity(this.beamList.size());
+	}
+	
+	public void removeBeamFromList(Beam beam){
+		this.beamList.remove(beam);
+	}
+	
+	public ArrayList<Beam> getBeamList(){
+		return this.beamList;
 	}
 	
 	public LightSource clone() {
