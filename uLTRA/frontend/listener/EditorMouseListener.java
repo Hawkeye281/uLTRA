@@ -10,7 +10,6 @@ import gamegrid.LightSource;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-
 import Controller.EditorController;
 
 import panels.GamePanel;
@@ -47,7 +46,7 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 					this.editGridCont.recreateEditGrid();
 				}
 				else {
-					removeLightSourceAndBeams(clickLoc.x, clickLoc.y);
+					this.editGridCont.removeLightSourceAndBeams(clickLoc.x, clickLoc.y);
 					this.editGridCont.recreateEditGrid();
 				}
 			}
@@ -66,7 +65,6 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 	{	
 		super.mouseReleased(pEvent);
 		
-		int lightValue = 0;
 		int x_move = 0, y_move = 0;
 		int moves = 0, moveCheck = 0;
 		Beam beforeBeam = null;
@@ -84,7 +82,6 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 				Point startPoint = getStartPoint();
 				Point endPoint = getEndPoint();
 				LightSource lightSource = editGridCont.getLightSource(startPoint.x, startPoint.y);
-				lightValue = lightSource.getCapacity(); 
 				moves = getMoveCount();
 				moveCheck = moves;
 				if (inRow(startPoint, endPoint)){
@@ -124,7 +121,6 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 							beforeBeam.changeBeamEnd();
 							editGridCont.setBeam(startPoint.x, startPoint.y, this.direction, true, lightSource);
 						}
-						lightValue++;
 					}
 					else if (editGridCont.isBeam(startPoint.x, startPoint.y)){
 						beforeBeam = editGridCont.getBeam(startPoint.x, startPoint.y);
@@ -133,7 +129,6 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 					startPoint.y += y_move;
 					moves--;
 				};
-				lightSource.setCapacity(lightValue);
 			}
 			this.editGridCont.recreateEditGrid();
 		}
@@ -148,26 +143,6 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 			setNewLastBeam(EditorController.getCell(x_start, y_start));
 			editGridCont.removeBeam(x_start, y_start);
 		}
-	}
-	
-	private void removeLightSourceAndBeams(int click_x, int click_y){
-		LightSource lightSource = editGridCont.getLightSource(click_x, click_y);
-		for (int x=0; x <= EditorController.getGridWidth(); x++){
-			for (int y=0; y <= EditorController.getGridHeight(); y++){
-				if (editGridCont.isBeam(x, y)){
-					Beam beam = editGridCont.getBeam(x, y);
-					LightSource vglLightSource = beam.getRemLightSource();
-					if (isSameLightSource(lightSource, vglLightSource)){
-						editGridCont.removeBeam(x, y);
-					}
-				}
-			}
-		}
-		editGridCont.removeLightSource(click_x, click_y);
-	}
-	
-	private boolean isSameLightSource(LightSource lightSource, LightSource vglLightSource){
-		return (lightSource == vglLightSource)? true : false;
 	}
 	
 	private void setNewLastBeam(Cell changed){

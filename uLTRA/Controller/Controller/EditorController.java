@@ -102,6 +102,23 @@ public class EditorController {
 		recreateEditGrid();
 	}
 	
+	public void checkCellsToDelete(int newWidth, int newHeight){
+		ArrayList<Cell> alive = new ArrayList<Cell>();
+		for (Cell cell : this.cellList){
+			if (cell.getX() >= newWidth || cell.getY() >= newHeight){
+				System.out.println("die: " + cell.getX() + ", " + cell.getY());
+				if (cell.getContent() instanceof LightSource)
+					removeLightSourceAndBeams(cell.getX(), cell.getY());
+			}
+			else{
+				System.out.println("alive: " + cell.getX() + ", " + cell.getY());
+				alive.add(cell);
+			}
+		}
+		System.out.println(cellList.size() + ", " + alive.size());
+		this.cellList = alive;
+	}
+	
 	/**
 	 * prüft, ob ein editorGrid vorhanden ist 
 	 * @return true = Grid ist vorhanden; false = kein Grid vorhanden
@@ -191,8 +208,10 @@ public class EditorController {
 	}
 	
 	public void setBeam(int x, int y, BeamDirections direction, boolean endBeam, LightSource lightSource){
-		if (!isLightSource(x, y))
+		if (!isLightSource(x, y)){
 			editorGrid.getCell(x, y).setContent(new Beam(direction, endBeam, lightSource));
+			lightSource.addBeamToList((Beam) editorGrid.getCell(x, y).getContent());
+		}
 	}
 	
 	public Beam getBeam(int x, int y){
@@ -207,11 +226,32 @@ public class EditorController {
 	}
 	
 	public void removeBeam(int x, int y){
-		editorGrid.getCell(x, y).removeContent();
+		if (isBeam(x, y)){
+			Beam beam = (Beam) editorGrid.getCell(x, y).getContent();
+			LightSource lightSource = beam.getRemLightSource();
+			lightSource.removeBeamFromList(beam);
+			editorGrid.getCell(x, y).removeContent();
+		}
 	}
 	
 	public void setPlayable(boolean playable){
 		editorGrid.setPlayable(playable);
+	}
+	
+	public void removeLightSourceAndBeams(int click_x, int click_y){
+		LightSource lightSource = getLightSource(click_x, click_y);
+		for (int x=0; x <= EditorController.getGridWidth(); x++){
+			for (int y=0; y <= EditorController.getGridHeight(); y++){
+				if (isBeam(x, y)){
+					Beam beam = getBeam(x, y);
+					LightSource vglLightSource = beam.getRemLightSource();
+					if (lightSource == vglLightSource){
+						removeBeam(x, y);
+					}
+				}
+			}
+		}
+		removeLightSource(click_x, click_y);
 	}
 	
 	public static GameGrid getEditGrid(){

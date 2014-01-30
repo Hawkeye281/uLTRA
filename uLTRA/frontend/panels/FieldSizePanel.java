@@ -126,9 +126,7 @@ public class FieldSizePanel extends JPanel{
 				generateField();
 			else if(_editCont.gridIsSet() && b.getText().equals("start")){
 				int choice = 3, change = 3;
-				if (((int) spinHeight.getValue() < EditorController.getGridHeight() ||
-					(int) spinWidth.getValue() < EditorController.getGridWidth()) ||
-					((int) spinHeight.getValue() == EditorController.getGridHeight() &&
+				if (((int) spinHeight.getValue() == EditorController.getGridHeight() &&
 					(int) spinWidth.getValue() == EditorController.getGridWidth()) ||
 					_editCont.gridIsEmpty()){
 					choice = openConfirmDialog();
@@ -140,7 +138,14 @@ public class FieldSizePanel extends JPanel{
 					generateField();
 				}
 				else if (change == 0){
-					expanField();
+					if ((int) spinHeight.getValue() > EditorController.getGridHeight() ||
+						(int) spinWidth.getValue() > EditorController.getGridWidth()){
+						expanField();
+					}
+					else if ((int) spinHeight.getValue() < EditorController.getGridHeight() &&
+							(int) spinWidth.getValue() < EditorController.getGridWidth()){
+						reduceField();
+					}
 				}
 				else {
 					this.fsd.dispose();
@@ -163,6 +168,13 @@ public class FieldSizePanel extends JPanel{
 		
 		private void expanField(){
 			_editCont.setCellList();
+			generateField();
+			_editCont.setCellsFromList();
+		}
+		
+		private void reduceField(){
+			_editCont.setCellList();
+			_editCont.checkCellsToDelete((int) spinWidth.getValue(), (int) spinHeight.getValue());
 			generateField();
 			_editCont.setCellsFromList();
 		}
