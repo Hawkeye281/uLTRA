@@ -46,7 +46,7 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 					this.editGridCont.recreateEditGrid();
 				}
 				else {
-					this.editGridCont.removeLightSourceAndBeams(clickLoc.x, clickLoc.y);
+//					this.editGridCont.removeLightSourceAndBeams(clickLoc.x, clickLoc.y);
 					this.editGridCont.recreateEditGrid();
 				}
 			}

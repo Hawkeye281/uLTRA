@@ -126,9 +126,17 @@ public class FieldSizePanel extends JPanel{
 				generateField();
 			else if(_editCont.gridIsSet() && b.getText().equals("start")){
 				int choice = 3, change = 3;
-				if (((int) spinHeight.getValue() == EditorController.getGridHeight() &&
-					(int) spinWidth.getValue() == EditorController.getGridWidth()) ||
-					_editCont.gridIsEmpty()){
+				if (((int) spinHeight.getValue() < EditorController.getGridHeight() ||
+						(int) spinWidth.getValue() < EditorController.getGridWidth()) ||
+						 ((int) spinHeight.getValue() == EditorController.getGridHeight() &&
+						 (int) spinWidth.getValue() == EditorController.getGridWidth()) ||
+						_editCont.gridIsEmpty()){
+				/*
+				 * Feldverkleinerung...Reverted Commit
+				 */
+//				if (((int) spinHeight.getValue() == EditorController.getGridHeight() &&
+//					(int) spinWidth.getValue() == EditorController.getGridWidth()) ||
+//					_editCont.gridIsEmpty()){
 					choice = openConfirmDialog();
 				}
 				else {
@@ -138,14 +146,18 @@ public class FieldSizePanel extends JPanel{
 					generateField();
 				}
 				else if (change == 0){
-					if ((int) spinHeight.getValue() > EditorController.getGridHeight() ||
-						(int) spinWidth.getValue() > EditorController.getGridWidth()){
-						expanField();
-					}
-					else if ((int) spinHeight.getValue() < EditorController.getGridHeight() &&
-							(int) spinWidth.getValue() < EditorController.getGridWidth()){
-						reduceField();
-					}
+					expanField();
+					/*
+					 * Feldverkleinerung...Reverted Commit
+					 */
+//					if ((int) spinHeight.getValue() > EditorController.getGridHeight() ||
+//						(int) spinWidth.getValue() > EditorController.getGridWidth()){
+//						expanField();
+//					}
+//					else if ((int) spinHeight.getValue() < EditorController.getGridHeight() &&
+//							(int) spinWidth.getValue() < EditorController.getGridWidth()){
+//						reduceField();
+//					}
 				}
 				else {
 					this.fsd.dispose();
@@ -172,11 +184,14 @@ public class FieldSizePanel extends JPanel{
 			_editCont.setCellsFromList();
 		}
 		
-		private void reduceField(){
-			_editCont.setCellList();
-			_editCont.checkCellsToDelete((int) spinWidth.getValue(), (int) spinHeight.getValue());
-			generateField();
-			_editCont.setCellsFromList();
-		}
+		/*
+		 * Feldverkleinerung...Reverted Commit
+		 */
+//		private void reduceField(){
+//			_editCont.setCellList();
+//			_editCont.checkCellsToDelete((int) spinWidth.getValue(), (int) spinHeight.getValue());
+//			generateField();
+//			_editCont.setCellsFromList();
+//		}
 	}
 }
