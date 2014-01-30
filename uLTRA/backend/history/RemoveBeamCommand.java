@@ -6,115 +6,70 @@
 package history;
 
 import java.io.Serializable;
+
+import panels.GamePanel;
 import gamegrid.*;
 
 public class RemoveBeamCommand implements Command, Serializable {
-
-	private Turn _turn;
 	
-	public RemoveBeamCommand(Turn pTurn) {
-		_turn = pTurn;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7982168976797896874L;
+	
+	private final int xStart, yStart;
+	private final int xEnd, yEnd;
+	private final LightSource lightSource;
+	private final BeamDirections direction;
+
+	private GameGrid gameGrid;
+	
+	public RemoveBeamCommand(int xS, int yS, int xE, int yE, LightSource ls, BeamDirections dir) throws Exception
+	{
+		xStart = xS;
+		yStart = yS;
+		xEnd = xE;
+		yEnd = yE;
+		lightSource = ls;
+		direction = dir;
+		
+		gameGrid = GameGrid.getInstance();
 	}
 
 	@Override
 	public void execute() {
-		GameGrid _gameGrid = null;
-		
-		try {
-			_gameGrid = GameGrid.getInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
+		int length = 0;
+		switch(direction)
+		{
+		case BEAM_UP:
+			length = yStart - yEnd +1;
+			for(int activeCoordinate = yStart; activeCoordinate >= yEnd; activeCoordinate--)
+				gameGrid.getCell(xStart, activeCoordinate).setContent(new EmptyContent());
+			break;
+		case BEAM_DOWN:
+			length = yEnd - yStart +1;
+			for(int activeCoordinate = yStart; activeCoordinate <= yEnd; activeCoordinate++)
+				gameGrid.getCell(xStart, activeCoordinate).setContent(new EmptyContent());
+			break;
+		case BEAM_LEFT:
+			length = xStart - xEnd +1;
+			for(int activeCoordinate = xStart; activeCoordinate >= xEnd; activeCoordinate--)
+				gameGrid.getCell(activeCoordinate, yStart).setContent(new EmptyContent());
+			break;
+		case BEAM_RIGHT:
+			length = xEnd - xStart +1;
+			for(int activeCoordinate = xStart; activeCoordinate <= xEnd; activeCoordinate++)
+				gameGrid.getCell(activeCoordinate, yStart).setContent(new EmptyContent());
+			break;	
 		}
+		lightSource.setRemainingCapacity(lightSource.getRemainingCapacity()+length);
 		
-		int startX = _turn.getStart().x;
-		int startY = _turn.getStart().y;
-		int endX = _turn.getEnd().x;
-		int endY = _turn.getEnd().y;	
-		
-		if(startX == endX) {
-			if(startY < endY) {				
-				for (int i = startY; i <= endY; i++) {
-					Cell cell = _gameGrid.getCell(startX, i);
-					cell.setContent(new EmptyContent());
-				}					
-			}
-			else {				
-				for (int i = startY; i >= endY; i--) {
-					Cell cell = _gameGrid.getCell(startX, i);
-					cell.setContent(new EmptyContent());
-				}
-			}
-		}
-		else {
-			if(startX < endX) {				
-				for (int j = startX; j <= endX; j++) {
-					Cell cell = _gameGrid.getCell(j, startY);
-					cell.setContent(new EmptyContent());
-				}
-			}
-			else {				
-				for (int j = startX; j >= endX; j--) {
-					Cell cell = _gameGrid.getCell(j, startY);
-					cell.setContent(new EmptyContent());
-				}
-			}
-		}
+		GamePanel.getGamePanel().getGridPanel().resetLayout();
+		GamePanel.getGamePanel().refresh();
 	}
 	
 	@Override
 	public void undo() {
-		GameGrid _gameGrid = null;
 		
-		try {
-			_gameGrid = GameGrid.getInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
-		}
-		
-		int startX = _turn.getStart().x;
-		int startY = _turn.getStart().y;
-		int endX = _turn.getEnd().x;
-		int endY = _turn.getEnd().y;
-		BeamDirections direction = null;		
-		
-		if(startX == endX) {
-			if(startY < endY) {
-				direction = BeamDirections.BEAM_DOWN;
-				
-				for (int i = startY; i <= endY; i++) {
-					Cell cell = _gameGrid.getCell(startX, i);
-					cell.setContent(new Beam(direction));
-				}
-					
-			}
-			else {
-				direction = BeamDirections.BEAM_UP;
-				
-				for (int i = startY; i >= endY; i--) {
-					Cell cell = _gameGrid.getCell(startX, i);
-					cell.setContent(new Beam(direction));
-				}
-			}
-		}
-		else {
-			if(startX < endX) {
-				direction = BeamDirections.BEAM_RIGHT;
-				
-				for (int j = startX; j <= endX; j++) {
-					Cell cell = _gameGrid.getCell(j, startY);
-					cell.setContent(new Beam(direction));
-				}
-			}
-			else {
-				direction = BeamDirections.BEAM_LEFT;
-				
-				for (int j = startX; j >= endX; j--) {
-					Cell cell = _gameGrid.getCell(j, startY);
-					cell.setContent(new Beam(direction));
-				}
-			}
-		}
 	}
 }

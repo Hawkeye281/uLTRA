@@ -103,7 +103,7 @@ public class GridPanel extends JPanel
 					}
 
 					tempLabel.setForeground(Color.WHITE);	
-					tempLabel.setText(Integer.toString(((LightSource)cc).getCapacity()));
+					tempLabel.setText(Integer.toString(((LightSource)cc).getRemainingCapacity()));
 				}
 				else if(cc instanceof Beam)
 				{

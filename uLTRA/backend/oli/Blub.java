@@ -10,7 +10,7 @@ public class Blub {
 		grid.setCell(new Cell(0, 0, new LightSource(5)), 0, 0);
 		
 		Validator val = Validator.getInstance(grid);
-		grid.setCell(new Cell(0, 0, new Beam(BeamDirections.BEAM_DOWN)), 0, 0);
+//		grid.setCell(new Cell(0, 0, new Beam(BeamDirections.BEAM_DOWN)), 0, 0);
 	}
 
 }

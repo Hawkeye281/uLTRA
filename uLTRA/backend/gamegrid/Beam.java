@@ -13,11 +13,6 @@ public class Beam implements CellContent, Serializable {
 	private LightSource lightSource;
 	private boolean beamEnd;
 	
-	public Beam(BeamDirections initialDirection) {
-		direction = initialDirection;
-		beamEnd = false;
-	} 
-	
 	public Beam (BeamDirections initialDirection, boolean pBeamEnd, LightSource remainingLightSource){
 		this.direction = initialDirection;
 		this.beamEnd = pBeamEnd;

@@ -8,6 +8,7 @@ import gamegrid.GameGrid;
 import gamegrid.LightSource;
 import gamegrid.Turn;
 import history.AddBeamCommand;
+import history.RemoveBeamCommand;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -391,6 +392,99 @@ public class MouseTurnListener extends AbstractMousePositionListener
 	
 	private void removeBeam(MouseEvent pEvent)
 	{
+		super.mouseReleased(pEvent);
 		
+		int xClick = (int)getEndPoint().getX();
+		int yClick = (int)getEndPoint().getY();
+		
+		// remove nothing if not clicked on beam
+		if(!gg.getCell(xClick, yClick).isBeam())
+			return;
+		
+		BeamDirections direction = ((Beam)gg.getCell(xClick, yClick).getContent()).getDirection();
+		LightSource lightSource = ((Beam)gg.getCell(xClick, yClick).getContent()).getRemLightSource();
+		
+		// walk in beam direction to find beam end
+		// then get first beam element from lightsource and direction
+		int xEnd, yEnd;
+		int xStart, yStart;
+		int activeCoordinate;
+		switch(direction)
+		{
+		case BEAM_UP:
+			// walk up until end of beam found
+			activeCoordinate = yClick;
+			while( !((Beam)gg.getCell(xClick, activeCoordinate).getContent()).isBeamEnd() )
+				activeCoordinate--;
+			xEnd = xClick;
+			yEnd = activeCoordinate;
+			// cell above lightsource is first beam element
+			xStart = xClick;
+			activeCoordinate = yClick;
+			while( !gg.getCell(xClick, activeCoordinate).isLightSource() )
+				activeCoordinate++;
+			yStart = activeCoordinate-1;
+			break;
+			
+		case BEAM_DOWN:
+			// walk down until end of beam found
+			activeCoordinate = yClick;
+			while( !((Beam)gg.getCell(xClick, activeCoordinate).getContent()).isBeamEnd() )
+				activeCoordinate++;
+			xEnd = xClick;
+			yEnd = activeCoordinate;
+			// cell below lightsource is first beam element
+			xStart = xClick;
+			activeCoordinate = yClick;
+			while( !gg.getCell(xClick, activeCoordinate).isLightSource() )
+				activeCoordinate--;
+			yStart = activeCoordinate+1;
+			break;
+			
+		case BEAM_LEFT:
+			// walk left until end of beam found
+			activeCoordinate = xClick;
+			while( !((Beam)gg.getCell(activeCoordinate, yClick).getContent()).isBeamEnd() )
+				activeCoordinate--;
+			xEnd = activeCoordinate;
+			yEnd = yClick;
+			// cell left of lightsource is first beam element
+			activeCoordinate = xClick;
+			while( !gg.getCell(activeCoordinate, yClick).isLightSource() )
+				activeCoordinate++;
+			xStart = activeCoordinate-1;
+			yStart = yClick;
+			break;
+			
+		case BEAM_RIGHT:
+			// walk right until end of beam found
+			activeCoordinate = xClick;
+			while( !((Beam)gg.getCell(activeCoordinate, yClick).getContent()).isBeamEnd() )
+				activeCoordinate++;
+			xEnd = activeCoordinate;
+			yEnd = yClick;
+			// cell right of lightsource is first beam element
+			activeCoordinate = xClick;
+			while( !gg.getCell(activeCoordinate, yClick).isLightSource() )
+				activeCoordinate--;
+			xStart = activeCoordinate+1;
+			yStart = yClick;
+			break;
+		default: //avoid compiler errors
+			xEnd = -1;
+			yEnd = -1;
+			xStart = -1;
+			yStart = -1;
+			break;
+		}
+		
+		// determine first beam element from lightsource and direction
+		try {
+			RemoveBeamCommand rbc = new RemoveBeamCommand(xStart, yStart, xEnd, yEnd, lightSource, direction);
+			rbc.execute();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
