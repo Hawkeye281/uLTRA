@@ -29,7 +29,7 @@ public class CheckEditRules {
 					if (cell.isLightSource()){
 						LightSource lightSource = (LightSource) cell.getContent();
 						if (lightSource.getCapacity() == 0){
-							failList.add("[" + (x+1) + " links; " + (y+1) + " runter]: Lichtquelle = 0");
+							failList.add("[" + (x+1) + " >; " + (y+1) + " v]: Lichtquelle = 0");
 //							gamePanel.getTurnList().addTurn(new Turn("[" + (x+1) + " links; " + (y+1) + " runter]: Lichtquelle = 0"));
 							lightFailures++;
 						}
@@ -37,7 +37,7 @@ public class CheckEditRules {
 					}
 				}
 				else{
-					failList.add("[" + (x+1) + " links; " + (y+1) + " runter]: Leere Zelle");
+					failList.add("[" + (x+1) + " >; " + (y+1) + " v]: Leere Zelle");
 //					gamePanel.getTurnList().addTurn(new Turn("[" + (x+1) + " links; " + (y+1) + " runter]: Leere Zelle"));
 					cellFailures++;
 				}
@@ -47,10 +47,10 @@ public class CheckEditRules {
 		playable = (failures == 0)? true : false;
 		int i=0;
 		for (String msg : failList){
-			if (i<24) gamePanel.getTurnList().addTurn(new Turn(msg));
+			if (i<20) gamePanel.getTurnList().addTurn(new Turn(msg));
 			i++;
 		}
-		if (failures>0 && failures <= 24){
+		if (failures>0 && failures <= 20){
 			gamePanel.getTurnList().addTurn(new Turn(failures + " Fehler gefunden"));
 			gamePanel.getTurnList().addTurn(new Turn("davon " + lightFailures + " leere Lichtquellen"));
 			gamePanel.getTurnList().addTurn(new Turn("und " + cellFailures + " leere Zellen"));
@@ -59,7 +59,7 @@ public class CheckEditRules {
 			gamePanel.getTurnList().addTurn(new Turn("Keine Fehler gefunden"));
 		}
 		else {
-			gamePanel.getTurnList().addTurn(new Turn((failList.size()-24)+" weitere Fehler gefunden"));
+			gamePanel.getTurnList().addTurn(new Turn((failList.size()-20)+" weitere Fehler gefunden"));
 		}
 		failList.removeAll(failList);
 	}
