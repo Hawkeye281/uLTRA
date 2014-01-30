@@ -34,6 +34,7 @@ public class LightSource implements CellContent, Serializable{
 		if(newCapacity < 0)
 			throw new IllegalArgumentException("Kapazität darf nicht unter 0 sein.");
 		capacity = newCapacity;
+		remainingCapacity = newCapacity;
 	}
 	
 	public int getRemainingCapacity() {
