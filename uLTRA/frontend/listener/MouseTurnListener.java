@@ -32,6 +32,53 @@ public class MouseTurnListener extends AbstractMousePositionListener
 	{
 		super.mouseReleased(pEvent);
 		
+		int xStart, yStart; // coordinates where mouse was pressed
+		int xEnd, yEnd; // coordinates where mouse was released
+		
+		BeamDirections direction;
+		
+		xStart = (int)getStartPoint().getX();
+		yStart = (int)getStartPoint().getY();
+		
+		xEnd = (int)getEndPoint().getX();
+		yEnd = (int)getEndPoint().getY();
+		
+		// check if move starts at a lightsource, is either vertical or horizontal and spans at least two fields
+		// abort if invalid move
+		if(!(gg.getCell(xStart, yStart).getContent() instanceof LightSource) || !((yStart==yEnd)&&(xStart!=xEnd)) && !((yStart!=yEnd)&&(xStart==xEnd)))
+			return;
+
+		if(yStart == yEnd)
+			// beam is horizontal
+			direction = xStart < xEnd ? BeamDirections.BEAM_LEFT : BeamDirections.BEAM_RIGHT;
+		else // beam is vertical
+			direction = yStart < yEnd ? BeamDirections.BEAM_DOWN : BeamDirections.BEAM_UP;
+		
+		// check whether the beam can be drawn as far as indicated by the mouse movement
+		LightSource ls = (LightSource)gg.getCell(xStart, xEnd).getContent();
+		int distance;
+		switch(direction)
+		{
+		case BEAM_LEFT:
+		case BEAM_RIGHT:
+			distance = Math.abs(xStart-xEnd);
+			break;
+		default:
+			distance = Math.abs(yStart-yEnd);
+		}
+		if(distance > ls.getRemainingCapacity())
+			// adjust beam length to possible maximum
+		
+		
+		
+		
+		
+		
+		/*
+		 * alles ab hier ist mist und sollte verbrannt werden
+		 */
+		
+		
 		boolean valid = true;	// Ist der Zug okay?
 		boolean validTurn = true; // Soll in die TurnList geschrieben werden?
 		boolean keepLooking = false; // Ist das eine Rückgängigaktion (Dient zum "überbrücken" der Schleife, dass die Beams der kompletten Richtung gelöscht werden, selbst wenn man die Reihe per Rechtsklick nicht komplett gezogen hat) 
