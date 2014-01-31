@@ -107,9 +107,10 @@ public class EditorController {
 	}
 	
 	public void checkCellsToChange(int newWidth, int newHeight){
-		for (int x = editorGrid.getWidth(); x >= 0; x--){
-			for (int y = editorGrid.getHeight(); y >= 0; y--){
+		for (int x = (editorGrid.getWidth() -1); x >= 0; x--){
+			for (int y = (editorGrid.getHeight()-1); y >= 0; y--){
 				if (x >= newWidth || y >= newHeight){
+					System.out.println(x + ", " + y);
 					Cell cell = editorGrid.getCell(x, y);
 					if (cell.getContent() instanceof LightSource){
 						removeLightSourceAndBeams(x, y);
