@@ -48,7 +48,7 @@ public class SaveAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/warning.png");
-		int save = 1;
+		int save = 0;
 		if(GridController.getGameGrid() != null){
 			String subfolder = GamePanel.getGamePanel().getPanelMode() != Mode.EDIT? "SaveGames" : "Editor";
 			if (GamePanel.getGamePanel().getPanelMode() == Mode.EDIT){
