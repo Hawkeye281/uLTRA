@@ -26,7 +26,7 @@ public class Cell implements Serializable{
 		leftCell = (null == pCell.leftCell ? null : new Cell(pCell.leftCell));
 		rightCell = (null == pCell.rightCell ? null : new Cell(pCell.rightCell));
 		content = pCell.content.clone();
-		coordinates = new Point(coordinates);
+		coordinates = new Point(pCell.coordinates);
 		hasTop = pCell.hasTop;
 		hasBottom = pCell.hasBottom;
 		hasRight = pCell.hasRight;
