@@ -3,6 +3,9 @@
  */
 package panels;
 
+import gamegrid.GameGrid;
+import help.HelpWindow;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -16,12 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.alee.laf.button.WebButtonUI;
-
 import Controller.MenuController;
 
-import gamegrid.GameGrid;
-import help.HelpWindow;
+import com.alee.laf.button.WebButtonUI;
 
 /**
  * @author Sebastian Kiepert
@@ -42,6 +42,7 @@ public class MenuPanel extends JPanel {
 		super(new GridLayout(5,1));
 		setSize(200, 300);
 		setLocation(300,150);
+		setBackground(new Color(180,180,180));
 		setBorder(BorderFactory.createTitledBorder("Hauptmenü"));
 		add(setButton("Neues Spiel", "start", true, new ImageIcon("../uLTRA/Documents/images/icons/new.png")));
 		add(setButton("Editor starten", "editor", true, new ImageIcon("../uLTRA/Documents/images/icons/editor.png")));

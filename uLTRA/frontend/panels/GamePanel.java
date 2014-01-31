@@ -52,6 +52,8 @@ public class GamePanel extends JPanel {
 		this.mode = mode.getPanelMode();
 		this.setSize(MainFrame.getDesktopSize());
 		this.setLocation(0,0);
+//		this.setBackground(new Color(68, 68, 68, 150));
+		this.setOpaque(false);
 		switch(mode.getPanelMode()){
 			case GAME:
 			{
@@ -124,9 +126,7 @@ public class GamePanel extends JPanel {
 				this.remove(this.groundPanel);
 				this.remove(this.turnList);
 			}
-			
 			this.groundPanel = new JPanel();
-			
 			if(mode == Mode.EDIT)
 			{
 				this.groundPanel.setBorder(BorderFactory.createTitledBorder("Feld enthält: " 
@@ -137,7 +137,7 @@ public class GamePanel extends JPanel {
 			}
 			
 			this.setTurnList();
-			this.groundPanel.setBackground(Color.WHITE);
+			this.groundPanel.setBackground(new Color(255,255,255,130));
 			this.groundPanel.add(setGridPanel());
 			this.add(this.groundPanel, BorderLayout.CENTER);
 			this.add(this.turnList, BorderLayout.EAST);

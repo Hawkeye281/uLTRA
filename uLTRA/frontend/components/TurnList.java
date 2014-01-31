@@ -2,6 +2,7 @@ package components;
 
 import gamegrid.Turn;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class TurnList extends JList<Object>
 		this.setAutoscrolls(true);
 		this.setMinimumSize(_size);
 		this.setSize(_size);
+		this.setBackground(new Color(255,255,255,130));
 		this.setPreferredSize(_size);
 		this.setVisible(true);
 		

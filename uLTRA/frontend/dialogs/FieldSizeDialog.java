@@ -5,9 +5,8 @@ package dialogs;
 
 import javax.swing.JDialog;
 
-import frames.MainFrame;
-
 import panels.FieldSizePanel;
+import frames.MainFrame;
 
 
 public class FieldSizeDialog extends JDialog{
@@ -33,7 +32,7 @@ public class FieldSizeDialog extends JDialog{
 		setLocationRelativeTo(null);
 		setLocation((mf.getBounds().x+3), (mf.getBounds().y+74));
 		setSize(300,180);
-		setResizable(true);
+		setResizable(false);
 //		setModal(true);
 		add(new FieldSizePanel());
 		setVisible(true);
