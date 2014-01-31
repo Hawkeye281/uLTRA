@@ -141,7 +141,7 @@ public class EditorController {
 		EditorController.gamePanel = GamePanel.getGamePanel();
 		try
 		{
-			GameGrid.setInstance(loader.spielLaden(spielname));
+			GameGrid.setInstance(loader.spielLaden(spielname).getGameGrid());
 			EditorController.editorGrid = GameGrid.getInstance();
 		}
 		catch (Exception e)
