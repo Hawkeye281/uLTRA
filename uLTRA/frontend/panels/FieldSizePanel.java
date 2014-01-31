@@ -87,10 +87,10 @@ public class FieldSizePanel extends JPanel{
 		return choice;
 	}
 	
-	public static int openChangeConfirmDialog(){
+	public static int openChangeConfirmDialog(String title, String message){
 		ImageIcon icon = new ImageIcon("../uLTRA/Documents/images/icons/help.png");
-		int choice = JOptionPane.showConfirmDialog(null, "Möchten Sie ihre Änderungen soweit möglich behalten? \n",
-						"Änderungen behalten?",
+		int choice = JOptionPane.showConfirmDialog(null, message,
+						title,
 						JOptionPane.YES_NO_CANCEL_OPTION,
 						JOptionPane.QUESTION_MESSAGE,
 						icon);
@@ -131,8 +131,8 @@ public class FieldSizePanel extends JPanel{
 					_editCont.gridIsEmpty()){
 					choice = openConfirmDialog();
 				}
-				else {
-					change = openChangeConfirmDialog();
+				else{
+					change = openChangeConfirmDialog("Änderungen beibehalten", "Sollen Ihre Änderungen behalten werden?\n");
 				}
 				if(choice == 0 || change == 1){
 					generateField();
