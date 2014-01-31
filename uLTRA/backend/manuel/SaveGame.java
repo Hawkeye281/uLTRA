@@ -2,6 +2,8 @@ package manuel;
 
 import gamegrid.GameGrid;
 import gamegrid.LightSource;
+import gamegrid.Validator;
+import help.SaveContainer;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,7 +24,7 @@ public class SaveGame {
 	 * siehe: http://openbook.galileocomputing.de/javainsel9/javainsel_17_010.htm#mjfbe8cb1105d7dfaf6adbc23f31c81b93
 	 */
 	
-	public void spielSpeichern(GameGrid spielfeld, String spielname)
+	public void spielSpeichern(GameGrid spielfeld, String spielname, Validator pValidator)
 	{
 		OutputStream fos = null;
 		try
@@ -30,7 +32,9 @@ public class SaveGame {
 			fos = new FileOutputStream(spielname + ".puzzle");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			oos.writeObject(spielfeld);
+			SaveContainer saveContainer = new SaveContainer(spielfeld, pValidator);
+			
+			oos.writeObject(saveContainer);
 						
 			oos.close();
 			fos.close();
@@ -43,37 +47,5 @@ public class SaveGame {
 		{
 			e.printStackTrace();
 		}
-	}
-	
-	@Deprecated
-	public GameGrid spielLaden(){
-		GameGrid.deleteInstance();
-		spielfeld = GameGrid.getInstance(12, 12);
-		spielfeld.getCell(4, 0).setContent(new LightSource(5));
-		spielfeld.getCell(9, 0).setContent(new LightSource(2));
-		spielfeld.getCell(1, 1).setContent(new LightSource(6));
-		spielfeld.getCell(6, 1).setContent(new LightSource(8));
-		spielfeld.getCell(4, 2).setContent(new LightSource(3));
-		spielfeld.getCell(11, 2).setContent(new LightSource(3));
-		spielfeld.getCell(0, 3).setContent(new LightSource(4));
-		spielfeld.getCell(7, 3).setContent(new LightSource(2));
-		spielfeld.getCell(2, 4).setContent(new LightSource(6));
-		spielfeld.getCell(5, 4).setContent(new LightSource(4));
-		spielfeld.getCell(11, 4).setContent(new LightSource(4));
-		spielfeld.getCell(9, 5).setContent(new LightSource(4));
-		spielfeld.getCell(1, 6).setContent(new LightSource(6));
-		spielfeld.getCell(4, 6).setContent(new LightSource(6));
-		spielfeld.getCell(7, 6).setContent(new LightSource(5));
-		spielfeld.getCell(8, 7).setContent(new LightSource(6));
-		spielfeld.getCell(3, 8).setContent(new LightSource(4));
-		spielfeld.getCell(10, 8).setContent(new LightSource(9));
-		spielfeld.getCell(0, 9).setContent(new LightSource(6));
-		spielfeld.getCell(5, 9).setContent(new LightSource(5));
-		spielfeld.getCell(7, 9).setContent(new LightSource(4));
-		spielfeld.getCell(2, 10).setContent(new LightSource(2));
-		spielfeld.getCell(11, 10).setContent(new LightSource(6));
-		spielfeld.getCell(4, 11).setContent(new LightSource(6));
-		spielfeld.getCell(9, 11).setContent(new LightSource(2));
-		return spielfeld;
 	}
 }

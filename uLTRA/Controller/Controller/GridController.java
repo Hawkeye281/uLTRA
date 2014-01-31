@@ -7,6 +7,8 @@ import manuel.SaveGame;
 import frames.MainFrame;
 import gamegrid.Cell;
 import gamegrid.GameGrid;
+import gamegrid.Validator;
+import help.SaveContainer;
 
 /**
  * Der Controller hält alle aktuellen Informationen zum angezeigten Spielfeld vor.
@@ -73,13 +75,16 @@ public class GridController {
 	 * 				Der Name, unter dem das Spiel gespeichert wird
 	 */
 	public static void saveGame(GameGrid spielfeld, String spielname){
-		speicher.spielSpeichern(spielfeld, spielname);
+		speicher.spielSpeichern(spielfeld, spielname, Validator.getInstance());
 	}
 	
 	public static GameGrid loadGame(String spielname){
 		try
 		{
-			GameGrid.setInstance(loader.spielLaden(spielname));
+			SaveContainer saveContainer = loader.spielLaden(spielname);
+			
+			GameGrid.setInstance(saveContainer.getGameGrid());
+			Validator.setInstance(saveContainer.getValidator());
 
 			spielfeld = GameGrid.getInstance();
 		}

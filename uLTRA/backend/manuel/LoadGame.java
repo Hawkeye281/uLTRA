@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 
 import gamegrid.GameGrid;
+import help.SaveContainer;
 
 public class LoadGame {
 	GameGrid spielfeld = null;
@@ -16,15 +17,15 @@ public class LoadGame {
 	 * @param spielname
 	 * @return
 	 */
-	public GameGrid spielLaden(String spielname){
+	public SaveContainer spielLaden(String spielname){
 		InputStream fis = null;
-		GameGrid spiel = null;
+		SaveContainer spiel = null;
 		
 		try {
 			fis = new FileInputStream(spielname);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
-			spiel = (GameGrid)ois.readObject();
+			spiel = (SaveContainer) ois.readObject();
 			
 			fis.close();
 		} catch (FileNotFoundException e) {
