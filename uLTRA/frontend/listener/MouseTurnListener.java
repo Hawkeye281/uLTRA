@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
 
 import panels.GamePanel;
+import solver.GameFinished;
 import Controller.GridController;
 
 /**
@@ -35,8 +36,11 @@ public class MouseTurnListener extends AbstractMousePositionListener
 	@Override
 	public void mouseReleased(MouseEvent pEvent)
 	{
-		if(pEvent.getButton() == MouseEvent.BUTTON1)
+		if(pEvent.getButton() == MouseEvent.BUTTON1){
 			addBeam(pEvent);
+			if(GameFinished.isGameFinished())
+				GameFinished.createCongratulationsDialog();
+		}
 		else if(pEvent.getButton() == MouseEvent.BUTTON3)
 			removeBeam(pEvent);
 			
