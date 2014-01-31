@@ -41,6 +41,7 @@ public class CheckRulesAction extends AbstractAction {
 		if (editCont.gridIsSet()){
 			gamePanel.checkRules();
 			gamePanel.setChecked();
+			gamePanel.refresh();
 		}
 	}
 

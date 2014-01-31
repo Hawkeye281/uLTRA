@@ -52,6 +52,7 @@ public class GamePanel extends JPanel {
 	private JList<Command> turnList;
 	private JList<String> errorList;
 	private boolean checked = false;
+	private JPanel listPanel;
 	
 	public GamePanel(PanelMode mode){
 		super(new BorderLayout());
@@ -150,10 +151,10 @@ public class GamePanel extends JPanel {
 				switch(mode)
 				{
 				case EDIT:
-					this.remove(this.errorList);
+					this.remove(listPanel);
 					break;
 				case GAME:
-					this.remove(this.turnList);
+					this.remove(listPanel);
 					break;
 				}
 			}
@@ -166,37 +167,27 @@ public class GamePanel extends JPanel {
 											+ CheckEditRules.beamCount() + " Lichtstrahl(en), "
 											+ CheckEditRules.emptyCellCount() + " leere Felder"));
 			}
+//			this.setTurnList();
 			
-			this.setTurnList();
 			this.groundPanel.setBackground(new Color(255,255,255,130));
 			this.groundPanel.add(setGridPanel());
 			this.add(this.groundPanel, BorderLayout.CENTER);
-			this.add(this.getTurnListPanel(), BorderLayout.EAST);
-			if (this.checked)
-				CheckEditRules.check(this);
+			listPanel = getTurnListPanel();
+			this.add(listPanel, BorderLayout.EAST);
 		}
 	}
 	
 	public void checkRules(){
 		if (componentsExist()){
-			switch(mode)
-			{
-			case EDIT:
-				this.remove(this.errorList);
-				break;
-			case GAME:
-				this.remove(this.turnList);
-				break;
-			}
+			this.listPanel.removeAll();
 		}
-		this.setTurnList();
 		switch(mode)
 		{
-		case EDIT:
-			this.add(this.errorList, BorderLayout.EAST);
+		case EDIT:			
+			this.listPanel.add(initializeErrorPanel(), BorderLayout.EAST);
 			break;
 		case GAME:
-			this.add(this.turnList, BorderLayout.EAST);
+			this.listPanel.add(initializeTurnPanel(), BorderLayout.EAST);
 			break;
 		}
 		
@@ -242,7 +233,7 @@ public class GamePanel extends JPanel {
 	public void resetPanel(){
 		if (componentsExist()){
 			this.remove(this.groundPanel);
-			this.remove(this.turnList);
+			this.remove(listPanel);
 		}
 		this.checked = false;
 		this.refresh();
@@ -314,6 +305,7 @@ public class GamePanel extends JPanel {
 	
 	private JScrollPane initializeErrorPanel()
 	{
+		this.errorList = new JList<String>();
 		JScrollPane errorPane = new JScrollPane(this.errorList);
 		this.errorList.setBackground(new Color(180,180,180,130));
 		return errorPane;
