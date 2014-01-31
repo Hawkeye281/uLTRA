@@ -3,13 +3,15 @@
  */
 package sebastian;
 
+import gamegrid.Cell;
+import gamegrid.LightSource;
+
 import java.util.ArrayList;
+
+import javax.swing.DefaultListModel;
 
 import panels.GamePanel;
 import Controller.EditorController;
-import gamegrid.Cell;
-import gamegrid.LightSource;
-import gamegrid.Turn;
 
 /**
  * @author Sebastian Kiepert
@@ -21,6 +23,7 @@ public class CheckEditRules {
 	private static boolean playable;
 	
 	public static void check(GamePanel gamePanel){
+		DefaultListModel model = (DefaultListModel) gamePanel.getTurnList().getModel();
 		int failures = 0, cellFailures = 0, lightFailures = 0;
 		for (int x=0; x < EditorController.getGridWidth();x++){
 			for (int y=0; y < EditorController.getGridHeight(); y++){
@@ -30,7 +33,6 @@ public class CheckEditRules {
 						LightSource lightSource = (LightSource) cell.getContent();
 						if (lightSource.getCapacity() == 0){
 							failList.add("[" + (x+1) + " >; " + (y+1) + " v]: Lichtquelle = 0");
-//							gamePanel.getTurnList().addTurn(new Turn("[" + (x+1) + " links; " + (y+1) + " runter]: Lichtquelle = 0"));
 							lightFailures++;
 						}
 						
@@ -38,7 +40,6 @@ public class CheckEditRules {
 				}
 				else{
 					failList.add("[" + (x+1) + " >; " + (y+1) + " v]: Leere Zelle");
-//					gamePanel.getTurnList().addTurn(new Turn("[" + (x+1) + " links; " + (y+1) + " runter]: Leere Zelle"));
 					cellFailures++;
 				}
 			}
@@ -47,19 +48,25 @@ public class CheckEditRules {
 		playable = (failures == 0)? true : false;
 		int i=0;
 		for (String msg : failList){
-			if (i<20) gamePanel.getTurnList().addTurn(new Turn(msg));
+			if (i<20)
+			{
+				// turnList : msg eintragen
+			}
 			i++;
 		}
 		if (failures>0 && failures <= 20){
-			gamePanel.getTurnList().addTurn(new Turn(failures + " Fehler gefunden"));
-			gamePanel.getTurnList().addTurn(new Turn("davon " + lightFailures + " leere Lichtquellen"));
-			gamePanel.getTurnList().addTurn(new Turn("und " + cellFailures + " leere Zellen"));
+			// turnList : fehlertexte eintragen
+//			model.addElement(failures + " Fehler gefunden");
+//			model.addElement("davon " + lightFailures + " leere Lichtquellen");
+//			model.addElement("und " + cellFailures + " leere Zellen");
 		}
 		else if (failures == 0){
-			gamePanel.getTurnList().addTurn(new Turn("Keine Fehler gefunden"));
+			// turnList : meldung eintragen
+//			model.addElement("Keine Fehler gefunden");
 		}
 		else {
-			gamePanel.getTurnList().addTurn(new Turn((failList.size()-20)+" weitere Fehler gefunden"));
+			// turnList : meldung eintragen
+//			model.addElement((failList.size()-20)+" weitere Fehler gefunden");
 		}
 		failList.removeAll(failList);
 	}

@@ -3,25 +3,32 @@
  */
 package panels;
 
+import history.Command;
+import history.TurnListModel;
+import history.TurnListRenderer;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-
-import components.TurnList;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import listener.EditorMouseListener;
 import listener.MouseTurnListener;
-
 import sebastian.CheckEditRules;
 import sebastian.Mode;
 import sebastian.PanelMode;
 import toolbar.CommonToolbar;
-
 import Controller.EditorController;
 import Controller.GridController;
-
 import frames.MainFrame;
 
 /**
@@ -42,7 +49,7 @@ public class GamePanel extends JPanel {
 	private GridPanel gridPanel;
 	private GridController gridController;
 	private EditorController editorController;
-	private TurnList turnList;
+	private JList turnList;
 	private boolean checked = false;
 	
 	public GamePanel(PanelMode mode){
@@ -94,13 +101,21 @@ public class GamePanel extends JPanel {
 	}
 	
 	public void setTurnList(){
-		this.turnList = new TurnList();
-		this.turnList.setBorder(
-				(this.mode == Mode.EDIT)? BorderFactory.createTitledBorder("Fehlerliste") : 
-					BorderFactory.createTitledBorder("Zugliste"));
+		switch(mode)
+		{
+		case GAME:
+			this.turnList = new JList<Command>(new TurnListModel());
+			this.turnList.setCellRenderer(new TurnListRenderer());
+			break;
+		case EDIT:
+			this.turnList = new JList<String>(new DefaultListModel());
+			break;
+		}
+
+		this.turnList.setPreferredSize(new Dimension(200, (int)this.getSize().getHeight()));
 	}
 	
-	public TurnList getTurnList(){
+	public JList<Command> getTurnList(){
 		return this.turnList;
 	}	
 	
@@ -140,7 +155,7 @@ public class GamePanel extends JPanel {
 			this.groundPanel.setBackground(new Color(255,255,255,130));
 			this.groundPanel.add(setGridPanel());
 			this.add(this.groundPanel, BorderLayout.CENTER);
-			this.add(this.turnList, BorderLayout.EAST);
+			this.add(this.getTurnListPanel(), BorderLayout.EAST);
 			if (this.checked)
 				CheckEditRules.check(this);
 		}
@@ -209,6 +224,47 @@ public class GamePanel extends JPanel {
 			if (this.gridController.gridIsSet())
 				this.gridController.removeGrid();
 		resetPanel();
+	}
+	
+	private JPanel getTurnListPanel()
+	{
+		JPanel listPanel = new JPanel();
+		switch(mode)
+		{
+		case EDIT:
+			listPanel.setLayout(new BorderLayout());
+			listPanel.add(new JScrollPane(this.turnList), BorderLayout.CENTER);
+			listPanel.setBorder(BorderFactory.createTitledBorder("Fehlerliste"));
+			break;
+		case GAME:
+			listPanel.setLayout(new BorderLayout());
+			listPanel.add(new JScrollPane(this.turnList), BorderLayout.CENTER);
+			listPanel.setBorder(BorderFactory.createTitledBorder("Zugliste"));
+			
+			JPanel buttonPanel = new JPanel();
+			buttonPanel.setLayout(new GridLayout(1,2));
+			
+			JButton undoButton = new JButton("<- undo");
+			undoButton.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					((TurnListModel)turnList.getModel()).undo();
+				}});
+			
+			buttonPanel.add(undoButton);
+			
+			JButton redoButton = new JButton("redo ->");
+			redoButton.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					((TurnListModel)turnList.getModel()).redo();
+				}});
+			buttonPanel.add(redoButton);
+			
+			listPanel.add(buttonPanel, BorderLayout.SOUTH);
+			break;
+		}
+		return listPanel;		
 	}
 	
 

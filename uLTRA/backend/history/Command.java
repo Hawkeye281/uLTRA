@@ -10,4 +10,12 @@ public interface Command {
 	public void execute();
 	
 	public void undo();
+	
+	public boolean undone();
+	
+	public boolean executed();
+	
+	public boolean lastCommand();
+	
+	public void setLastCommand(boolean isLast);
 }

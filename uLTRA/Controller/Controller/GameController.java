@@ -142,8 +142,9 @@ public class GameController {
 		}
 		light.setRemainingCapacity(remCap);
 		
-		Turn t = new Turn(new Point(startX, startY), new Point(endX, endY));
-		GamePanel.getGamePanel().getTurnList().addTurn(t);
+		// turnList : irgendwas...
+//		Turn t = new Turn(new Point(startX, startY), new Point(endX, endY));
+//		GamePanel.getGamePanel().getTurnList().addTurn(t);
 	}
 	
 	public void pushHistory(Turn turn)

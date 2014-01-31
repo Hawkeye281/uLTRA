@@ -9,15 +9,12 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.Observable;
 
-import history.TurnList;
-
 public class GameGrid extends Observable implements Serializable {
 
 	private static GameGrid _instance = null;
 	private static final long serialVersionUID = -2537055812502261249L;
 	private Cell[][] gameGrid;
 	private int width, height = 0;
-	private TurnList _turnList = null;
 	private boolean playable = true;
 	
 	/**
@@ -168,14 +165,6 @@ public class GameGrid extends Observable implements Serializable {
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return false;
 		return true;
-	}
-	
-	public TurnList getTurnList() {
-		return _turnList;
-	}
-	
-	public void setTurnList(TurnList pTurnList) {
-		_turnList = pTurnList;
 	}
 	
 	public boolean getPlayable(){

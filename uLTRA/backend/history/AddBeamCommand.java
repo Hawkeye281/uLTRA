@@ -23,6 +23,10 @@ public class AddBeamCommand implements Command, Serializable {
 	private final LightSource lightSource;
 	private final int length;
 	
+	private boolean undone = false;
+	private boolean executed = false;
+	private boolean lastCommand = false;
+	
 	private GameGrid gameGrid;
 	
 	public AddBeamCommand(int xS, int yS, int xE, int yE, BeamDirections dir) throws Exception
@@ -33,7 +37,6 @@ public class AddBeamCommand implements Command, Serializable {
 		direction = dir;
 		
 		length = xS==xE ? Math.abs(yS-yE) : Math.abs(xS-xE);
-		System.out.println(length);
 		
 		// set start coordinates as first cell containing a beam element (neighbour of lightsource, depending on direction)
 		switch(direction)
@@ -67,6 +70,9 @@ public class AddBeamCommand implements Command, Serializable {
 	@Override
 	public void execute()
 	{
+		executed = true;
+		undone = false;
+		
 		// draw beam
 		int activeCoordinate;
 		switch(direction)
@@ -100,6 +106,60 @@ public class AddBeamCommand implements Command, Serializable {
 
 	@Override
 	public void undo() {
+		undone = true;
+		executed = false;
 		
+		// remove beam
+		int activeCoordinate;
+		switch(direction)
+		{
+		case BEAM_UP:
+			for(activeCoordinate = yStart; activeCoordinate >= yEnd; activeCoordinate--)
+				gameGrid.getCell(xStart, activeCoordinate).setContent(new EmptyContent());
+			break;
+		case BEAM_DOWN:
+			for(activeCoordinate = yStart; activeCoordinate <= yEnd; activeCoordinate++)
+				gameGrid.getCell(xStart, activeCoordinate).setContent(new EmptyContent());
+			break;
+		case BEAM_LEFT:
+			for(activeCoordinate = xStart; activeCoordinate >= xEnd; activeCoordinate--)
+				gameGrid.getCell(activeCoordinate, yStart).setContent(new EmptyContent());
+			break;
+		case BEAM_RIGHT:
+			for(activeCoordinate = xStart; activeCoordinate <= xEnd; activeCoordinate++)
+				gameGrid.getCell(activeCoordinate, yStart).setContent(new EmptyContent());
+		}
+		
+		// update remaining capacity of lightsource
+		lightSource.setRemainingCapacity(lightSource.getRemainingCapacity()+length);
+		
+		// update gui
+		GamePanel.getGamePanel().getGridPanel().resetLayout();
+		GamePanel.getGamePanel().refresh();
+	}
+	
+	public String toString()
+	{
+		return "add " + xStart + "/" + yStart + " to " + xEnd + "/" + yEnd;
+	}
+	
+	public boolean lastCommand()
+	{
+		return lastCommand;
+	}
+	
+	public boolean undone()
+	{
+		return undone;
+	}
+	
+	public boolean executed()
+	{
+		return executed;
+	}
+	
+	public void setLastCommand(boolean isLast)
+	{
+		lastCommand = isLast;
 	}
 }
