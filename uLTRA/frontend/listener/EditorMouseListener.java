@@ -46,12 +46,12 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 					this.editGridCont.recreateEditGrid();
 				}
 				else {
-//					this.editGridCont.removeLightSourceAndBeams(clickLoc.x, clickLoc.y);
+					this.editGridCont.removeLightSourceAndBeams(clickLoc.x, clickLoc.y);
 					this.editGridCont.recreateEditGrid();
 				}
 			}
 			else if (editGridCont.isBeam(clickLoc.x, clickLoc.y)){
-				removeBeam(clickLoc.x, clickLoc.y);
+				editGridCont.deleteBeam(clickLoc.x, clickLoc.y);
 				this.editGridCont.recreateEditGrid();
 			}
 		}
@@ -134,18 +134,7 @@ public class EditorMouseListener extends AbstractMousePositionListener {
 		}
 	}
 	
-	private void removeBeam(int x, int y){
-		int x_start = x, y_start = y;
-		Beam beam = editGridCont.getBeam(x_start, y_start);
-		if (beam.isBeamEnd()){
-			LightSource lightSource = beam.getRemLightSource();
-			lightSource.setCapacity(lightSource.getCapacity()-1);
-			setNewLastBeam(EditorController.getCell(x_start, y_start));
-			editGridCont.removeBeam(x_start, y_start);
-		}
-	}
-	
-	private void setNewLastBeam(Cell changed){
+	public static void setNewLastBeam(Cell changed){
 		Beam removed = (Beam) changed.getContent();
 		BeamDirections direction = removed.getDirection();
 		int x=0, y=0;

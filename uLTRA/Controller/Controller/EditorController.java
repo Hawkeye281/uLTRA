@@ -3,6 +3,7 @@ package Controller;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import listener.EditorMouseListener;
 import manuel.LoadGame;
 import panels.GamePanel;
 import panels.GridPanel;
@@ -76,11 +77,14 @@ public class EditorController {
 		return editorGrid.getCell(pos);
 	}
 	
-	public void setCellList(){
+	public void setCellList(int newWidth, int newHeight){
 		this.cellList = new ArrayList<Cell>();
 		for (int x =0; x<editorGrid.getWidth();x++){
 			for (int y=0; y<editorGrid.getHeight();y++){
-				this.cellList.add(editorGrid.getCell(x, y));
+				if (x < newWidth && y < newHeight){
+					System.out.println(x + ", " + y + ": " + editorGrid.getCell(x, y).getContent());
+					this.cellList.add(editorGrid.getCell(x, y));
+				}
 			}
 		}
 	}
@@ -102,25 +106,22 @@ public class EditorController {
 		recreateEditGrid();
 	}
 	
-	/*
-	 * Feldverkleinerung...Reverted Commit
-	 */
-//	public void checkCellsToDelete(int newWidth, int newHeight){
-//		ArrayList<Cell> alive = new ArrayList<Cell>();
-//		for (Cell cell : this.cellList){
-//			if (cell.getX() >= newWidth || cell.getY() >= newHeight){
-//				System.out.println("die: " + cell.getX() + ", " + cell.getY());
-//				if (cell.getContent() instanceof LightSource)
-//					removeLightSourceAndBeams(cell.getX(), cell.getY());
-//			}
-//			else{
-//				System.out.println("alive: " + cell.getX() + ", " + cell.getY());
-//				alive.add(cell);
-//			}
-//		}
-//		System.out.println(cellList.size() + ", " + alive.size());
-//		this.cellList = alive;
-//	}
+	public void checkCellsToChange(int newWidth, int newHeight){
+		for (int x = editorGrid.getWidth(); x >= 0; x--){
+			for (int y = editorGrid.getHeight(); y >= 0; y--){
+				if (x >= newWidth || y >= newHeight){
+					Cell cell = editorGrid.getCell(x, y);
+					if (cell.getContent() instanceof LightSource){
+						removeLightSourceAndBeams(x, y);
+					}
+					else if (cell.getContent() instanceof Beam){
+						System.out.println(cell.getX() + ", " + cell.getY() + ": Beam gelöscht");
+						deleteBeam(x, y);
+					}
+				}
+			}
+		}
+	}
 	
 	/**
 	 * prüft, ob ein editorGrid vorhanden ist 
@@ -229,40 +230,44 @@ public class EditorController {
 	}
 	
 	public void removeBeam(int x, int y){
-		editorGrid.getCell(x, y).removeContent();
-		/*
-		 * Feldverkleinerung...Reverted Commit
-		 */
-//		if (isBeam(x, y)){
-//			Beam beam = (Beam) editorGrid.getCell(x, y).getContent();
-//			LightSource lightSource = beam.getRemLightSource();
-//			lightSource.removeBeamFromList(beam);
-//			editorGrid.getCell(x, y).removeContent();
-//		}
+		if (isBeam(x, y)){
+			Beam beam = (Beam) editorGrid.getCell(x, y).getContent();
+			LightSource lightSource = beam.getRemLightSource();
+			lightSource.removeBeamFromList(beam);
+			editorGrid.getCell(x, y).removeContent();
+		}
+	}
+	
+	public void deleteBeam(int x, int y){
+		int x_start = x, y_start = y;
+		Beam beam = getBeam(x_start, y_start);
+		if (beam.isBeamEnd()){
+			LightSource lightSource = beam.getRemLightSource();
+			lightSource.setCapacity(lightSource.getCapacity()-1);
+			EditorMouseListener.setNewLastBeam(EditorController.getCell(x_start, y_start));
+			removeBeam(x_start, y_start);
+		}
 	}
 	
 	public void setPlayable(boolean playable){
 		editorGrid.setPlayable(playable);
 	}
 	
-	/*
-	 * Feldverkleinerung...Reverted Commit
-	 */
-//	public void removeLightSourceAndBeams(int click_x, int click_y){
-//		LightSource lightSource = getLightSource(click_x, click_y);
-//		for (int x=0; x <= EditorController.getGridWidth(); x++){
-//			for (int y=0; y <= EditorController.getGridHeight(); y++){
-//				if (isBeam(x, y)){
-//					Beam beam = getBeam(x, y);
-//					LightSource vglLightSource = beam.getRemLightSource();
-//					if (lightSource == vglLightSource){
-//						removeBeam(x, y);
-//					}
-//				}
-//			}
-//		}
-//		removeLightSource(click_x, click_y);
-//	}
+	public void removeLightSourceAndBeams(int click_x, int click_y){
+		LightSource lightSource = getLightSource(click_x, click_y);
+		for (int x=0; x <= EditorController.getGridWidth(); x++){
+			for (int y=0; y <= EditorController.getGridHeight(); y++){
+				if (isBeam(x, y)){
+					Beam beam = getBeam(x, y);
+					LightSource vglLightSource = beam.getRemLightSource();
+					if (lightSource == vglLightSource){
+						removeBeam(x, y);
+					}
+				}
+			}
+		}
+		removeLightSource(click_x, click_y);
+	}
 	
 	public static GameGrid getEditGrid(){
 		return editorGrid;
