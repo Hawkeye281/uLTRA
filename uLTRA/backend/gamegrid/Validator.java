@@ -41,9 +41,9 @@ public class Validator implements Serializable{
 		_instance = pValidator;
 	}
 	
-	public boolean isValid(Turn pTurn) {
-		Point start = pTurn.getStart();
-		Point end = pTurn.getEnd();
+	public boolean isValid(int xStart, int yStart, int xEnd, int yEnd) {
+		Point start = new Point(xStart, yStart);
+		Point end = new Point(xEnd, yEnd);
 		BeamDirections direction = null;
 		
 		if (start.x == end.x) {
@@ -57,10 +57,11 @@ public class Validator implements Serializable{
 			
 			for (int currentY = lowerY; currentY <= greaterY; currentY++) {
 				Cell currentCell = _reference.getCell(start.x, currentY);
-				Beam currentContent = (Beam) currentCell.getContent();
+				CellContent currentContent = currentCell.getContent();
 				
-				if (currentContent.getDirection() != direction)
-					return false;
+				if(currentContent instanceof Beam)
+					if (((Beam)currentContent).getDirection() != direction)
+						return false;
 			}
 			
 			return true;
@@ -76,10 +77,11 @@ public class Validator implements Serializable{
 			
 			for (int currentX = lowerX; currentX <= greaterX; currentX++) {
 				Cell currentCell = _reference.getCell(currentX, start.y);
-				Beam currentContent = (Beam) currentCell.getContent();
+				CellContent currentContent = currentCell.getContent();
 				
-				if (currentContent.getDirection() != direction)
-					return false;
+				if(currentContent instanceof Beam)
+					if (((Beam)currentContent).getDirection() != direction)
+						return false;
 			}
 			
 			return true;

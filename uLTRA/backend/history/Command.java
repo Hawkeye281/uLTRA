@@ -17,5 +17,7 @@ public interface Command {
 	
 	public boolean lastCommand();
 	
+	public boolean isCorrect();
+	
 	public void setLastCommand(boolean isLast);
 }

@@ -4,14 +4,12 @@ import gamegrid.Beam;
 import gamegrid.BeamDirections;
 import gamegrid.GameGrid;
 import gamegrid.LightSource;
+import gamegrid.Validator;
 import history.AddBeamCommand;
-import history.Command;
 import history.RemoveBeamCommand;
 import history.TurnListModel;
 
 import java.awt.event.MouseEvent;
-
-import javax.swing.DefaultListModel;
 
 import panels.GamePanel;
 import solver.GameFinished;
@@ -192,7 +190,8 @@ public class MouseTurnListener extends AbstractMousePositionListener
 		// xStart,yStart contain coordinates of lightsource
 		// xEnd,yEnd contain coordinates of last beam element
 		try {
-			AddBeamCommand abc = new AddBeamCommand(xStart, yStart, xEnd, yEnd, direction);
+			boolean isCorrect = Validator.getInstance().isValid(xStart, yStart, xEnd, yEnd);
+			AddBeamCommand abc = new AddBeamCommand(xStart, yStart, xEnd, yEnd, direction, isCorrect);
 			abc.execute();
 			model.addElement(abc);
 		} catch (Exception e) {

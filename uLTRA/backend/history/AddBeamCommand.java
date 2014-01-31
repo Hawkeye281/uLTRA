@@ -26,15 +26,17 @@ public class AddBeamCommand implements Command, Serializable {
 	private boolean undone = false;
 	private boolean executed = false;
 	private boolean lastCommand = false;
+	private final boolean isCorrect;
 	
 	private GameGrid gameGrid;
 	
-	public AddBeamCommand(int xS, int yS, int xE, int yE, BeamDirections dir) throws Exception
+	public AddBeamCommand(int xS, int yS, int xE, int yE, BeamDirections dir, boolean isCorrect) throws Exception
 	{
 		gameGrid = GameGrid.getInstance();
 		
 		lightSource = (LightSource)gameGrid.getCell(xS,yS).getContent();
 		direction = dir;
+		this.isCorrect = isCorrect;
 		
 		length = xS==xE ? Math.abs(yS-yE) : Math.abs(xS-xE);
 		
@@ -161,5 +163,11 @@ public class AddBeamCommand implements Command, Serializable {
 	public void setLastCommand(boolean isLast)
 	{
 		lastCommand = isLast;
+	}
+
+	@Override
+	public boolean isCorrect()
+	{
+		return isCorrect;
 	}
 }

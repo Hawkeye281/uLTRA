@@ -136,4 +136,10 @@ public class RemoveBeamCommand implements Command, Serializable {
 	{
 		lastCommand = isLast;
 	}
+
+	@Override
+	public boolean isCorrect()
+	{
+		return true;
+	}
 }
