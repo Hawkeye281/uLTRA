@@ -311,7 +311,7 @@ public class GamePanel extends JPanel {
 	{
 		this.errorList = new JList<String>();
 		JScrollPane errorPane = new JScrollPane(this.errorList);
-		this.turnList.setPreferredSize(new Dimension(200, (int)this.getSize().getHeight()));
+		this.errorList.setPreferredSize(new Dimension(200, (int)this.getSize().getHeight()));
 		this.errorList.setBackground(new Color(180,180,180,130));
 		return errorPane;
 	}
