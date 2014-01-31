@@ -174,6 +174,8 @@ public class GamePanel extends JPanel {
 			this.add(this.groundPanel, BorderLayout.CENTER);
 			listPanel = getTurnListPanel();
 			this.add(listPanel, BorderLayout.EAST);
+			if (checked)
+				checkRules();
 		}
 	}
 	
