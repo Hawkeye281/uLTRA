@@ -33,12 +33,12 @@ public class TurnListRenderer extends JLabel implements ListCellRenderer<Command
 		if(value.executed())
 		{
 			this.setForeground(Color.BLACK);
-			this.setBackground(Color.WHITE);
+			this.setBackground(new Color(255,255,255,0));
 		}
 		if(value.undone())
 		{
-			this.setForeground(Color.LIGHT_GRAY);
-			this.setBackground(Color.DARK_GRAY);
+			this.setForeground(new Color(130,130,130));
+			this.setBackground(new Color(68,68,68));
 		}
 		if(value.lastCommand())
 		{

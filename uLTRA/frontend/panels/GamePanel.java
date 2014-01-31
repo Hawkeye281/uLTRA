@@ -233,14 +233,15 @@ public class GamePanel extends JPanel {
 		{
 		case EDIT:
 			listPanel.setLayout(new BorderLayout());
-			listPanel.add(new JScrollPane(this.turnList), BorderLayout.CENTER);
+			listPanel.add(initializeTurnPanel(), BorderLayout.CENTER);
 			listPanel.setBorder(BorderFactory.createTitledBorder("Fehlerliste"));
+			listPanel.setBackground(new Color(255,255,255,130));
 			break;
 		case GAME:
 			listPanel.setLayout(new BorderLayout());
-			listPanel.add(new JScrollPane(this.turnList), BorderLayout.CENTER);
+			listPanel.add(initializeTurnPanel(), BorderLayout.CENTER);
 			listPanel.setBorder(BorderFactory.createTitledBorder("Zugliste"));
-			
+			listPanel.setBackground(new Color(255,255,255,130));
 			JPanel buttonPanel = new JPanel();
 			buttonPanel.setLayout(new GridLayout(1,2));
 			
@@ -260,12 +261,22 @@ public class GamePanel extends JPanel {
 					((TurnListModel)turnList.getModel()).redo();
 				}});
 			buttonPanel.add(redoButton);
-			
+			buttonPanel.setBackground(new Color(255,255,255,0));
 			listPanel.add(buttonPanel, BorderLayout.SOUTH);
 			break;
 		}
 		return listPanel;		
 	}
 	
+	/**
+	 * Initialisiert und gibt eine fertige JScrollPane zurück
+	 * @return turnList -> JScrollPane
+	 */
+	private JScrollPane initializeTurnPanel(){
+		JScrollPane turnList = new JScrollPane(this.turnList);
+		this.turnList.setBackground(new Color(180,180,180,130));
+		
+		return turnList;
+	}
 
 }
