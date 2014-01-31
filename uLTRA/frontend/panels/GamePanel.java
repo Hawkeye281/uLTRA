@@ -168,11 +168,10 @@ public class GamePanel extends JPanel {
 											+ CheckEditRules.emptyCellCount() + " leere Felder"));
 			}
 //			this.setTurnList();
-			
+			listPanel = getTurnListPanel();
 			this.groundPanel.setBackground(new Color(255,255,255,130));
 			this.groundPanel.add(setGridPanel());
 			this.add(this.groundPanel, BorderLayout.CENTER);
-			listPanel = getTurnListPanel();
 			this.add(listPanel, BorderLayout.EAST);
 			if (checked)
 				checkRules();
@@ -299,6 +298,7 @@ public class GamePanel extends JPanel {
 	 * @return turnList -> JScrollPane
 	 */
 	private JScrollPane initializeTurnPanel(){
+		this.turnList = new JList<Command>(new TurnListModel());
 		JScrollPane turnList = new JScrollPane(this.turnList);
 		this.turnList.setBackground(new Color(180,180,180,130));
 		
