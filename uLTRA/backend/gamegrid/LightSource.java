@@ -60,6 +60,11 @@ public class LightSource implements CellContent, Serializable{
 		return this.beamList;
 	}
 	
+	public void clearBeamList()
+	{
+		this.beamList.clear();
+	}
+	
 	public LightSource clone() {
 		LightSource newLightSource = new LightSource(this.capacity);
 		newLightSource.setRemainingCapacity(this.remainingCapacity);

@@ -5,6 +5,7 @@ package toolbarActions;
 
 import gamegrid.ContentConverter;
 import gamegrid.GameGrid;
+import gamegrid.Validator;
 
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -56,7 +57,8 @@ public class LoadAction extends AbstractAction {
 				// Falls das Grid ein aus dem Editor erstelltes Grid ist, soll er die Beams aus der Instanz entfernen
 				if(jfc.getSelectedFile().getAbsolutePath().contains(System.getProperty("file.separator") + "Editor" + System.getProperty("file.separator")))
 				{
-					GameGrid.setInstance(ContentConverter.clearGame(jfc.getSelectedFile().getAbsolutePath()));
+					Validator.getInstance(GridController.getGameGrid());
+					GameGrid.setInstance(ContentConverter.clearGame());
 				}
 				if (jfc.getSelectedFile().getName().contains("initial"))
 					gamePan.getGridController().setPlayable(true);

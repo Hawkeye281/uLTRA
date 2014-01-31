@@ -33,6 +33,7 @@ public class GameGrid extends Observable implements Serializable {
 		
 		width = pReference.width;
 		height = pReference.height;
+		setCellNeighbours();
 	}
 	
 	/**

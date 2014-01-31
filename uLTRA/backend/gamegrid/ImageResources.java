@@ -239,13 +239,7 @@ public class ImageResources
 			
 			if(!text.equalsIgnoreCase("SOURCE"))
 			{
-				for(ImageNames i : ImageNames.values())
-				{
-					if(i.name().equals(text))
-					{
-						return i;
-					}
-				}
+				return ImageNames.valueOf(text);
 			}
 			
 			return null;

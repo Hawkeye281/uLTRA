@@ -16,10 +16,10 @@ public class ContentConverter
 	 * @param pSpielname das Spielfeld mit enthaltenen <code>Beams</code>
 	 * @return das Spielfeld ohne <code>Beams</code>
 	 */
-	public static GameGrid clearGame(String pSpielname)
+	public static GameGrid clearGame()
 	{
 		Cell c = null;
-		GameGrid grid = GridController.loadGame(pSpielname);
+		GameGrid grid = GridController.getGameGrid();
 		
 		for(int y = 0; y < grid.getHeight(); y++)
 		{
@@ -29,6 +29,10 @@ public class ContentConverter
 				if(c.getContent() == null || c.isBeam())
 				{
 					c.setContent(new EmptyContent());
+				}
+				else if(c.isLightSource())
+				{
+					((LightSource)c.getContent()).clearBeamList();
 				}
 			}
 		}

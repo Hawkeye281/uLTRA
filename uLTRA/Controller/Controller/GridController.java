@@ -2,6 +2,8 @@ package Controller;
 
 import java.io.File;
 
+import panels.GamePanel;
+import sebastian.Mode;
 import manuel.LoadGame;
 import manuel.SaveGame;
 import frames.MainFrame;
@@ -75,7 +77,7 @@ public class GridController {
 	 * 				Der Name, unter dem das Spiel gespeichert wird
 	 */
 	public static void saveGame(GameGrid spielfeld, String spielname){
-		speicher.spielSpeichern(spielfeld, spielname, Validator.getInstance());
+		speicher.spielSpeichern(spielfeld, spielname, (GamePanel.getGamePanel().getPanelMode() == Mode.EDIT? null : Validator.getInstance()));
 	}
 	
 	public static GameGrid loadGame(String spielname){
