@@ -300,6 +300,8 @@ public class GamePanel extends JPanel {
 	private JScrollPane initializeTurnPanel(){
 		this.turnList = new JList<Command>(new TurnListModel());
 		JScrollPane turnList = new JScrollPane(this.turnList);
+		this.turnList.setCellRenderer(new TurnListRenderer());
+		this.turnList.setPreferredSize(new Dimension(200, (int)this.getSize().getHeight()));
 		this.turnList.setBackground(new Color(180,180,180,130));
 		
 		return turnList;
@@ -309,6 +311,7 @@ public class GamePanel extends JPanel {
 	{
 		this.errorList = new JList<String>();
 		JScrollPane errorPane = new JScrollPane(this.errorList);
+		this.turnList.setPreferredSize(new Dimension(200, (int)this.getSize().getHeight()));
 		this.errorList.setBackground(new Color(180,180,180,130));
 		return errorPane;
 	}
