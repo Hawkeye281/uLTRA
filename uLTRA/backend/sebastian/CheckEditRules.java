@@ -23,7 +23,6 @@ public class CheckEditRules {
 	private static boolean playable;
 	
 	public static void check(GamePanel gamePanel){
-		DefaultListModel model = (DefaultListModel) gamePanel.getTurnList().getModel();
 		int failures = 0, cellFailures = 0, lightFailures = 0;
 		for (int x=0; x < EditorController.getGridWidth();x++){
 			for (int y=0; y < EditorController.getGridHeight(); y++){
@@ -46,28 +45,12 @@ public class CheckEditRules {
 		}
 		failures = cellFailures + lightFailures;
 		playable = (failures == 0)? true : false;
-		int i=0;
-		for (String msg : failList){
-			if (i<20)
-			{
-				// turnList : msg eintragen
-			}
-			i++;
-		}
-		if (failures>0 && failures <= 20){
-			// turnList : fehlertexte eintragen
-//			model.addElement(failures + " Fehler gefunden");
-//			model.addElement("davon " + lightFailures + " leere Lichtquellen");
-//			model.addElement("und " + cellFailures + " leere Zellen");
-		}
-		else if (failures == 0){
-			// turnList : meldung eintragen
-//			model.addElement("Keine Fehler gefunden");
-		}
-		else {
-			// turnList : meldung eintragen
-//			model.addElement((failList.size()-20)+" weitere Fehler gefunden");
-		}
+		
+		DefaultListModel<String> failModel = new DefaultListModel<String>();
+		for(String msg : failList)
+			failModel.addElement(msg);
+		gamePanel.getErrorList().setModel(failModel);
+		
 		failList.removeAll(failList);
 	}
 	

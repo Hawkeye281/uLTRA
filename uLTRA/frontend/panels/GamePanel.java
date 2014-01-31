@@ -49,7 +49,8 @@ public class GamePanel extends JPanel {
 	private GridPanel gridPanel;
 	private GridController gridController;
 	private EditorController editorController;
-	private JList turnList;
+	private JList<Command> turnList;
+	private JList<String> errorList;
 	private boolean checked = false;
 	
 	public GamePanel(PanelMode mode){
@@ -106,18 +107,25 @@ public class GamePanel extends JPanel {
 		case GAME:
 			this.turnList = new JList<Command>(new TurnListModel());
 			this.turnList.setCellRenderer(new TurnListRenderer());
+			this.turnList.setPreferredSize(new Dimension(200, (int)this.getSize().getHeight()));
 			break;
 		case EDIT:
-			this.turnList = new JList<String>(new DefaultListModel());
+			this.errorList = new JList<String>();
+			this.errorList.setPreferredSize(new Dimension(200, (int)this.getSize().getHeight()));
 			break;
 		}
 
-		this.turnList.setPreferredSize(new Dimension(200, (int)this.getSize().getHeight()));
+		
 	}
 	
 	public JList<Command> getTurnList(){
 		return this.turnList;
 	}	
+	
+	public JList<String> getErrorList()
+	{
+		return errorList;
+	}
 	
 	public MainFrame getMainFrame(){
 		return this.mainFrame;
@@ -139,7 +147,15 @@ public class GamePanel extends JPanel {
 		if ((mode == Mode.GAME && gridController.getPlayable()) || mode == Mode.EDIT){
 			if (componentsExist()) {
 				this.remove(this.groundPanel);
-				this.remove(this.turnList);
+				switch(mode)
+				{
+				case EDIT:
+					this.remove(this.errorList);
+					break;
+				case GAME:
+					this.remove(this.turnList);
+					break;
+				}
 			}
 			this.groundPanel = new JPanel();
 			if(mode == Mode.EDIT)
@@ -163,10 +179,27 @@ public class GamePanel extends JPanel {
 	
 	public void checkRules(){
 		if (componentsExist()){
-			this.remove(this.turnList);
+			switch(mode)
+			{
+			case EDIT:
+				this.remove(this.errorList);
+				break;
+			case GAME:
+				this.remove(this.turnList);
+				break;
+			}
 		}
 		this.setTurnList();
-		this.add(this.turnList, BorderLayout.EAST);
+		switch(mode)
+		{
+		case EDIT:
+			this.add(this.errorList, BorderLayout.EAST);
+			break;
+		case GAME:
+			this.add(this.turnList, BorderLayout.EAST);
+			break;
+		}
+		
 		CheckEditRules.check(this);
 	}
 	
@@ -233,7 +266,7 @@ public class GamePanel extends JPanel {
 		{
 		case EDIT:
 			listPanel.setLayout(new BorderLayout());
-			listPanel.add(initializeTurnPanel(), BorderLayout.CENTER);
+			listPanel.add(initializeErrorPanel(), BorderLayout.CENTER);
 			listPanel.setBorder(BorderFactory.createTitledBorder("Fehlerliste"));
 			listPanel.setBackground(new Color(255,255,255,130));
 			break;
@@ -277,6 +310,13 @@ public class GamePanel extends JPanel {
 		this.turnList.setBackground(new Color(180,180,180,130));
 		
 		return turnList;
+	}
+	
+	private JScrollPane initializeErrorPanel()
+	{
+		JScrollPane errorPane = new JScrollPane(this.errorList);
+		this.errorList.setBackground(new Color(180,180,180,130));
+		return errorPane;
 	}
 
 }
